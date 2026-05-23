@@ -1,0 +1,6 @@
+interface:
+  display_name: "Follow AleaBito"
+  short_description: "Daily Chinese iMessage digest for @aleabitoreddit"
+  default_prompt: "Use $follow-aleabito to fetch @aleabitoreddit updates, summarize them in Chinese, and send the digest by iMessage."
+policy:
+  allow_implicit_invocation: true
