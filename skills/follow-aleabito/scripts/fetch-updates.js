@@ -213,10 +213,25 @@ function extractChromeTweet(article, handle) {
 async function readChromeTimeline(config) {
   const js =
     "JSON.stringify(Array.from(document.querySelectorAll('article')).slice(0,20).map((a,i)=>({i,text:a.innerText,links:Array.from(a.querySelectorAll('a[href]')).map(x=>x.href)})))";
+  const expandJs = `
+(() => {
+  const isShowMore = (el) => (el.innerText || el.textContent || "").trim() === "Show more";
+  const candidates = Array.from(document.querySelectorAll('button, [role="button"], span'))
+    .filter(isShowMore);
+  let clicked = 0;
+  for (const el of candidates) {
+    const target = el.closest('button, [role="button"], a') || el;
+    target.click();
+    clicked += 1;
+  }
+  return String(clicked);
+})()
+`;
   const script = `
 on run argv
   set handleName to item 1 of argv
   set jsCode to item 2 of argv
+  set expandJsCode to item 3 of argv
   set targetUrl to "https://x.com/" & handleName
   tell application "Google Chrome"
     if (count of windows) is 0 then make new window
@@ -226,12 +241,16 @@ on run argv
       delay 6
     end if
     tell active tab of front window
+      repeat 3 times
+        execute javascript expandJsCode
+        delay 1
+      end repeat
       execute javascript jsCode
     end tell
   end tell
 end run
 `;
-  return JSON.parse(await runAppleScript(script, [config.handle, js]));
+  return JSON.parse(await runAppleScript(script, [config.handle, js, expandJs]));
 }
 
 async function getXWebClientConfig(config) {
@@ -484,6 +503,15 @@ async function main() {
 
   const errors = [];
   let result;
+  let usedCache = false;
+  const tryChrome = async () => {
+    const chromeResult = await fetchFromChrome(config, errors);
+    if (!chromeResult) return false;
+    result = chromeResult;
+    usedCache = false;
+    return true;
+  };
+
   if (env.X_BEARER_TOKEN) {
     try {
       result = await fetchFromXApi(config, env.X_BEARER_TOKEN);
@@ -499,8 +527,13 @@ async function main() {
     }
   }
 
+  if (!result && (options.chrome || config.chromeFallback)) {
+    await tryChrome();
+  }
+
   if (!result && !options.noCache && existsSync(CACHE_PATH)) {
     result = JSON.parse(await readFile(CACHE_PATH, "utf-8"));
+    usedCache = true;
     result.warnings = [
       ...(result.warnings || []),
       "Live fetch failed, so this output used the last cached fetch. Treat it as stale unless tweet timestamps are inside the requested window.",
@@ -533,10 +566,11 @@ async function main() {
   }
 
   let tweets = filterTweets(result.tweets, config, state, options);
-  if (options.chrome || (config.chromeFallback && tweets.length === 0)) {
-    const chromeResult = await fetchFromChrome(config, errors);
-    if (chromeResult) {
-      result = chromeResult;
+  if (
+    (options.chrome && usedCache) ||
+    (result.source !== "chrome-x" && (options.chrome || (config.chromeFallback && tweets.length === 0)))
+  ) {
+    if (await tryChrome()) {
       tweets = filterTweets(result.tweets, config, state, options);
       if (!result.warnings?.some((warning) => warning.includes("cached fetch"))) {
         await writeFile(CACHE_PATH, JSON.stringify(result, null, 2) + "\n");

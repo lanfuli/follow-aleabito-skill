@@ -19,7 +19,7 @@ Use `scripts/fetch-updates.js` to fetch posts. It tries:
 2. X public syndication fallback when no token is configured.
 3. Logged-in Chrome/X page fallback on macOS when anonymous sources return no current posts.
 
-The syndication fallback can miss the newest posts or truncate long posts. The Chrome fallback depends on the user being logged into X in Google Chrome and may open `https://x.com/aleabitoreddit` in the active Chrome tab. If the JSON output contains `warnings`, mention them briefly in the digest or setup guidance.
+The syndication fallback can miss the newest posts or truncate long posts. The Chrome fallback depends on the user being logged into X in Google Chrome and may open `https://x.com/aleabitoreddit` in the active Chrome tab. When Chrome shows `Show more` inside a post, expand it before extracting text so long posts and subscriber-visible posts are not summarized from previews. If the JSON output contains `warnings`, mention them briefly in the digest or setup guidance.
 
 Never invent posts, prices, positions, or links. If no fetched post has a URL, do not include it.
 
