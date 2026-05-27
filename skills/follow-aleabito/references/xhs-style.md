@@ -24,13 +24,13 @@ For each important ticker or theme:
 3. `第一性原理`
 4. `Buffett 直接回答`
 
-Buffett direct answers must cover:
+Buffett direct answers must cover the fields below. **Every field defaults to `unverified` / `insufficient evidence`. Escalate only with cited evidence — a single tweet is not evidence for "strong" or "proven".** See `references/analysis-framework.md` for the full escalation rules.
 
-- `护城河`: strong / medium / weak / unverified.
-- `赚钱能力`: proven / improving / unverified.
-- `客户替换风险`: low / medium / high / unverified.
-- `Buffett 式好公司`: yes / not yet proven / no.
-- `当前结论`: research map / investable conclusion / insufficient evidence.
+- `护城河`: `unverified` by default; escalate to weak/medium/strong only with a reason.
+- `赚钱能力`: `unverified` by default; escalate only when margin/cash-flow numbers are cited.
+- `客户替换风险`: `unverified` by default; escalate only with reasons (cert cycle, switching cost, second source, concentration).
+- `Buffett 式好公司`: `not yet` by default; `yes` requires moat + 赚钱能力 + capital allocation all above unverified.
+- `当前结论`: `insufficient evidence` by default; `research map` for trackable leads; `investable conclusion` never from tweets alone.
 
-Do not ask these as questions in the final post. Answer them.
+Do not ask these as questions in the final post. Answer them, even if the honest answer is `unverified`.
 
