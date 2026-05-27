@@ -51,6 +51,86 @@ Keep it concise enough for iMessage. Prefer signal over completeness.
 
 Only after `send-imessage.js` returns `status: ok`, mark tweets as seen. If delivery fails, do not run `mark-seen.js`.
 
+## Cumulative Mention Analytics
+
+Use `scripts/analyze-mentions.js` when the user asks for 60-day mention analytics, a website-readable CSV, ongoing tracking, or ticker mention counts.
+
+This workflow is cumulative, not rolling:
+
+- The first run uses 60 days only as the initial backfill seed.
+- Later runs fetch only new content with an overlap window and append by tweet id.
+- Existing rows are deduped by `tweet_id`, so overlap fetches do not double-count.
+- If the X API fails, keep the previous CSVs and write the failure to `.meta.json`.
+
+Default local website files:
+
+```text
+/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-mentions-events.csv
+/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-stock-mentions-cumulative.csv
+/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-stock-mentions-daily.csv
+/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-mentions.meta.json
+```
+
+Initial backfill:
+
+```bash
+node scripts/analyze-mentions.js --backfill-days 60 --include-replies --resume
+```
+
+Daily incremental update:
+
+```bash
+node scripts/analyze-mentions.js --incremental --include-replies --resume
+```
+
+Use `--max-pages <n>` for cost-controlled tests. Use `--rebuild-only` to recompute summary/daily CSVs from existing events without calling the X API. Use `--output-dir <dir>` to write reports somewhere else. The script reads `X_BEARER_TOKEN` from `~/.follow-aleabito/.env` and never writes secrets into CSV output.
+
+CSV roles:
+
+- `aleabito-mentions-events.csv`: raw event-level rows for details pages and future re-aggregation.
+- `aleabito-stock-mentions-cumulative.csv`: cumulative ticker leaderboard for website home/search.
+- `aleabito-stock-mentions-daily.csv`: daily ticker trend rows for charts.
+- `aleabito-mentions.meta.json`: last update, API status, output paths, page count, and rate-limit metadata.
+
+## Xiaohongshu Workflow
+
+Use `scripts/build-xhs-brief.js` when the user asks for a Xiaohongshu post based on the mention analytics.
+
+Run:
+
+```bash
+node scripts/build-xhs-brief.js \
+  --input "/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-stock-mentions-cumulative.csv" \
+  --daily "/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-stock-mentions-daily.csv" \
+  --output /tmp/follow-aleabito-xhs-brief.md \
+  --variants both
+```
+
+Read the generated brief and write the final post in Chinese. Default to both a full version and an under-1000-Chinese-character version unless the user asks for only one.
+
+For Xiaohongshu copy:
+
+- Make it beginner-friendly and concrete.
+- Explain the table before interpreting it.
+- Treat high mention count as a research-map signal, not a buy signal.
+- Apply first principles and Buffett direct answers in plain language.
+- Do not leave Buffett questions unanswered.
+
+## Research Map Workflow
+
+Use `scripts/update-research-map.js` after cumulative analytics when the user wants a durable research map.
+
+Run:
+
+```bash
+node scripts/update-research-map.js \
+  --events "/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-mentions-events.csv" \
+  --summary "/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-stock-mentions-cumulative.csv" \
+  --output ~/.follow-aleabito/research-map.json
+```
+
+The script also writes `~/.follow-aleabito/research-map.md`. Preserve existing manual notes and Buffett fields when refreshing the map. Do not invent financial facts in the deterministic script; if evidence is missing, keep fields as `unverified` or `research map`.
+
 ## AI Analysis Framework
 
 When adding `AI 分析`, use both first-principles reasoning and the local `$buffett` skill if available at `${CODEX_HOME:-$HOME/.codex}/skills/buffett/SKILL.md`.

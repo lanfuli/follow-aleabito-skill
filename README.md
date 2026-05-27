@@ -47,6 +47,8 @@ X_BEARER_TOKEN=...
 
 ## Run
 
+Daily digest:
+
 ```bash
 cd "${CODEX_HOME:-$HOME/.codex}/skills/follow-aleabito"
 node scripts/fetch-updates.js --include-replies --lookback-hours 36 --max-tweets 50 --output /tmp/follow-aleabito-updates.json
@@ -62,9 +64,57 @@ node scripts/send-imessage.js --file /tmp/follow-aleabito-digest.txt
 node scripts/mark-seen.js --file /tmp/follow-aleabito-updates.json
 ```
 
+## Cumulative Mention Analytics
+
+Build the initial cumulative dataset from the last 60 days:
+
+```bash
+cd "${CODEX_HOME:-$HOME/.codex}/skills/follow-aleabito"
+node scripts/analyze-mentions.js --backfill-days 60 --include-replies --resume
+```
+
+Then keep appending new posts/replies/quotes:
+
+```bash
+node scripts/analyze-mentions.js --incremental --include-replies --resume
+```
+
+By default, on Vincent's local machine this writes website-readable files to:
+
+```text
+/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-mentions-events.csv
+/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-stock-mentions-cumulative.csv
+/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-stock-mentions-daily.csv
+/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-mentions.meta.json
+```
+
+For another machine or website, set `FOLLOW_ALEABITO_REPORTS_DIR` or pass `--output-dir`.
+
+## Xiaohongshu + Research Map
+
+Generate a Xiaohongshu writing brief from the cumulative CSV:
+
+```bash
+node scripts/build-xhs-brief.js \
+  --input "/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-stock-mentions-cumulative.csv" \
+  --daily "/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-stock-mentions-daily.csv" \
+  --output /tmp/follow-aleabito-xhs-brief.md \
+  --variants both
+```
+
+Update the private research map:
+
+```bash
+node scripts/update-research-map.js \
+  --events "/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-mentions-events.csv" \
+  --summary "/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-stock-mentions-cumulative.csv" \
+  --output ~/.follow-aleabito/research-map.json
+```
+
 ## Notes
 
 - The Chrome fallback requires macOS, Google Chrome, and a logged-in X session.
 - iMessage delivery requires macOS Messages automation permission.
+- API tokens, iMessage recipients, analytics cache, and private research maps should stay outside the public repo.
 - This is for information tracking and research. It is not investment advice.
 - This project is not affiliated with X, Serenity, or Warren Buffett.
