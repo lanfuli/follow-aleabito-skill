@@ -111,17 +111,50 @@ function decodeEntities(text) {
     .replace(/&#39;/g, "'");
 }
 
+function extractTickers(text, entities = {}) {
+  const tickers = new Set();
+  for (const cashtag of entities.cashtags || []) {
+    const ticker = String(cashtag.tag || cashtag.text || "")
+      .replace(/^\$/, "")
+      .replace(/[.,;:!?]+$/g, "")
+      .toUpperCase();
+    if (/^[A-Z][A-Z0-9.\-]{0,11}$/.test(ticker)) tickers.add(ticker);
+  }
+
+  const cashtagRegex = /(^|[^A-Za-z0-9_])\$([A-Za-z][A-Za-z0-9.\-]{0,11})(?![A-Za-z0-9_])/g;
+  for (const match of String(text || "").matchAll(cashtagRegex)) {
+    const ticker = match[2].replace(/[.,;:!?]+$/g, "").toUpperCase();
+    if (/^[A-Z][A-Z0-9.\-]{0,11}$/.test(ticker)) tickers.add(ticker);
+  }
+
+  return [...tickers].sort();
+}
+
+function kindFromReferences(references = []) {
+  if (references.some((ref) => ref.type === "replied_to")) return "reply";
+  if (references.some((ref) => ref.type === "quoted")) return "quote";
+  return "post";
+}
+
 function normalizeTweet(tweet) {
+  const text = decodeEntities(tweet.text || "");
+  const referencedTweets = tweet.referencedTweets || [];
+  const kind = tweet.kind || kindFromReferences(referencedTweets);
   return {
     id: tweet.id,
-    text: decodeEntities(tweet.text || ""),
+    text,
     createdAt: tweet.createdAt,
     url: tweet.url,
+    sourceUrl: tweet.sourceUrl || tweet.url,
+    kind,
+    tickers: tweet.tickers || extractTickers(text, tweet.entities),
     likes: tweet.likes ?? 0,
     retweets: tweet.retweets ?? 0,
     replies: tweet.replies ?? 0,
-    isQuote: Boolean(tweet.isQuote),
+    isQuote: Boolean(tweet.isQuote) || kind === "quote",
     quotedTweetId: tweet.quotedTweetId ?? null,
+    replyToTweetId: tweet.replyToTweetId ?? null,
+    referencedTweets,
   };
 }
 
@@ -202,6 +235,7 @@ function extractChromeTweet(article, handle) {
     text: bodyLines.join("\n"),
     createdAt,
     url: `https://x.com/${handle}/status/${id}`,
+    kind: text.includes("\nQuote\n") ? "quote" : "post",
     likes: 0,
     retweets: 0,
     replies: 0,
@@ -364,7 +398,7 @@ async function fetchFromChrome(config, errors) {
   };
 }
 
-async function fetchFromXApi(config, bearerToken) {
+async function fetchFromXApi(config, bearerToken, options = {}) {
   const handle = config.handle;
   const userRes = await fetchWithTimeout(
     `${X_API_BASE}/users/by/username/${encodeURIComponent(handle)}?user.fields=description,public_metrics`,
@@ -379,8 +413,8 @@ async function fetchFromXApi(config, bearerToken) {
   const cutoff = new Date(Date.now() - config.lookbackHours * 60 * 60 * 1000);
   const params = new URLSearchParams({
     max_results: String(Math.max(5, Math.min(100, config.maxTweets * 3))),
-    "tweet.fields": "created_at,public_metrics,referenced_tweets,note_tweet",
-    exclude: "retweets,replies",
+    "tweet.fields": "created_at,public_metrics,referenced_tweets,note_tweet,entities,conversation_id",
+    exclude: options.includeReplies ? "retweets" : "retweets,replies",
     start_time: cutoff.toISOString(),
   });
   const tweetsRes = await fetchWithTimeout(`${X_API_BASE}/users/${user.id}/tweets?${params}`, {
@@ -389,19 +423,25 @@ async function fetchFromXApi(config, bearerToken) {
 
   if (!tweetsRes.ok) throw new Error(`X tweets lookup failed: HTTP ${tweetsRes.status}`);
   const tweetsPayload = await tweetsRes.json();
-  const tweets = (tweetsPayload.data || []).map((t) =>
-    normalizeTweet({
+  const tweets = (tweetsPayload.data || []).map((t) => {
+    const referencedTweets = t.referenced_tweets || [];
+    return normalizeTweet({
       id: t.id,
       text: t.note_tweet?.text || t.text,
       createdAt: t.created_at,
       url: `https://x.com/${handle}/status/${t.id}`,
+      sourceUrl: `https://x.com/${handle}/status/${t.id}`,
+      kind: kindFromReferences(referencedTweets),
+      entities: t.entities,
       likes: t.public_metrics?.like_count || 0,
       retweets: t.public_metrics?.retweet_count || 0,
       replies: t.public_metrics?.reply_count || 0,
-      isQuote: t.referenced_tweets?.some((r) => r.type === "quoted"),
-      quotedTweetId: t.referenced_tweets?.find((r) => r.type === "quoted")?.id || null,
-    }),
-  );
+      isQuote: referencedTweets.some((r) => r.type === "quoted"),
+      quotedTweetId: referencedTweets.find((r) => r.type === "quoted")?.id || null,
+      replyToTweetId: referencedTweets.find((r) => r.type === "replied_to")?.id || null,
+      referencedTweets,
+    });
+  });
 
   return {
     source: "x-api",
@@ -445,6 +485,8 @@ async function fetchFromSyndication(config) {
       text: t.full_text || t.text,
       createdAt: new Date(t.created_at).toISOString(),
       url: `https://x.com${t.permalink}`,
+      sourceUrl: `https://x.com${t.permalink}`,
+      kind: t.quoted_status_id_str ? "quote" : "post",
       likes: t.favorite_count || 0,
       retweets: t.retweet_count || 0,
       replies: t.reply_count || 0,
@@ -483,6 +525,16 @@ function filterTweets(tweets, config, state, options) {
     .slice(0, config.maxTweets);
 }
 
+function countTweetKinds(tweets) {
+  return tweets.reduce(
+    (counts, tweet) => {
+      counts[tweet.kind || "post"] = (counts[tweet.kind || "post"] || 0) + 1;
+      return counts;
+    },
+    { post: 0, quote: 0, reply: 0 },
+  );
+}
+
 async function main() {
   await mkdir(USER_DIR, { recursive: true });
   await mkdir(CACHE_DIR, { recursive: true });
@@ -495,9 +547,13 @@ async function main() {
   const options = {
     all: hasFlag("--all"),
     includeSeen: hasFlag("--include-seen"),
+    includeReplies: hasFlag("--include-replies"),
     noCache: hasFlag("--no-cache"),
     chrome: hasFlag("--chrome"),
   };
+  const cachePath = options.includeReplies
+    ? join(CACHE_DIR, "latest-fetch-with-replies.json")
+    : CACHE_PATH;
   const env = { ...process.env, ...(await readEnv(ENV_PATH)) };
   const state = await readJSON(STATE_PATH, { seenTweets: {} });
 
@@ -514,7 +570,7 @@ async function main() {
 
   if (env.X_BEARER_TOKEN) {
     try {
-      result = await fetchFromXApi(config, env.X_BEARER_TOKEN);
+      result = await fetchFromXApi(config, env.X_BEARER_TOKEN, options);
     } catch (err) {
       errors.push(err.message);
     }
@@ -531,8 +587,8 @@ async function main() {
     await tryChrome();
   }
 
-  if (!result && !options.noCache && existsSync(CACHE_PATH)) {
-    result = JSON.parse(await readFile(CACHE_PATH, "utf-8"));
+  if (!result && !options.noCache && existsSync(cachePath)) {
+    result = JSON.parse(await readFile(cachePath, "utf-8"));
     usedCache = true;
     result.warnings = [
       ...(result.warnings || []),
@@ -561,8 +617,10 @@ async function main() {
     return;
   }
 
+  result.tweets = (result.tweets || []).map((tweet) => normalizeTweet(tweet));
+
   if (!result.warnings?.some((warning) => warning.includes("cached fetch"))) {
-    await writeFile(CACHE_PATH, JSON.stringify(result, null, 2) + "\n");
+    await writeFile(cachePath, JSON.stringify(result, null, 2) + "\n");
   }
 
   let tweets = filterTweets(result.tweets, config, state, options);
@@ -573,10 +631,12 @@ async function main() {
     if (await tryChrome()) {
       tweets = filterTweets(result.tweets, config, state, options);
       if (!result.warnings?.some((warning) => warning.includes("cached fetch"))) {
-        await writeFile(CACHE_PATH, JSON.stringify(result, null, 2) + "\n");
+        await writeFile(cachePath, JSON.stringify(result, null, 2) + "\n");
       }
     }
   }
+  const fetchedKinds = countTweetKinds(result.tweets);
+  const returnedKinds = countTweetKinds(tweets);
   const output = {
     status: "ok",
     generatedAt: new Date().toISOString(),
@@ -587,7 +647,10 @@ async function main() {
     stats: {
       fetchedTweets: result.tweets.length,
       returnedTweets: tweets.length,
+      fetchedKinds,
+      returnedKinds,
       lookbackHours: config.lookbackHours,
+      includeReplies: options.includeReplies,
     },
     warnings: result.warnings,
     errors: errors.length ? errors : undefined,

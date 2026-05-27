@@ -49,10 +49,18 @@ X_BEARER_TOKEN=...
 
 ```bash
 cd "${CODEX_HOME:-$HOME/.codex}/skills/follow-aleabito"
-node scripts/fetch-updates.js --output /tmp/follow-aleabito-updates.json
+node scripts/fetch-updates.js --include-replies --lookback-hours 36 --max-tweets 50 --output /tmp/follow-aleabito-updates.json
+node scripts/build-digest-brief.js --input /tmp/follow-aleabito-updates.json --output /tmp/follow-aleabito-brief.md
 ```
 
-Then ask Codex to use `$follow-aleabito` to summarize the fetched JSON and send the digest by iMessage.
+Then ask Codex to use `$follow-aleabito` to read `/tmp/follow-aleabito-brief.md`, write a beginner-friendly Chinese digest with first-principles and Buffett-style direct answers, and send it by iMessage.
+
+Only mark tweets as seen after iMessage succeeds:
+
+```bash
+node scripts/send-imessage.js --file /tmp/follow-aleabito-digest.txt
+node scripts/mark-seen.js --file /tmp/follow-aleabito-updates.json
+```
 
 ## Notes
 

@@ -29,10 +29,11 @@ Run:
 
 ```bash
 cd "${CODEX_HOME:-$HOME/.codex}/skills/follow-aleabito"
-node scripts/fetch-updates.js --output /tmp/follow-aleabito-updates.json
+node scripts/fetch-updates.js --include-replies --lookback-hours 36 --max-tweets 50 --output /tmp/follow-aleabito-updates.json
+node scripts/build-digest-brief.js --input /tmp/follow-aleabito-updates.json --output /tmp/follow-aleabito-brief.md
 ```
 
-Read `/tmp/follow-aleabito-updates.json`.
+Read `/tmp/follow-aleabito-brief.md` before writing the digest. The brief contains ticker counts, theme groups, selected high-signal replies, and original source links. Use the raw JSON only when the brief is insufficient.
 
 If `tweets` is empty:
 - If `config.notifyWhenEmpty` is true, send a short Chinese note: `今天 @aleabitoreddit 没有抓到新的可发送动态。`
@@ -40,12 +41,15 @@ If `tweets` is empty:
 
 If there are tweets, write a Chinese digest with:
 - Title line: `Serenity / @aleabitoreddit 今日动态`
-- 2-4 key takeaways, grouped by theme when possible.
-- For each included post or theme: `她的观点` first, then `AI 分析`.
+- `今天她重点看什么`
+- 2-4 key takeaways grouped by theme.
+- For each included post or theme: `她的观点` -> `小白解释` -> `第一性原理` -> `Buffett 直接判断`.
 - Include mentioned tickers/themes, original URL, and created time.
 - A short caution line for market/trading content: `仅作信息跟踪，不构成投资建议。`
 
 Keep it concise enough for iMessage. Prefer signal over completeness.
+
+Only after `send-imessage.js` returns `status: ok`, mark tweets as seen. If delivery fails, do not run `mark-seen.js`.
 
 ## AI Analysis Framework
 
@@ -54,10 +58,19 @@ When adding `AI 分析`, use both first-principles reasoning and the local `$buf
 For daily digests, do not use the full Buffett output template unless the user asks for a deep dive on one company. Instead, read only the relevant Buffett references and compress the analysis into 1-3 paragraphs:
 
 - Always apply first principles: value comes from future owner cash flows, durability of demand, supply bottlenecks, pricing power, capital intensity, and rule-of-law/property-rights stability.
+- Always use beginner-friendly wording first. Explain terms such as CPO, photonics, 800VDC, P/B, TAM, ASP, margin, and cash flow when they first appear.
 - For business quality or moat claims, read `$buffett/references/03-business-moat.md`.
 - For management, acquisitions, buybacks, dilution, or capital allocation, read `$buffett/references/04-management-governance.md` and `$buffett/references/06-valuation-capital.md`.
 - For China/regulatory/policy risk, leverage, value traps, or when to avoid/exit, read `$buffett/references/07-risk-behavior.md`.
 - For technology/semiconductor/AI infrastructure themes, read the technology chapter in `$buffett/references/08-industry-playbooks.md` when needed.
+
+Do not merely ask Buffett-style questions. Answer them directly from available evidence:
+
+- `护城河`: strong / medium / weak / unproven, with one plain-language reason.
+- `赚钱能力`: proven / improving / unproven, based on revenue, margin, cash flow, or lack of proof.
+- `客户替换风险`: low / medium / high, based on certification, switching cost, second-source risk, and customer concentration.
+- `Buffett 式好公司`: yes / not yet / no.
+- `当前结论`: research map / investable conclusion / insufficient evidence.
 
 The analysis must distinguish:
 - `研究地图`: useful leads to investigate.
