@@ -1,0 +1,3662 @@
+{
+  "status": "ok",
+  "handle": "aleabitoreddit",
+  "generated_at": "2026-05-26T22:04:26.984Z",
+  "window": {
+    "days": 60,
+    "start_time": "2026-03-27T22:04:25.674Z",
+    "end_time": "2026-05-26T22:04:26.984Z"
+  },
+  "profile": {
+    "name": "Serenity",
+    "username": "aleabitoreddit",
+    "followers": 394973
+  },
+  "stats": {
+    "pages": 5,
+    "fetched_posts_and_replies": 359,
+    "fetched_earliest": "2026-05-11T08:24:30.000Z",
+    "fetched_latest": "2026-05-26T17:09:35.000Z",
+    "post_count": 57,
+    "reply_count": 209,
+    "quote_count": 93,
+    "tickers_mentioned": 149
+  },
+  "page_details": [
+    {
+      "page": 1,
+      "result_count": 91,
+      "newest_id": "2059321059812483077",
+      "oldest_id": "2058078143559372866",
+      "has_next_token": true,
+      "data_count": 91
+    },
+    {
+      "page": 2,
+      "result_count": 87,
+      "newest_id": "2058071728090484983",
+      "oldest_id": "2056646033921441901",
+      "has_next_token": true,
+      "data_count": 87
+    },
+    {
+      "page": 3,
+      "result_count": 96,
+      "newest_id": "2056641850086502436",
+      "oldest_id": "2054737349075218567",
+      "has_next_token": true,
+      "data_count": 96
+    },
+    {
+      "page": 4,
+      "result_count": 85,
+      "newest_id": "2054728301806256484",
+      "oldest_id": "2053753097605046393",
+      "has_next_token": true,
+      "data_count": 85
+    },
+    {
+      "page": 5,
+      "result_count": 0,
+      "newest_id": null,
+      "oldest_id": null,
+      "has_next_token": false,
+      "data_count": 0
+    }
+  ],
+  "rows": [
+    {
+      "ticker": "SIVE",
+      "mentioned_posts": 97,
+      "raw_occurrences": 236,
+      "post_mentions": 14,
+      "reply_mentions": 49,
+      "quote_mentions": 34,
+      "first_seen": "2026-05-11T08:24:30.000Z",
+      "last_seen": "2026-05-26T14:20:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-26T14:20:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2059278507046514902",
+          "text": "Swedens transferring control of $SIVE to the West + other countries… Is honestly fun to watch in the charts. https://t.co/zNfWatAm4S https://t.co/qc5Aczapgf"
+        },
+        {
+          "created_at": "2026-05-26T12:00:22.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2059243241900511500",
+          "text": "@Mengmengeth Well $JBL is new TAM expansion into pluggable optical transceivers. CPO with Ayar, $POET, Lightelligence, Celestial, and those players are entirely new. So having both"
+        },
+        {
+          "created_at": "2026-05-26T11:57:46.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2059242587354169403",
+          "text": "$SIVE is the most compelling CPO exposure stock to me. Despite the volatility. You probably won’t find something like this again until the next architectural shift in photonics yea"
+        }
+      ]
+    },
+    {
+      "ticker": "LITE",
+      "mentioned_posts": 32,
+      "raw_occurrences": 74,
+      "post_mentions": 7,
+      "reply_mentions": 13,
+      "quote_mentions": 12,
+      "first_seen": "2026-05-11T08:24:30.000Z",
+      "last_seen": "2026-05-26T11:57:46.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-26T11:57:46.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2059242587354169403",
+          "text": "$SIVE is the most compelling CPO exposure stock to me. Despite the volatility. You probably won’t find something like this again until the next architectural shift in photonics yea"
+        },
+        {
+          "created_at": "2026-05-25T11:26:26.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2058872312875950552",
+          "text": "$SIVE is highest possible upside, since I see them being the next $LITE (which started at ~$2.6B as well in 2024, but now is $80B). As laser chokepoints are known to downstream TAM"
+        },
+        {
+          "created_at": "2026-05-25T07:30:01.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058812818430836745",
+          "text": "Did you listen anon? $SIVE is extremely early. And we’re about to see a ton of institutional inflow (Blackrock, Vanguard, MSCI, NASDAQ) next week for the first time. Then, couple t"
+        }
+      ]
+    },
+    {
+      "ticker": "AAOI",
+      "mentioned_posts": 30,
+      "raw_occurrences": 64,
+      "post_mentions": 5,
+      "reply_mentions": 14,
+      "quote_mentions": 11,
+      "first_seen": "2026-05-11T14:16:30.000Z",
+      "last_seen": "2026-05-26T11:57:46.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-26T11:57:46.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2059242587354169403",
+          "text": "$SIVE is the most compelling CPO exposure stock to me. Despite the volatility. You probably won’t find something like this again until the next architectural shift in photonics yea"
+        },
+        {
+          "created_at": "2026-05-26T00:47:38.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2059073941734662551",
+          "text": "确实如此！如果你不能将整个光通信产业链脱口而出，从上游的InP（磷化铟）衬底， 路向下游直到光模块成品制造商… 那说明你读我写的东西还不够多。 不过，很高兴看到我关于 $SOI 或 $AAOI 的许多观点，能帮助大家建立起属于自己的投资信念与逻辑。 https://t.co/kQ7U9E07ou"
+        },
+        {
+          "created_at": "2026-05-25T16:08:26.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058943283234316632",
+          "text": "$RPI, close to ~3x returns. Off the media branded \"Meme Stock\". I think after retail saw institutions bear post my thesis posts. Then ended up paper handing $AXTI, then $RPI, then "
+        }
+      ]
+    },
+    {
+      "ticker": "AXTI",
+      "mentioned_posts": 28,
+      "raw_occurrences": 51,
+      "post_mentions": 7,
+      "reply_mentions": 10,
+      "quote_mentions": 11,
+      "first_seen": "2026-05-12T05:47:56.000Z",
+      "last_seen": "2026-05-26T16:10:22.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-26T16:10:22.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2059306154787062194",
+          "text": "This timeline of getting banned on $RDDT WSB for posting about $AXTI. That stock going up thousands of percent. Then becoming the #1 most subscribed to person on X feels kinda like"
+        },
+        {
+          "created_at": "2026-05-25T16:08:26.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058943283234316632",
+          "text": "$RPI, close to ~3x returns. Off the media branded \"Meme Stock\". I think after retail saw institutions bear post my thesis posts. Then ended up paper handing $AXTI, then $RPI, then "
+        },
+        {
+          "created_at": "2026-05-25T09:14:20.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058839070122688829",
+          "text": "I think I deserve my own Netflix special after $AXTI and $SIVE? https://t.co/WeD80ogRXg https://t.co/YATi0X4Awm"
+        }
+      ]
+    },
+    {
+      "ticker": "NVDA",
+      "mentioned_posts": 25,
+      "raw_occurrences": 46,
+      "post_mentions": 9,
+      "reply_mentions": 5,
+      "quote_mentions": 11,
+      "first_seen": "2026-05-11T12:15:47.000Z",
+      "last_seen": "2026-05-26T17:09:35.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-26T17:09:35.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2059321059812483077",
+          "text": "And now… $MU finally hits a $1 Trillion marketcap. I did say this looks like the next $NVDA given how memory demand looks structural with AI. This stock probably made a lot of mill"
+        },
+        {
+          "created_at": "2026-05-26T01:11:30.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2059079948980363774",
+          "text": "Win Semi (3105) is almost never mentioned in photonics analyst reports. But they’ll probably show up as an important bottleneck for scaling lasers next year. Glad to see Shunsin (6"
+        },
+        {
+          "created_at": "2026-05-24T20:42:39.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2058649903300280586",
+          "text": "When I do my supply chain mapping... $SIVE is just so critically important to so many frontier industries. I'm not sure people are fully aware yet. $SIVE -> $AAPL, $NOK, $RTX (us d"
+        }
+      ]
+    },
+    {
+      "ticker": "SOI",
+      "mentioned_posts": 24,
+      "raw_occurrences": 44,
+      "post_mentions": 9,
+      "reply_mentions": 6,
+      "quote_mentions": 9,
+      "first_seen": "2026-05-12T05:47:56.000Z",
+      "last_seen": "2026-05-26T00:47:38.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-26T00:47:38.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2059073941734662551",
+          "text": "确实如此！如果你不能将整个光通信产业链脱口而出，从上游的InP（磷化铟）衬底， 路向下游直到光模块成品制造商… 那说明你读我写的东西还不够多。 不过，很高兴看到我关于 $SOI 或 $AAOI 的许多观点，能帮助大家建立起属于自己的投资信念与逻辑。 https://t.co/kQ7U9E07ou"
+        },
+        {
+          "created_at": "2026-05-25T16:08:26.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058943283234316632",
+          "text": "$RPI, close to ~3x returns. Off the media branded \"Meme Stock\". I think after retail saw institutions bear post my thesis posts. Then ended up paper handing $AXTI, then $RPI, then "
+        },
+        {
+          "created_at": "2026-05-25T08:18:44.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2058825079715422482",
+          "text": "@Frenchie_ lol thanks for all intros to the French community. I think the local French media complaining about my $SOI long back at $40 helped a bit too. But gotten a lot of suppor"
+        }
+      ]
+    },
+    {
+      "ticker": "JBL",
+      "mentioned_posts": 20,
+      "raw_occurrences": 33,
+      "post_mentions": 5,
+      "reply_mentions": 10,
+      "quote_mentions": 5,
+      "first_seen": "2026-05-11T12:15:47.000Z",
+      "last_seen": "2026-05-26T12:00:22.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-26T12:00:22.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2059243241900511500",
+          "text": "@Mengmengeth Well $JBL is new TAM expansion into pluggable optical transceivers. CPO with Ayar, $POET, Lightelligence, Celestial, and those players are entirely new. So having both"
+        },
+        {
+          "created_at": "2026-05-25T23:42:51.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2059057639238365336",
+          "text": "$JBL literally announced in their fireside chat… Mass production of their 1.6T LRO with excessive demand in 3-10 months. $SIVE is likely sole source laser supplier for this specifi"
+        },
+        {
+          "created_at": "2026-05-25T09:08:05.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2058837497036312604",
+          "text": "Nah, I think $SIVE is still extremely undervalued relatively speaking. Ayar, Lightmatter, Lightelligence, celestial, and others all probably command $5-$15B+ valuations. Not even i"
+        }
+      ]
+    },
+    {
+      "ticker": "NBIS",
+      "mentioned_posts": 19,
+      "raw_occurrences": 39,
+      "post_mentions": 4,
+      "reply_mentions": 8,
+      "quote_mentions": 7,
+      "first_seen": "2026-05-11T20:02:10.000Z",
+      "last_seen": "2026-05-24T18:39:04.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-24T18:39:04.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2058618801554604040",
+          "text": "AI capex spend is expected to go to \"$3 to $4 trillion annually\" by 2030 from $NVDA Jensen Huang projections. You're not bullish enough. And it might be a good idea to stay exposed"
+        },
+        {
+          "created_at": "2026-05-23T16:55:31.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058230354063102028",
+          "text": "I don't post dollar amounts because they don't matter. What matters is return %. Speaking of that... YTD: 3840.39%. I'm probably the only one in the world. Who called out multiple "
+        },
+        {
+          "created_at": "2026-05-22T14:15:55.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2057827802372841789",
+          "text": "@realstockfox Yep, I'm pretty sure $INTC, $RKLB, and $NBIS will be around in 2029... Don't need to keep entering new/different US positions, just let the ones you have compound ove"
+        }
+      ]
+    },
+    {
+      "ticker": "POET",
+      "mentioned_posts": 17,
+      "raw_occurrences": 35,
+      "post_mentions": 2,
+      "reply_mentions": 9,
+      "quote_mentions": 6,
+      "first_seen": "2026-05-11T12:15:47.000Z",
+      "last_seen": "2026-05-26T12:00:22.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-26T12:00:22.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2059243241900511500",
+          "text": "@Mengmengeth Well $JBL is new TAM expansion into pluggable optical transceivers. CPO with Ayar, $POET, Lightelligence, Celestial, and those players are entirely new. So having both"
+        },
+        {
+          "created_at": "2026-05-25T23:42:51.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2059057639238365336",
+          "text": "$JBL literally announced in their fireside chat… Mass production of their 1.6T LRO with excessive demand in 3-10 months. $SIVE is likely sole source laser supplier for this specifi"
+        },
+        {
+          "created_at": "2026-05-25T09:08:05.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2058837497036312604",
+          "text": "Nah, I think $SIVE is still extremely undervalued relatively speaking. Ayar, Lightmatter, Lightelligence, celestial, and others all probably command $5-$15B+ valuations. Not even i"
+        }
+      ]
+    },
+    {
+      "ticker": "IQE",
+      "mentioned_posts": 14,
+      "raw_occurrences": 26,
+      "post_mentions": 4,
+      "reply_mentions": 3,
+      "quote_mentions": 7,
+      "first_seen": "2026-05-11T11:10:53.000Z",
+      "last_seen": "2026-05-25T16:08:26.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-25T16:08:26.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058943283234316632",
+          "text": "$RPI, close to ~3x returns. Off the media branded \"Meme Stock\". I think after retail saw institutions bear post my thesis posts. Then ended up paper handing $AXTI, then $RPI, then "
+        },
+        {
+          "created_at": "2026-05-25T15:50:03.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058938658045239481",
+          "text": "Eh... I had higher hopes so far with $IQE than 3x+. There's still time though. https://t.co/cK08L6yvm3 https://t.co/rRCORshRmj"
+        },
+        {
+          "created_at": "2026-05-24T18:39:04.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2058618801554604040",
+          "text": "AI capex spend is expected to go to \"$3 to $4 trillion annually\" by 2030 from $NVDA Jensen Huang projections. You're not bullish enough. And it might be a good idea to stay exposed"
+        }
+      ]
+    },
+    {
+      "ticker": "TSEM",
+      "mentioned_posts": 12,
+      "raw_occurrences": 20,
+      "post_mentions": 4,
+      "reply_mentions": 2,
+      "quote_mentions": 6,
+      "first_seen": "2026-05-12T05:47:56.000Z",
+      "last_seen": "2026-05-24T02:28:23.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-24T02:28:23.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2058374522353672558",
+          "text": "Photonics is nuanced and using ChatGPT/Gemini makes you miss all of it: 1. $SIVE is actually a chokepoint and partially a bottleneck. The reason it's a chokepoint is leading CPO/op"
+        },
+        {
+          "created_at": "2026-05-23T16:55:31.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058230354063102028",
+          "text": "I don't post dollar amounts because they don't matter. What matters is return %. Speaking of that... YTD: 3840.39%. I'm probably the only one in the world. Who called out multiple "
+        },
+        {
+          "created_at": "2026-05-21T17:37:02.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2057516027479814380",
+          "text": "Not everyone on X can do a did you listen anon. With triple digit returns on everything like $TSEM they went long on. https://t.co/7jGCpZWRcd https://t.co/mCZ13pcuJ4"
+        }
+      ]
+    },
+    {
+      "ticker": "MRVL",
+      "mentioned_posts": 12,
+      "raw_occurrences": 17,
+      "post_mentions": 0,
+      "reply_mentions": 4,
+      "quote_mentions": 8,
+      "first_seen": "2026-05-11T12:15:47.000Z",
+      "last_seen": "2026-05-23T16:55:31.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-23T16:55:31.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058230354063102028",
+          "text": "I don't post dollar amounts because they don't matter. What matters is return %. Speaking of that... YTD: 3840.39%. I'm probably the only one in the world. Who called out multiple "
+        },
+        {
+          "created_at": "2026-05-23T05:41:35.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058060753933131949",
+          "text": "For $SIVE to become the next $80B+ $LITE. Sivers is the current laser kingmaker of the optical transition to CPO and 1.6T. They basically supply lasers to the leading players in th"
+        },
+        {
+          "created_at": "2026-05-20T13:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2057084047466414107",
+          "text": "If people don’t realize why I’m so interested in $SIVE M&A. Sivers likely customers were: Lightmatter when they were tiny -> became $4B+ company. Lightelligence when they were tiny"
+        }
+      ]
+    },
+    {
+      "ticker": "IREN",
+      "mentioned_posts": 10,
+      "raw_occurrences": 31,
+      "post_mentions": 1,
+      "reply_mentions": 5,
+      "quote_mentions": 4,
+      "first_seen": "2026-05-11T14:22:32.000Z",
+      "last_seen": "2026-05-22T05:04:27.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-22T05:04:27.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2057689020390580234",
+          "text": "??? $RDDT is literally lower IQ than $IREN investors? I didn't do all this research on $AXTI ... Just for you all to make 380% on it, call it a $MU memory competitor and then a sca"
+        },
+        {
+          "created_at": "2026-05-21T16:57:55.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2057506184203288714",
+          "text": "@Lucha_Stocks I was having a lot of debates with the 0 IQ $IREN community last November. You would have been flat to negative on $IREN. While $NBIS close to tripled in the same tim"
+        },
+        {
+          "created_at": "2026-05-19T14:53:36.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2056750124798464203",
+          "text": "@IggyPacoRico1 I see no reason to long $IREN today when upside is structurally capped with excessive and toxic dilution structures. $AAOI would have returned 300%+ in the same peri"
+        }
+      ]
+    },
+    {
+      "ticker": "LPK",
+      "mentioned_posts": 10,
+      "raw_occurrences": 18,
+      "post_mentions": 3,
+      "reply_mentions": 2,
+      "quote_mentions": 5,
+      "first_seen": "2026-05-11T23:27:12.000Z",
+      "last_seen": "2026-05-25T11:54:44.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-25T11:54:44.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058879435726836152",
+          "text": "$LPK turned out pretty well. https://t.co/mZlTyd4oUO https://t.co/hmIA6HuQam"
+        },
+        {
+          "created_at": "2026-05-24T02:28:23.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2058374522353672558",
+          "text": "Photonics is nuanced and using ChatGPT/Gemini makes you miss all of it: 1. $SIVE is actually a chokepoint and partially a bottleneck. The reason it's a chokepoint is leading CPO/op"
+        },
+        {
+          "created_at": "2026-05-23T16:55:31.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058230354063102028",
+          "text": "I don't post dollar amounts because they don't matter. What matters is return %. Speaking of that... YTD: 3840.39%. I'm probably the only one in the world. Who called out multiple "
+        }
+      ]
+    },
+    {
+      "ticker": "COHR",
+      "mentioned_posts": 9,
+      "raw_occurrences": 13,
+      "post_mentions": 3,
+      "reply_mentions": 3,
+      "quote_mentions": 3,
+      "first_seen": "2026-05-11T12:15:47.000Z",
+      "last_seen": "2026-05-26T11:57:46.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-26T11:57:46.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2059242587354169403",
+          "text": "$SIVE is the most compelling CPO exposure stock to me. Despite the volatility. You probably won’t find something like this again until the next architectural shift in photonics yea"
+        },
+        {
+          "created_at": "2026-05-24T02:28:23.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2058374522353672558",
+          "text": "Photonics is nuanced and using ChatGPT/Gemini makes you miss all of it: 1. $SIVE is actually a chokepoint and partially a bottleneck. The reason it's a chokepoint is leading CPO/op"
+        },
+        {
+          "created_at": "2026-05-23T06:12:39.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2058068571746660682",
+          "text": "$AAOI is more pure manufacturing scale and I'm extremely bullish on them. So it's more like Furukawa + Innolight in my view? So extremely bullish for revenue ramp. $SIVE is just pu"
+        }
+      ]
+    },
+    {
+      "ticker": "SNDK",
+      "mentioned_posts": 9,
+      "raw_occurrences": 13,
+      "post_mentions": 4,
+      "reply_mentions": 1,
+      "quote_mentions": 4,
+      "first_seen": "2026-05-11T21:14:48.000Z",
+      "last_seen": "2026-05-25T16:08:26.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-25T16:08:26.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058943283234316632",
+          "text": "$RPI, close to ~3x returns. Off the media branded \"Meme Stock\". I think after retail saw institutions bear post my thesis posts. Then ended up paper handing $AXTI, then $RPI, then "
+        },
+        {
+          "created_at": "2026-05-24T18:39:04.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2058618801554604040",
+          "text": "AI capex spend is expected to go to \"$3 to $4 trillion annually\" by 2030 from $NVDA Jensen Huang projections. You're not bullish enough. And it might be a good idea to stay exposed"
+        },
+        {
+          "created_at": "2026-05-24T02:28:23.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2058374522353672558",
+          "text": "Photonics is nuanced and using ChatGPT/Gemini makes you miss all of it: 1. $SIVE is actually a chokepoint and partially a bottleneck. The reason it's a chokepoint is leading CPO/op"
+        }
+      ]
+    },
+    {
+      "ticker": "TSM",
+      "mentioned_posts": 8,
+      "raw_occurrences": 18,
+      "post_mentions": 3,
+      "reply_mentions": 2,
+      "quote_mentions": 3,
+      "first_seen": "2026-05-12T05:58:25.000Z",
+      "last_seen": "2026-05-25T03:46:23.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-25T03:46:23.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2058756539448713504",
+          "text": "Oh look, a new UDN article about $TSM COUPE + AI optical markets. Institutional investors are optimistic that Taiwanese companies: FOCI (3363), and MSScorps (6830) are expected to "
+        },
+        {
+          "created_at": "2026-05-23T06:25:11.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2058071728090484983",
+          "text": "@_juicebox99_ I don't see FOCI becoming a $50B+ company. They focus on one thing like optical components + FAU for $TSM / $NVDA, then do it at scale. So that would likely drives st"
+        },
+        {
+          "created_at": "2026-05-18T05:25:42.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2056244818125418979",
+          "text": "Next year… I’m expecting there to be many articles about FAU + component bottlenecks. Especially as the new CPO architecture led by $NVDA + $TSM starts to scale. Then a lot of thes"
+        }
+      ]
+    },
+    {
+      "ticker": "AEHR",
+      "mentioned_posts": 8,
+      "raw_occurrences": 14,
+      "post_mentions": 1,
+      "reply_mentions": 4,
+      "quote_mentions": 3,
+      "first_seen": "2026-05-11T15:22:44.000Z",
+      "last_seen": "2026-05-24T02:28:23.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-24T02:28:23.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2058374522353672558",
+          "text": "Photonics is nuanced and using ChatGPT/Gemini makes you miss all of it: 1. $SIVE is actually a chokepoint and partially a bottleneck. The reason it's a chokepoint is leading CPO/op"
+        },
+        {
+          "created_at": "2026-05-23T16:55:31.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058230354063102028",
+          "text": "I don't post dollar amounts because they don't matter. What matters is return %. Speaking of that... YTD: 3840.39%. I'm probably the only one in the world. Who called out multiple "
+        },
+        {
+          "created_at": "2026-05-19T14:50:19.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2056749297820176585",
+          "text": "@ryansfinance Think you’re forgetting $NBIS went from $90 -&gt; $235 -&gt; $180. $AEHR went from $25 -&gt; $110 -&gt; $77 While $IREN went from $45 -&gt; $70 -&gt; $45"
+        }
+      ]
+    },
+    {
+      "ticker": "AAPL",
+      "mentioned_posts": 8,
+      "raw_occurrences": 12,
+      "post_mentions": 1,
+      "reply_mentions": 6,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-11T12:15:47.000Z",
+      "last_seen": "2026-05-24T20:42:39.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-24T20:42:39.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2058649903300280586",
+          "text": "When I do my supply chain mapping... $SIVE is just so critically important to so many frontier industries. I'm not sure people are fully aware yet. $SIVE -> $AAPL, $NOK, $RTX (us d"
+        },
+        {
+          "created_at": "2026-05-23T05:51:24.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2058063223992246638",
+          "text": "I said this before but I have high conviction in $SIVE. I'm confident their UC Berkeley + $LITE executive team knows what IP to acquire. Since they've worked with Ayar and others f"
+        },
+        {
+          "created_at": "2026-05-19T23:20:20.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2056877645275820418",
+          "text": "This is just confirmation on timelines: H2 2026 is the \"major redesign of high end Apple Watches\" for blood pressure related stuff using TASC photodiodes(2340). This next part is $"
+        }
+      ]
+    },
+    {
+      "ticker": "RKLB",
+      "mentioned_posts": 7,
+      "raw_occurrences": 14,
+      "post_mentions": 3,
+      "reply_mentions": 3,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T12:53:09.000Z",
+      "last_seen": "2026-05-25T17:49:06.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-25T17:49:06.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2058968617681899915",
+          "text": "I’m fully convinced the Stock Market secretly revolves around building the Death Star and Battle Droids: $RKLB / $SPCX / $PL = Death Star $LASR / $SIVE = Laser Beams $TSLA / Unitre"
+        },
+        {
+          "created_at": "2026-05-22T14:15:55.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2057827802372841789",
+          "text": "@realstockfox Yep, I'm pretty sure $INTC, $RKLB, and $NBIS will be around in 2029... Don't need to keep entering new/different US positions, just let the ones you have compound ove"
+        },
+        {
+          "created_at": "2026-05-22T02:09:02.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2057644878599991794",
+          "text": "@planetsidemarco Super cool you're working at $RKLB, one of my favorite companies. Hope you're having fun there!"
+        }
+      ]
+    },
+    {
+      "ticker": "TSLA",
+      "mentioned_posts": 7,
+      "raw_occurrences": 14,
+      "post_mentions": 3,
+      "reply_mentions": 1,
+      "quote_mentions": 3,
+      "first_seen": "2026-05-12T12:53:09.000Z",
+      "last_seen": "2026-05-26T14:28:43.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-26T14:28:43.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2059280575203328398",
+          "text": "Well $VPG ended up tripling since my thesis post. I got the ASP wrong in my original thesis, was $150 mass production rather than ~$750 midpoint quoted by management. And $TSLA des"
+        },
+        {
+          "created_at": "2026-05-25T17:49:06.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2058968617681899915",
+          "text": "I’m fully convinced the Stock Market secretly revolves around building the Death Star and Battle Droids: $RKLB / $SPCX / $PL = Death Star $LASR / $SIVE = Laser Beams $TSLA / Unitre"
+        },
+        {
+          "created_at": "2026-05-20T00:14:37.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2056891308934148253",
+          "text": "Who could have thought China was holding all the cards over humanoid mass production? Really if America sees a future in $TSLA or Figure robotics programs. Maybe it’s time to start"
+        }
+      ]
+    },
+    {
+      "ticker": "AMZN",
+      "mentioned_posts": 7,
+      "raw_occurrences": 13,
+      "post_mentions": 0,
+      "reply_mentions": 3,
+      "quote_mentions": 4,
+      "first_seen": "2026-05-11T14:40:53.000Z",
+      "last_seen": "2026-05-15T08:16:46.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-15T08:16:46.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2055200705334395161",
+          "text": "Not sure if people realized this but unless a thesis completely breaks, companies like $NBIS can keep growing. Just look at $AMZN or $GOOGL over the past 15 years. If people \"trim\""
+        },
+        {
+          "created_at": "2026-05-15T07:13:23.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2055184755524866519",
+          "text": "@DanilSer33 The new $SIVE / Ayar / AlChip / $AMZN trainium supply chain is more bullish than the recent $POET $50m -&gt; $500m purchase order. Markets probably won’t see the connec"
+        },
+        {
+          "created_at": "2026-05-15T07:04:50.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2055182601158074769",
+          "text": "Just to add to the very positive $SIVE news amid MSCI likely tens of millions of inflow in 2 weeks: $AMZN has a new private placement with AlChip. Probably implying design wins wit"
+        }
+      ]
+    },
+    {
+      "ticker": "3363",
+      "mentioned_posts": 7,
+      "raw_occurrences": 7,
+      "post_mentions": 5,
+      "reply_mentions": 0,
+      "quote_mentions": 2,
+      "first_seen": "2026-05-12T05:47:56.000Z",
+      "last_seen": "2026-05-26T01:11:30.000Z",
+      "names": [
+        "FOCI",
+        "Foci",
+        "In Taiwan with Foci"
+      ],
+      "examples": [
+        {
+          "created_at": "2026-05-26T01:11:30.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2059079948980363774",
+          "text": "Win Semi (3105) is almost never mentioned in photonics analyst reports. But they’ll probably show up as an important bottleneck for scaling lasers next year. Glad to see Shunsin (6"
+        },
+        {
+          "created_at": "2026-05-25T03:46:23.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2058756539448713504",
+          "text": "Oh look, a new UDN article about $TSM COUPE + AI optical markets. Institutional investors are optimistic that Taiwanese companies: FOCI (3363), and MSScorps (6830) are expected to "
+        },
+        {
+          "created_at": "2026-05-15T02:17:59.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2055110412375621643",
+          "text": "FOCI (3363) is one of the most undervalued CPO players in the entire market right now at ~$3B. Their BOM is massive relative to MC and they're expected to capture a dominant market"
+        }
+      ]
+    },
+    {
+      "ticker": "INTC",
+      "mentioned_posts": 6,
+      "raw_occurrences": 9,
+      "post_mentions": 0,
+      "reply_mentions": 1,
+      "quote_mentions": 5,
+      "first_seen": "2026-05-15T21:34:26.000Z",
+      "last_seen": "2026-05-24T20:21:08.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-24T20:21:08.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058644487224848654",
+          "text": "Fun fact: Lot of the same companies are often used across different supply chains. One likely example is: $SIVE as the upstream laser supplier to Boston Dynamics via: Sivers -> $AE"
+        },
+        {
+          "created_at": "2026-05-23T16:55:31.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058230354063102028",
+          "text": "I don't post dollar amounts because they don't matter. What matters is return %. Speaking of that... YTD: 3840.39%. I'm probably the only one in the world. Who called out multiple "
+        },
+        {
+          "created_at": "2026-05-22T14:15:55.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2057827802372841789",
+          "text": "@realstockfox Yep, I'm pretty sure $INTC, $RKLB, and $NBIS will be around in 2029... Don't need to keep entering new/different US positions, just let the ones you have compound ove"
+        }
+      ]
+    },
+    {
+      "ticker": "MU",
+      "mentioned_posts": 6,
+      "raw_occurrences": 9,
+      "post_mentions": 1,
+      "reply_mentions": 1,
+      "quote_mentions": 4,
+      "first_seen": "2026-05-11T21:14:48.000Z",
+      "last_seen": "2026-05-26T17:09:35.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-26T17:09:35.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2059321059812483077",
+          "text": "And now… $MU finally hits a $1 Trillion marketcap. I did say this looks like the next $NVDA given how memory demand looks structural with AI. This stock probably made a lot of mill"
+        },
+        {
+          "created_at": "2026-05-24T18:39:04.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2058618801554604040",
+          "text": "AI capex spend is expected to go to \"$3 to $4 trillion annually\" by 2030 from $NVDA Jensen Huang projections. You're not bullish enough. And it might be a good idea to stay exposed"
+        },
+        {
+          "created_at": "2026-05-23T16:55:31.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058230354063102028",
+          "text": "I don't post dollar amounts because they don't matter. What matters is return %. Speaking of that... YTD: 3840.39%. I'm probably the only one in the world. Who called out multiple "
+        }
+      ]
+    },
+    {
+      "ticker": "AEVA",
+      "mentioned_posts": 6,
+      "raw_occurrences": 7,
+      "post_mentions": 1,
+      "reply_mentions": 1,
+      "quote_mentions": 4,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-25T23:42:51.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-25T23:42:51.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2059057639238365336",
+          "text": "$JBL literally announced in their fireside chat… Mass production of their 1.6T LRO with excessive demand in 3-10 months. $SIVE is likely sole source laser supplier for this specifi"
+        },
+        {
+          "created_at": "2026-05-24T20:42:39.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2058649903300280586",
+          "text": "When I do my supply chain mapping... $SIVE is just so critically important to so many frontier industries. I'm not sure people are fully aware yet. $SIVE -> $AAPL, $NOK, $RTX (us d"
+        },
+        {
+          "created_at": "2026-05-24T20:21:08.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058644487224848654",
+          "text": "Fun fact: Lot of the same companies are often used across different supply chains. One likely example is: $SIVE as the upstream laser supplier to Boston Dynamics via: Sivers -> $AE"
+        }
+      ]
+    },
+    {
+      "ticker": "6451",
+      "mentioned_posts": 6,
+      "raw_occurrences": 6,
+      "post_mentions": 4,
+      "reply_mentions": 0,
+      "quote_mentions": 2,
+      "first_seen": "2026-05-12T05:47:56.000Z",
+      "last_seen": "2026-05-26T01:11:30.000Z",
+      "names": [
+        "But my Shunsin",
+        "Glad to see Shunsin",
+        "Highly bullish implications today for Shunsin",
+        "Interesting report that I missed that Shunsin",
+        "Shunsin"
+      ],
+      "examples": [
+        {
+          "created_at": "2026-05-26T01:11:30.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2059079948980363774",
+          "text": "Win Semi (3105) is almost never mentioned in photonics analyst reports. But they’ll probably show up as an important bottleneck for scaling lasers next year. Glad to see Shunsin (6"
+        },
+        {
+          "created_at": "2026-05-15T02:05:31.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2055107276575588612",
+          "text": "Took a month… But my Shunsin (6451) CPO/SiPh idea is starting to play out. I’m telling you with all these ideas like $IQE to $SOI, they randomly start going up like 1 month after m"
+        },
+        {
+          "created_at": "2026-05-14T01:47:16.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054740298182603024",
+          "text": "Interesting report that I missed that Shunsin (6451) landed $AVGO CPO/SiPH orders… And their EPS growth rate could reach over 1240%. Of course this is confidential and is media spe"
+        }
+      ]
+    },
+    {
+      "ticker": "FLNC",
+      "mentioned_posts": 5,
+      "raw_occurrences": 12,
+      "post_mentions": 1,
+      "reply_mentions": 3,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-11T14:40:53.000Z",
+      "last_seen": "2026-05-17T08:55:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-17T08:55:30.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2055935227525272019",
+          "text": "@vz921 They have low P/S ratios because it's an $SMCI $DELL $FLNC type integrator. Then they just throw in photonic memory when they build the appliance around it, then compare it "
+        },
+        {
+          "created_at": "2026-05-12T13:58:46.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2054199610206454243",
+          "text": "@0xResurge Yeah it’s unfortunate timing. Could have easily seen $FLNC doubling if the company left things alone. But the float unlock creates a ton of psychological overhang, even "
+        },
+        {
+          "created_at": "2026-05-12T13:53:31.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2054198288556109906",
+          "text": "$FLNC 20M share offering if you’re wondering why it’s trading down. The 20M share is not dilution, but share unlock + transfer. So change of hands. The biggest problem was the clau"
+        }
+      ]
+    },
+    {
+      "ticker": "RPI",
+      "mentioned_posts": 5,
+      "raw_occurrences": 11,
+      "post_mentions": 1,
+      "reply_mentions": 1,
+      "quote_mentions": 3,
+      "first_seen": "2026-05-12T10:09:16.000Z",
+      "last_seen": "2026-05-25T16:08:26.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-25T16:08:26.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058943283234316632",
+          "text": "$RPI, close to ~3x returns. Off the media branded \"Meme Stock\". I think after retail saw institutions bear post my thesis posts. Then ended up paper handing $AXTI, then $RPI, then "
+        },
+        {
+          "created_at": "2026-05-23T16:55:31.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058230354063102028",
+          "text": "I don't post dollar amounts because they don't matter. What matters is return %. Speaking of that... YTD: 3840.39%. I'm probably the only one in the world. Who called out multiple "
+        },
+        {
+          "created_at": "2026-05-19T04:43:11.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2056596504878735567",
+          "text": "@dubidubabap I see pretty strong parallels with $SIVE, $RPI, and basically everything. It’s eerily similar to price rises on info synthesis -&gt; institutions publish negative news"
+        }
+      ]
+    },
+    {
+      "ticker": "RDDT",
+      "mentioned_posts": 5,
+      "raw_occurrences": 10,
+      "post_mentions": 2,
+      "reply_mentions": 2,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-20T17:06:52.000Z",
+      "last_seen": "2026-05-26T16:10:22.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-26T16:10:22.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2059306154787062194",
+          "text": "This timeline of getting banned on $RDDT WSB for posting about $AXTI. That stock going up thousands of percent. Then becoming the #1 most subscribed to person on X feels kinda like"
+        },
+        {
+          "created_at": "2026-05-25T16:12:33.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2058944319248380287",
+          "text": "@EndratoxHatesW Really doubt anyone is quitting $RDDT to join FB's Forums."
+        },
+        {
+          "created_at": "2026-05-22T05:04:27.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2057689020390580234",
+          "text": "??? $RDDT is literally lower IQ than $IREN investors? I didn't do all this research on $AXTI ... Just for you all to make 380% on it, call it a $MU memory competitor and then a sca"
+        }
+      ]
+    },
+    {
+      "ticker": "AMD",
+      "mentioned_posts": 5,
+      "raw_occurrences": 9,
+      "post_mentions": 0,
+      "reply_mentions": 1,
+      "quote_mentions": 4,
+      "first_seen": "2026-05-11T12:15:47.000Z",
+      "last_seen": "2026-05-21T09:12:12.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-21T09:12:12.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2057388984310132855",
+          "text": "Just as I say this: $AMD invests $10B+ into Taiwan ecosystem (for securing capacity/scaling infra) AMD is collaborating with $ASX and SPIL. As well as ODM partners like “ $SANM, Wi"
+        },
+        {
+          "created_at": "2026-05-20T13:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2057084047466414107",
+          "text": "If people don’t realize why I’m so interested in $SIVE M&A. Sivers likely customers were: Lightmatter when they were tiny -> became $4B+ company. Lightelligence when they were tiny"
+        },
+        {
+          "created_at": "2026-05-19T07:37:41.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2056640420008878330",
+          "text": "Just putting it out there: $SIVE short interest is probably higher than 17%+ now. As lot of local Swedish hedge funds are very underwater, shorting Sivers. They're about to meet US"
+        }
+      ]
+    },
+    {
+      "ticker": "ALRIB",
+      "mentioned_posts": 5,
+      "raw_occurrences": 8,
+      "post_mentions": 1,
+      "reply_mentions": 2,
+      "quote_mentions": 2,
+      "first_seen": "2026-05-11T15:27:11.000Z",
+      "last_seen": "2026-05-25T14:07:45.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-25T14:07:45.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2058912911243018331",
+          "text": "@0xMonney I'm happy $ALRIB has been doing well. It's up around 188% or so since I went long."
+        },
+        {
+          "created_at": "2026-05-23T16:55:31.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058230354063102028",
+          "text": "I don't post dollar amounts because they don't matter. What matters is return %. Speaking of that... YTD: 3840.39%. I'm probably the only one in the world. Who called out multiple "
+        },
+        {
+          "created_at": "2026-05-22T09:53:20.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2057761720710631573",
+          "text": "European quantum/optical/glass chokepoints go BRRR? $ALRIB +8.35% $LPK +3.21% $IQE +5.68% $SOI +4.98% As a side thought, it’s a nice vote of confidence to retail that the LPKF CEO "
+        }
+      ]
+    },
+    {
+      "ticker": "VPG",
+      "mentioned_posts": 5,
+      "raw_occurrences": 8,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 5,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-26T14:28:43.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-26T14:28:43.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2059280575203328398",
+          "text": "Well $VPG ended up tripling since my thesis post. I got the ASP wrong in my original thesis, was $150 mass production rather than ~$750 midpoint quoted by management. And $TSLA des"
+        },
+        {
+          "created_at": "2026-05-24T20:21:08.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058644487224848654",
+          "text": "Fun fact: Lot of the same companies are often used across different supply chains. One likely example is: $SIVE as the upstream laser supplier to Boston Dynamics via: Sivers -> $AE"
+        },
+        {
+          "created_at": "2026-05-23T16:55:31.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058230354063102028",
+          "text": "I don't post dollar amounts because they don't matter. What matters is return %. Speaking of that... YTD: 3840.39%. I'm probably the only one in the world. Who called out multiple "
+        }
+      ]
+    },
+    {
+      "ticker": "GOOGL",
+      "mentioned_posts": 5,
+      "raw_occurrences": 7,
+      "post_mentions": 1,
+      "reply_mentions": 1,
+      "quote_mentions": 3,
+      "first_seen": "2026-05-11T14:40:53.000Z",
+      "last_seen": "2026-05-22T11:08:08.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-22T11:08:08.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2057780545292308506",
+          "text": "Feels like $FUTU and $TIGR are kinda screwed? The Chinese Gov is going after their historical revenues. There's basically no fair law in China (esp. with IP), so if Gov wants somet"
+        },
+        {
+          "created_at": "2026-05-15T08:49:11.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2055208861242655010",
+          "text": "Taiwan financial sector rules are hilariously stupid. They literally dispositioned Mediatek, one of their largest companies lmfao. It's like if the US stopped letting people buy $G"
+        },
+        {
+          "created_at": "2026-05-15T08:16:46.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2055200705334395161",
+          "text": "Not sure if people realized this but unless a thesis completely breaks, companies like $NBIS can keep growing. Just look at $AMZN or $GOOGL over the past 15 years. If people \"trim\""
+        }
+      ]
+    },
+    {
+      "ticker": "BOT",
+      "mentioned_posts": 4,
+      "raw_occurrences": 8,
+      "post_mentions": 1,
+      "reply_mentions": 0,
+      "quote_mentions": 3,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-20T02:52:11.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-20T02:52:11.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2056930958276985055",
+          "text": "I'm not sure how anyone thought it was a good idea to buy $145m worth of illiquid assets in $BOT that frequently trade under NAV. For $750M MC. Even after the 37% drop, it's still "
+        },
+        {
+          "created_at": "2026-05-19T01:38:01.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2056549908438749581",
+          "text": "$BOT is still trading at 4x NAV. With a $2,000,000,000 effective ATM. Even after the 21% drop. So now it’s ~$600M MC, off $146M in private assets. Then off those assets, they own ~"
+        },
+        {
+          "created_at": "2026-05-17T11:17:27.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2055970949762302055",
+          "text": "$BOT is the biggest red flag. NAV is $7.34/share. The stock is now trading at $37.92. You are basically buying Figure at $200B+ while it’s valued at $39B. Buying the company is jus"
+        }
+      ]
+    },
+    {
+      "ticker": "CRCL",
+      "mentioned_posts": 4,
+      "raw_occurrences": 7,
+      "post_mentions": 0,
+      "reply_mentions": 1,
+      "quote_mentions": 3,
+      "first_seen": "2026-05-14T23:32:35.000Z",
+      "last_seen": "2026-05-23T16:55:31.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-23T16:55:31.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058230354063102028",
+          "text": "I don't post dollar amounts because they don't matter. What matters is return %. Speaking of that... YTD: 3840.39%. I'm probably the only one in the world. Who called out multiple "
+        },
+        {
+          "created_at": "2026-05-15T22:04:31.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2055409017003094402",
+          "text": "@Partfortynineg1 $54 x 2 =$108 with $CRCL https://t.co/2LaN9mX322"
+        },
+        {
+          "created_at": "2026-05-15T21:34:26.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2055401446397690311",
+          "text": "Leopold Aschenbrenner is a legend, but I'm not quite sure he can beat 3152.77% YTD in the Serenity Awareness fund. That being said, I've hit 23 different longs this year with 100-1"
+        }
+      ]
+    },
+    {
+      "ticker": "EWY",
+      "mentioned_posts": 4,
+      "raw_occurrences": 7,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 4,
+      "first_seen": "2026-05-15T21:34:26.000Z",
+      "last_seen": "2026-05-26T06:29:44.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-26T06:29:44.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2059160035117216106",
+          "text": "$EWY calls are now up 300%+, over 4x return if you listened anon? Not only did IV increase and hold their implied volatility of the South Korean market. Underlying memory longs in "
+        },
+        {
+          "created_at": "2026-05-25T16:08:26.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058943283234316632",
+          "text": "$RPI, close to ~3x returns. Off the media branded \"Meme Stock\". I think after retail saw institutions bear post my thesis posts. Then ended up paper handing $AXTI, then $RPI, then "
+        },
+        {
+          "created_at": "2026-05-23T16:55:31.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058230354063102028",
+          "text": "I don't post dollar amounts because they don't matter. What matters is return %. Speaking of that... YTD: 3840.39%. I'm probably the only one in the world. Who called out multiple "
+        }
+      ]
+    },
+    {
+      "ticker": "GFS",
+      "mentioned_posts": 4,
+      "raw_occurrences": 7,
+      "post_mentions": 1,
+      "reply_mentions": 2,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T05:47:56.000Z",
+      "last_seen": "2026-05-24T20:30:51.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-24T20:30:51.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2058646934181879991",
+          "text": "@Jimmy4466597097 ~1/4th of their entire company are PHDs. Sivers is primarily doing novel IP development. Then using $GFS / Win to scale without capex + or needing headcount. You w"
+        },
+        {
+          "created_at": "2026-05-15T19:21:12.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2055367916426756386",
+          "text": "$SIVE is now aiming to become the next $LITE, a US photonics giant. They're re-centering their board around US executives + US photonics. So the core board are now: US $GFS Executi"
+        },
+        {
+          "created_at": "2026-05-12T10:41:57.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2054150077833490524",
+          "text": "Hey great question! So $SIVE headcount doesn't matter as much when you're doing IP/design. Lot of media misunderstand nuances, when they compare it with $COHR that have tens of tho"
+        }
+      ]
+    },
+    {
+      "ticker": "KRUS",
+      "mentioned_posts": 4,
+      "raw_occurrences": 7,
+      "post_mentions": 1,
+      "reply_mentions": 2,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-17T15:39:47.000Z",
+      "last_seen": "2026-05-21T03:59:21.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-21T03:59:21.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2057310252199301212",
+          "text": "You idiots all bought the wrong Kura ( $KRUS ) https://t.co/fR0XkQeT1j https://t.co/Bs80zmo4y0"
+        },
+        {
+          "created_at": "2026-05-17T23:21:42.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2056153214987456878",
+          "text": "@RealtyPnw スシローの大トロの方がずっと美味しいので、私はいつも $KRUS（くら寿司）よりもスシロー派でした。 それにしても、ドナルド・トランプがアメリカで人気の日本の寿司チェーンの経営権を買収しているのを見るのは、やっぱりなんだか面白いですね。"
+        },
+        {
+          "created_at": "2026-05-17T23:20:05.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2056152808576233954",
+          "text": "@Mr_Derivatives I have no positions in $KRUS but it's one of the better restaurant names hilariously enough. There's always a 1 hour line in the Cupertino one near $AAPL HQ."
+        }
+      ]
+    },
+    {
+      "ticker": "SMCI",
+      "mentioned_posts": 4,
+      "raw_occurrences": 7,
+      "post_mentions": 0,
+      "reply_mentions": 2,
+      "quote_mentions": 2,
+      "first_seen": "2026-05-17T08:17:25.000Z",
+      "last_seen": "2026-05-20T03:52:43.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-20T03:52:43.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2056946192568012877",
+          "text": "@OriginalTrades I don't quite think hiding 1300 pound furnaces is as easy as smuggling GPUs like $SMCI into hairdryer boxes."
+        },
+        {
+          "created_at": "2026-05-17T13:56:41.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2056011024982282674",
+          "text": "I'm 100% sure if I met all you \"photonic memory\" experts in real life. 498 out of 500 of you couldn't explain CXL memory pooling or KV cache infrastructure and what $PENG actually "
+        },
+        {
+          "created_at": "2026-05-17T08:55:30.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2055935227525272019",
+          "text": "@vz921 They have low P/S ratios because it's an $SMCI $DELL $FLNC type integrator. Then they just throw in photonic memory when they build the appliance around it, then compare it "
+        }
+      ]
+    },
+    {
+      "ticker": "MTSI",
+      "mentioned_posts": 4,
+      "raw_occurrences": 6,
+      "post_mentions": 1,
+      "reply_mentions": 0,
+      "quote_mentions": 3,
+      "first_seen": "2026-05-11T11:10:53.000Z",
+      "last_seen": "2026-05-26T11:57:46.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-26T11:57:46.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2059242587354169403",
+          "text": "$SIVE is the most compelling CPO exposure stock to me. Despite the volatility. You probably won’t find something like this again until the next architectural shift in photonics yea"
+        },
+        {
+          "created_at": "2026-05-17T01:28:37.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2055822766600016238",
+          "text": "When I see comments like this (and there are a lot) from retail investors: I immediately think they lack the technical depth. I'll walk through each one from $SIVE to $LPK: 1. Phot"
+        },
+        {
+          "created_at": "2026-05-12T05:47:56.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2054076086452162675",
+          "text": "Random CPO related names I like: - $SIVE - Foci (3363) - $TSEM - Browave (3163) - PCL (4977) - $AXTI - Msscorps (6830) - $IQE - Shunsin (6451) - Furukawa Electric (5801) - $MTSI - "
+        }
+      ]
+    },
+    {
+      "ticker": "6324",
+      "mentioned_posts": 4,
+      "raw_occurrences": 4,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 4,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-16T09:25:34.000Z",
+      "names": [
+        "Harmonic Drive",
+        "I do like Harmonic Drive",
+        "Imo harmonic drive",
+        "Japan to do first person DD on Harmonic Drive"
+      ],
+      "examples": [
+        {
+          "created_at": "2026-05-16T09:25:34.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2055580407261757788",
+          "text": "I only came to Japan to do first person DD on Harmonic Drive (6324) and Towa (6315). Not sure what everyone else is doing in the evenings there… https://t.co/fnSxJlZHVe https://t.c"
+        },
+        {
+          "created_at": "2026-05-15T02:41:09.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2055116243582247014",
+          "text": "I do like Harmonic Drive (6324) as the Western Leader (eg. harmonic reduction gear) at ~$4.2B MC. Very large part of robotics/humanoid BOM value. I actually like Leader Drive more "
+        },
+        {
+          "created_at": "2026-05-14T00:35:15.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054722172728520886",
+          "text": "Imo harmonic drive (6324) one of the better humanoid exposure names at $4B valuation listed in GS research report. Personally I picked some up for exposure. Chinese competitors mig"
+        }
+      ]
+    },
+    {
+      "ticker": "6830",
+      "mentioned_posts": 4,
+      "raw_occurrences": 4,
+      "post_mentions": 3,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T05:47:56.000Z",
+      "last_seen": "2026-05-26T01:11:30.000Z",
+      "names": [
+        "MSSCORP",
+        "MSSCorp",
+        "MSScorps",
+        "Msscorps"
+      ],
+      "examples": [
+        {
+          "created_at": "2026-05-26T01:11:30.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2059079948980363774",
+          "text": "Win Semi (3105) is almost never mentioned in photonics analyst reports. But they’ll probably show up as an important bottleneck for scaling lasers next year. Glad to see Shunsin (6"
+        },
+        {
+          "created_at": "2026-05-25T04:17:19.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058764325326856414",
+          "text": "几个值得重点关注的“实质性垄断”标的: - MSSCORP (6830)：在检测和 CPO 良率把控上构筑了极深的专利护城河。 - $SOI：主导绝缘体上硅 (SOI) 衬底市场。 - NGK (5333)：稳拿薄膜铌酸锂 (TFLN) 晶圆核心技术。 - $AXTI：把控磷化铟 (InP) 衬底等上游关键材料。 像讯芯 (Shunsin) 这类公司其实很难"
+        },
+        {
+          "created_at": "2026-05-25T03:46:23.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2058756539448713504",
+          "text": "Oh look, a new UDN article about $TSM COUPE + AI optical markets. Institutional investors are optimistic that Taiwanese companies: FOCI (3363), and MSScorps (6830) are expected to "
+        }
+      ]
+    },
+    {
+      "ticker": "8147",
+      "mentioned_posts": 4,
+      "raw_occurrences": 4,
+      "post_mentions": 2,
+      "reply_mentions": 0,
+      "quote_mentions": 2,
+      "first_seen": "2026-05-13T02:58:44.000Z",
+      "last_seen": "2026-05-26T01:11:30.000Z",
+      "names": [
+        "I did on Nextronics",
+        "Nextronics"
+      ],
+      "examples": [
+        {
+          "created_at": "2026-05-26T01:11:30.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2059079948980363774",
+          "text": "Win Semi (3105) is almost never mentioned in photonics analyst reports. But they’ll probably show up as an important bottleneck for scaling lasers next year. Glad to see Shunsin (6"
+        },
+        {
+          "created_at": "2026-05-14T00:59:36.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054728301806256484",
+          "text": "Now that I think about it more… Nextronics (8147) is a pretty undiscovered supplier to robotics supply chains like $AMZN too. So as Amazon scales up, so does their revenue (it’s on"
+        },
+        {
+          "created_at": "2026-05-13T04:06:41.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2054412992000012555",
+          "text": "People wonder why I'm focusing on non-US markets recently. Why? CPO is my #1 thematic long. Markets don't know yet, the sudden paradigm shift in photonics... I was one of the only "
+        }
+      ]
+    },
+    {
+      "ticker": "AVGO",
+      "mentioned_posts": 3,
+      "raw_occurrences": 5,
+      "post_mentions": 1,
+      "reply_mentions": 0,
+      "quote_mentions": 2,
+      "first_seen": "2026-05-13T02:58:44.000Z",
+      "last_seen": "2026-05-17T15:39:47.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-17T15:39:47.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2056036968220528767",
+          "text": "Donald Trump is apparently long Sushi. I genuinely find it hilarious the President took a large % ownership of Kura Sushi ( $KRUS, ~$600m MC). Among everything from $AVGO to $NVDA."
+        },
+        {
+          "created_at": "2026-05-14T01:47:16.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054740298182603024",
+          "text": "Interesting report that I missed that Shunsin (6451) landed $AVGO CPO/SiPH orders… And their EPS growth rate could reach over 1240%. Of course this is confidential and is media spe"
+        },
+        {
+          "created_at": "2026-05-13T02:58:44.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054395891965194742",
+          "text": "So here's the napkin math I did on Nextronics (8147) when I went long. They're the $NVDA CPO supplier for CPO connectors and cage thermal modules. And I modeled around 2 FWD p/e fo"
+        }
+      ]
+    },
+    {
+      "ticker": "ARM",
+      "mentioned_posts": 3,
+      "raw_occurrences": 4,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 3,
+      "first_seen": "2026-05-15T21:34:26.000Z",
+      "last_seen": "2026-05-23T16:55:31.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-23T16:55:31.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058230354063102028",
+          "text": "I don't post dollar amounts because they don't matter. What matters is return %. Speaking of that... YTD: 3840.39%. I'm probably the only one in the world. Who called out multiple "
+        },
+        {
+          "created_at": "2026-05-21T17:14:50.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2057510441778315730",
+          "text": "And now $ARM, a $300B+ company, hit triple digit returns in a short timeframe since $135… Cool name CPUs go brrrr? https://t.co/67Zz6EWfnL https://t.co/9XiYkbN8fC"
+        },
+        {
+          "created_at": "2026-05-15T21:34:26.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2055401446397690311",
+          "text": "Leopold Aschenbrenner is a legend, but I'm not quite sure he can beat 3152.77% YTD in the Serenity Awareness fund. That being said, I've hit 23 different longs this year with 100-1"
+        }
+      ]
+    },
+    {
+      "ticker": "NOK",
+      "mentioned_posts": 3,
+      "raw_occurrences": 4,
+      "post_mentions": 1,
+      "reply_mentions": 2,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-14T10:17:44.000Z",
+      "last_seen": "2026-05-24T20:42:39.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-24T20:42:39.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2058649903300280586",
+          "text": "When I do my supply chain mapping... $SIVE is just so critically important to so many frontier industries. I'm not sure people are fully aware yet. $SIVE -> $AAPL, $NOK, $RTX (us d"
+        },
+        {
+          "created_at": "2026-05-23T05:51:24.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2058063223992246638",
+          "text": "I said this before but I have high conviction in $SIVE. I'm confident their UC Berkeley + $LITE executive team knows what IP to acquire. Since they've worked with Ayar and others f"
+        },
+        {
+          "created_at": "2026-05-14T10:17:44.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2054868760629272850",
+          "text": "$SIVE 2025 annual report analysis. TLDR: Extremely Bullish. Sivers main growth vector is CPO, but they've TAM expansioned to pluggable transcivers + multiple new qualifications/dev"
+        }
+      ]
+    },
+    {
+      "ticker": "6315",
+      "mentioned_posts": 3,
+      "raw_occurrences": 3,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 3,
+      "first_seen": "2026-05-11T21:14:48.000Z",
+      "last_seen": "2026-05-16T09:25:34.000Z",
+      "names": [
+        "For Towa",
+        "Towa"
+      ],
+      "examples": [
+        {
+          "created_at": "2026-05-16T09:25:34.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2055580407261757788",
+          "text": "I only came to Japan to do first person DD on Harmonic Drive (6324) and Towa (6315). Not sure what everyone else is doing in the evenings there… https://t.co/fnSxJlZHVe https://t.c"
+        },
+        {
+          "created_at": "2026-05-12T03:26:51.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054040580502745588",
+          "text": "Ouch, Towa (6315) down 20% on earnings. Good lesson learned that I do get some ideas wrong. Especially on short term timeframes. Same thing with $NBIS back in Dec/Jan… But it is up"
+        },
+        {
+          "created_at": "2026-05-11T21:14:48.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2053946950425460946",
+          "text": "For Towa (6315): Earnings are very nuanced. I got the current ER \"Beat\" wrong in my original thesis (short term), my bad. But it's an amazing structural long and setup for H2 2026 "
+        }
+      ]
+    },
+    {
+      "ticker": "HIMX",
+      "mentioned_posts": 3,
+      "raw_occurrences": 3,
+      "post_mentions": 1,
+      "reply_mentions": 0,
+      "quote_mentions": 2,
+      "first_seen": "2026-05-13T00:56:05.000Z",
+      "last_seen": "2026-05-25T04:17:19.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-25T04:17:19.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058764325326856414",
+          "text": "几个值得重点关注的“实质性垄断”标的: - MSSCORP (6830)：在检测和 CPO 良率把控上构筑了极深的专利护城河。 - $SOI：主导绝缘体上硅 (SOI) 衬底市场。 - NGK (5333)：稳拿薄膜铌酸锂 (TFLN) 晶圆核心技术。 - $AXTI：把控磷化铟 (InP) 衬底等上游关键材料。 像讯芯 (Shunsin) 这类公司其实很难"
+        },
+        {
+          "created_at": "2026-05-15T03:23:55.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2055127004970938373",
+          "text": "HOW DOES $POET ($3.14B) HAVE A HIGHER VALUATION THAN FOCI (3363, $3.1B)??? FOCI IS LITERALLY THE BOTTLENECK FOR CPO VOLUME RAMP AND MAIN SUPPLIER FOR $TSM AND $NVDA. High convictio"
+        },
+        {
+          "created_at": "2026-05-13T00:56:05.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2054365028820881794",
+          "text": "FOCI (3363) is looks extremely compelling around now at ~$3.35B MC for CPO exposure. 1. $TSM COUPE advanced packaging director hinted that FAU supplies by FOCI be a pretty big bott"
+        }
+      ]
+    },
+    {
+      "ticker": "ASX",
+      "mentioned_posts": 2,
+      "raw_occurrences": 4,
+      "post_mentions": 1,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T05:47:56.000Z",
+      "last_seen": "2026-05-21T09:12:12.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-21T09:12:12.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2057388984310132855",
+          "text": "Just as I say this: $AMD invests $10B+ into Taiwan ecosystem (for securing capacity/scaling infra) AMD is collaborating with $ASX and SPIL. As well as ODM partners like “ $SANM, Wi"
+        },
+        {
+          "created_at": "2026-05-12T05:47:56.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2054076086452162675",
+          "text": "Random CPO related names I like: - $SIVE - Foci (3363) - $TSEM - Browave (3163) - PCL (4977) - $AXTI - Msscorps (6830) - $IQE - Shunsin (6451) - Furukawa Electric (5801) - $MTSI - "
+        }
+      ]
+    },
+    {
+      "ticker": "CBRS",
+      "mentioned_posts": 2,
+      "raw_occurrences": 4,
+      "post_mentions": 0,
+      "reply_mentions": 1,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-14T23:26:05.000Z",
+      "last_seen": "2026-05-14T23:32:35.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-14T23:32:35.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2055068788975157672",
+          "text": "Not a fan of $CBRS, especially at ~$90B-100B MC valuations. But I do like the company. There’s a lot of short term valuation disconnects with float dynamics after IPO as seen with "
+        },
+        {
+          "created_at": "2026-05-14T23:26:05.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2055067155990012017",
+          "text": "@Ryan76589177 @TheMarathon8320 Bro $CBRS is a newly listed company today, cut me some slack."
+        }
+      ]
+    },
+    {
+      "ticker": "CRBS",
+      "mentioned_posts": 2,
+      "raw_occurrences": 4,
+      "post_mentions": 1,
+      "reply_mentions": 1,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-14T23:01:34.000Z",
+      "last_seen": "2026-05-14T23:14:28.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-14T23:14:28.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2055064231905788025",
+          "text": "@TheMarathon8320 I like $CRBS but not at a $70B valuation, so nope"
+        },
+        {
+          "created_at": "2026-05-14T23:01:34.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2055060984012890250",
+          "text": "Why is our president stock trading like a FinX influencer... Going long on semi supply chains like $JBL to $AMAT? Looks more like a self-made ETF rather than picking individual lon"
+        }
+      ]
+    },
+    {
+      "ticker": "HIMS",
+      "mentioned_posts": 2,
+      "raw_occurrences": 4,
+      "post_mentions": 0,
+      "reply_mentions": 1,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T05:58:25.000Z",
+      "last_seen": "2026-05-17T13:56:41.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-17T13:56:41.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2056011024982282674",
+          "text": "I'm 100% sure if I met all you \"photonic memory\" experts in real life. 498 out of 500 of you couldn't explain CXL memory pooling or KV cache infrastructure and what $PENG actually "
+        },
+        {
+          "created_at": "2026-05-12T05:58:25.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2054078726149968224",
+          "text": "@mrng2019 Why are we comparing $HIMS testosterone pills with the $TSM FAU supplier for COUPE."
+        }
+      ]
+    },
+    {
+      "ticker": "HOOD",
+      "mentioned_posts": 2,
+      "raw_occurrences": 4,
+      "post_mentions": 0,
+      "reply_mentions": 1,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-16T23:47:52.000Z",
+      "last_seen": "2026-05-20T11:41:28.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-20T11:41:28.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2057064158265590011",
+          "text": "Majority of US capital as well as US investors can't access $SIVE right now. So if they get listed on NASDAQ, it's just a massive new inflow of capital. Especially if institutions "
+        },
+        {
+          "created_at": "2026-05-16T23:47:52.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2055797412053070128",
+          "text": "Wow I’ve hit 300k followers just now! What a milestone! My goal from the start was always to help retail from Day 0 instead of institutions. That being said… I’ve probably helped o"
+        }
+      ]
+    },
+    {
+      "ticker": "IBKR",
+      "mentioned_posts": 2,
+      "raw_occurrences": 4,
+      "post_mentions": 0,
+      "reply_mentions": 1,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-16T23:47:52.000Z",
+      "last_seen": "2026-05-20T13:10:12.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-20T13:10:12.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2057086489247555851",
+          "text": "@a_ahmd31117 If they do the ADR route, you can just convert it through $IBKR through adr conversion and start trading it on Nasdaq. You keep it unrealized that way too. Costs a tin"
+        },
+        {
+          "created_at": "2026-05-16T23:47:52.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2055797412053070128",
+          "text": "Wow I’ve hit 300k followers just now! What a milestone! My goal from the start was always to help retail from Day 0 instead of institutions. That being said… I’ve probably helped o"
+        }
+      ]
+    },
+    {
+      "ticker": "MXL",
+      "mentioned_posts": 2,
+      "raw_occurrences": 4,
+      "post_mentions": 0,
+      "reply_mentions": 1,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-11T15:28:24.000Z",
+      "last_seen": "2026-05-15T11:40:28.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-15T11:40:28.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2055251965819687347",
+          "text": "I’m so mad… why do I identify $MXL as a great opportunity in specific. Then not go long? Just straight up 300% after I call it out. https://t.co/IVFqYC8GfG https://t.co/YSfib3yj8T"
+        },
+        {
+          "created_at": "2026-05-11T15:28:24.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2053859779035185310",
+          "text": "@RyanGoldenberg2 Bro I'm mad i didn't long $MXL. I literally called it out in subscribers chat before the entire rally. https://t.co/7dC01zDLJH"
+        }
+      ]
+    },
+    {
+      "ticker": "NVTS",
+      "mentioned_posts": 2,
+      "raw_occurrences": 4,
+      "post_mentions": 1,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-24T15:56:29.000Z",
+      "last_seen": "2026-05-26T14:08:42.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-26T14:08:42.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2059275538007835018",
+          "text": "How did my $NVTS position double already lol? That aside, I did see a very compelling long out of the list of crowdsourced recs earlier for 800 vdc. Doing more research now! https:"
+        },
+        {
+          "created_at": "2026-05-24T15:56:29.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2058577885754163382",
+          "text": "All right chat, crowdsourcing your #1 highest conviction (10x only) stock long for the Power Semi trade. Especially given $NVDA pushing shift to 800 VDC. Stuff like $NVTS or $WOLF,"
+        }
+      ]
+    },
+    {
+      "ticker": "PENG",
+      "mentioned_posts": 2,
+      "raw_occurrences": 4,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 2,
+      "first_seen": "2026-05-17T08:17:25.000Z",
+      "last_seen": "2026-05-17T13:56:41.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-17T13:56:41.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2056011024982282674",
+          "text": "I'm 100% sure if I met all you \"photonic memory\" experts in real life. 498 out of 500 of you couldn't explain CXL memory pooling or KV cache infrastructure and what $PENG actually "
+        },
+        {
+          "created_at": "2026-05-17T08:17:25.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2055925643158938050",
+          "text": "Very nuanced. People buying $PENG for $MRVL \"photonic memory\" are likely to be disappointed. They're on the $SMCI integrator level with potential software add. The high margin, fou"
+        }
+      ]
+    },
+    {
+      "ticker": "RTX",
+      "mentioned_posts": 2,
+      "raw_occurrences": 4,
+      "post_mentions": 0,
+      "reply_mentions": 2,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-23T05:58:15.000Z",
+      "last_seen": "2026-05-24T20:42:39.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-24T20:42:39.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2058649903300280586",
+          "text": "When I do my supply chain mapping... $SIVE is just so critically important to so many frontier industries. I'm not sure people are fully aware yet. $SIVE -> $AAPL, $NOK, $RTX (us d"
+        },
+        {
+          "created_at": "2026-05-23T05:58:15.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2058064950116130919",
+          "text": "Markets are kinda realizing US Gov is heavily backing $SIVE as you can see with direct US CHIPS Act funding. Since you see Sivers in $YSS Golden Dome supply chains (from allspace),"
+        }
+      ]
+    },
+    {
+      "ticker": "WOLF",
+      "mentioned_posts": 2,
+      "raw_occurrences": 4,
+      "post_mentions": 1,
+      "reply_mentions": 1,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-24T15:56:29.000Z",
+      "last_seen": "2026-05-26T14:09:51.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-26T14:09:51.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2059275827024728219",
+          "text": "@beroccan I didn’t have $WOLF unfortunately. I thought financials were toxic when I first look at them at $15"
+        },
+        {
+          "created_at": "2026-05-24T15:56:29.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2058577885754163382",
+          "text": "All right chat, crowdsourcing your #1 highest conviction (10x only) stock long for the Power Semi trade. Especially given $NVDA pushing shift to 800 VDC. Stuff like $NVTS or $WOLF,"
+        }
+      ]
+    },
+    {
+      "ticker": "YSS",
+      "mentioned_posts": 2,
+      "raw_occurrences": 4,
+      "post_mentions": 0,
+      "reply_mentions": 2,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-23T05:58:15.000Z",
+      "last_seen": "2026-05-24T20:42:39.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-24T20:42:39.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2058649903300280586",
+          "text": "When I do my supply chain mapping... $SIVE is just so critically important to so many frontier industries. I'm not sure people are fully aware yet. $SIVE -> $AAPL, $NOK, $RTX (us d"
+        },
+        {
+          "created_at": "2026-05-23T05:58:15.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2058064950116130919",
+          "text": "Markets are kinda realizing US Gov is heavily backing $SIVE as you can see with direct US CHIPS Act funding. Since you see Sivers in $YSS Golden Dome supply chains (from allspace),"
+        }
+      ]
+    },
+    {
+      "ticker": "HPS.A",
+      "mentioned_posts": 2,
+      "raw_occurrences": 3,
+      "post_mentions": 0,
+      "reply_mentions": 1,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-13T16:01:34.000Z",
+      "last_seen": "2026-05-15T21:49:13.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-15T21:49:13.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2055405163092066719",
+          "text": "Fun fact: over 70%+ of my portfolio is unrealized, I haven't sold a single share in many of these. It helps if things like $AXTI hit 1900%+ returns, $SIVE hit 1000%+ returns, and e"
+        },
+        {
+          "created_at": "2026-05-13T16:01:34.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054592898042380788",
+          "text": "I like how $HPS.A is just a vertical line up 2-3% increase every day since my thesis post. Just 20 CAD away before it hits triple digit returns. https://t.co/CHqWQKzH5E https://t.c"
+        }
+      ]
+    },
+    {
+      "ticker": "META",
+      "mentioned_posts": 2,
+      "raw_occurrences": 3,
+      "post_mentions": 1,
+      "reply_mentions": 1,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-17T13:14:26.000Z",
+      "last_seen": "2026-05-22T11:08:08.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-22T11:08:08.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2057780545292308506",
+          "text": "Feels like $FUTU and $TIGR are kinda screwed? The Chinese Gov is going after their historical revenues. There's basically no fair law in China (esp. with IP), so if Gov wants somet"
+        },
+        {
+          "created_at": "2026-05-17T13:14:26.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2056000392090296524",
+          "text": "This is the same at argument I got with $VCX with people telling me SpaceX should trade at $30T because of how fast they’re growing while $META trades at $1.4T. You can just buy it"
+        }
+      ]
+    },
+    {
+      "ticker": "MSFT",
+      "mentioned_posts": 2,
+      "raw_occurrences": 3,
+      "post_mentions": 0,
+      "reply_mentions": 1,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-11T14:40:53.000Z",
+      "last_seen": "2026-05-11T23:27:12.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-11T23:27:12.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2053980270135738816",
+          "text": "Not sure why people ask these types of questions across every single stock from $AAOI to $LPK under every post? I've already said multiple times, I have positions after $FLNC earni"
+        },
+        {
+          "created_at": "2026-05-11T14:40:53.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2053847817899421807",
+          "text": "I actually think $FLNC should be a lot higher. The implications of having 2 incoming direct hyperscaler contracts in 1 quarter is enormous. $MSFT to $AMZN don't sign tiny deals. Ob"
+        }
+      ]
+    },
+    {
+      "ticker": "FN",
+      "mentioned_posts": 2,
+      "raw_occurrences": 2,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 2,
+      "first_seen": "2026-05-17T01:28:37.000Z",
+      "last_seen": "2026-05-20T11:23:56.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-20T11:23:56.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2057059745429901334",
+          "text": "$SIVE is nominating two new board members today. It's very highly telling since the newcomers have acquisition backgrounds from: -> Head of M&A at Ericsson / Advisor at Verdane, fo"
+        },
+        {
+          "created_at": "2026-05-17T01:28:37.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2055822766600016238",
+          "text": "When I see comments like this (and there are a lot) from retail investors: I immediately think they lack the technical depth. I'll walk through each one from $SIVE to $LPK: 1. Phot"
+        }
+      ]
+    },
+    {
+      "ticker": "GDRZF",
+      "mentioned_posts": 2,
+      "raw_occurrences": 2,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 2,
+      "first_seen": "2026-05-15T21:34:26.000Z",
+      "last_seen": "2026-05-23T16:55:31.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-23T16:55:31.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058230354063102028",
+          "text": "I don't post dollar amounts because they don't matter. What matters is return %. Speaking of that... YTD: 3840.39%. I'm probably the only one in the world. Who called out multiple "
+        },
+        {
+          "created_at": "2026-05-15T21:34:26.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2055401446397690311",
+          "text": "Leopold Aschenbrenner is a legend, but I'm not quite sure he can beat 3152.77% YTD in the Serenity Awareness fund. That being said, I've hit 23 different longs this year with 100-1"
+        }
+      ]
+    },
+    {
+      "ticker": "OSS",
+      "mentioned_posts": 2,
+      "raw_occurrences": 2,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 2,
+      "first_seen": "2026-05-15T21:34:26.000Z",
+      "last_seen": "2026-05-23T16:55:31.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-23T16:55:31.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058230354063102028",
+          "text": "I don't post dollar amounts because they don't matter. What matters is return %. Speaking of that... YTD: 3840.39%. I'm probably the only one in the world. Who called out multiple "
+        },
+        {
+          "created_at": "2026-05-15T21:34:26.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2055401446397690311",
+          "text": "Leopold Aschenbrenner is a legend, but I'm not quite sure he can beat 3152.77% YTD in the Serenity Awareness fund. That being said, I've hit 23 different longs this year with 100-1"
+        }
+      ]
+    },
+    {
+      "ticker": "SIMO",
+      "mentioned_posts": 2,
+      "raw_occurrences": 2,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 2,
+      "first_seen": "2026-05-15T21:34:26.000Z",
+      "last_seen": "2026-05-23T16:55:31.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-23T16:55:31.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058230354063102028",
+          "text": "I don't post dollar amounts because they don't matter. What matters is return %. Speaking of that... YTD: 3840.39%. I'm probably the only one in the world. Who called out multiple "
+        },
+        {
+          "created_at": "2026-05-15T21:34:26.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2055401446397690311",
+          "text": "Leopold Aschenbrenner is a legend, but I'm not quite sure he can beat 3152.77% YTD in the Serenity Awareness fund. That being said, I've hit 23 different longs this year with 100-1"
+        }
+      ]
+    },
+    {
+      "ticker": "MBLY",
+      "mentioned_posts": 1,
+      "raw_occurrences": 3,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "OUST",
+      "mentioned_posts": 1,
+      "raw_occurrences": 3,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "AMAT",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 1,
+      "reply_mentions": 0,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-14T23:01:34.000Z",
+      "last_seen": "2026-05-14T23:01:34.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-14T23:01:34.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2055060984012890250",
+          "text": "Why is our president stock trading like a FinX influencer... Going long on semi supply chains like $JBL to $AMAT? Looks more like a self-made ETF rather than picking individual lon"
+        }
+      ]
+    },
+    {
+      "ticker": "AMBA",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "ARBE",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "ASML",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-17T01:28:37.000Z",
+      "last_seen": "2026-05-17T01:28:37.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-17T01:28:37.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2055822766600016238",
+          "text": "When I see comments like this (and there are a lot) from retail investors: I immediately think they lack the technical depth. I'll walk through each one from $SIVE to $LPK: 1. Phot"
+        }
+      ]
+    },
+    {
+      "ticker": "BULL",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-14T23:32:35.000Z",
+      "last_seen": "2026-05-14T23:32:35.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-14T23:32:35.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2055068788975157672",
+          "text": "Not a fan of $CBRS, especially at ~$90B-100B MC valuations. But I do like the company. There’s a lot of short term valuation disconnects with float dynamics after IPO as seen with "
+        }
+      ]
+    },
+    {
+      "ticker": "CATL",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "CDNS",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 1,
+      "reply_mentions": 0,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-13T22:53:50.000Z",
+      "last_seen": "2026-05-13T22:53:50.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-13T22:53:50.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2054696650539688271",
+          "text": "“Robotics may be the biggest product category of all time” - $CDNS CEO. “The projection is $25 trillion. The whole GDP of the world is $110 trillion. So this is huge if this happen"
+        }
+      ]
+    },
+    {
+      "ticker": "CITI",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-15T19:21:12.000Z",
+      "last_seen": "2026-05-15T19:21:12.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-15T19:21:12.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2055367916426756386",
+          "text": "$SIVE is now aiming to become the next $LITE, a US photonics giant. They're re-centering their board around US executives + US photonics. So the core board are now: US $GFS Executi"
+        }
+      ]
+    },
+    {
+      "ticker": "DELL",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 0,
+      "reply_mentions": 1,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-17T08:55:30.000Z",
+      "last_seen": "2026-05-17T08:55:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-17T08:55:30.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2055935227525272019",
+          "text": "@vz921 They have low P/S ratios because it's an $SMCI $DELL $FLNC type integrator. Then they just throw in photonic memory when they build the appliance around it, then compare it "
+        }
+      ]
+    },
+    {
+      "ticker": "FUTU",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 1,
+      "reply_mentions": 0,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-22T11:08:08.000Z",
+      "last_seen": "2026-05-22T11:08:08.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-22T11:08:08.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2057780545292308506",
+          "text": "Feels like $FUTU and $TIGR are kinda screwed? The Chinese Gov is going after their historical revenues. There's basically no fair law in China (esp. with IP), so if Gov wants somet"
+        }
+      ]
+    },
+    {
+      "ticker": "HSYDF",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "LASR",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 1,
+      "reply_mentions": 0,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-25T17:49:06.000Z",
+      "last_seen": "2026-05-25T17:49:06.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-25T17:49:06.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2058968617681899915",
+          "text": "I’m fully convinced the Stock Market secretly revolves around building the Death Star and Battle Droids: $RKLB / $SPCX / $PL = Death Star $LASR / $SIVE = Laser Beams $TSLA / Unitre"
+        }
+      ]
+    },
+    {
+      "ticker": "LULU",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 0,
+      "reply_mentions": 1,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-15T20:28:01.000Z",
+      "last_seen": "2026-05-15T20:28:01.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-15T20:28:01.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2055384732121366899",
+          "text": "@lorddaws I don't think China cares so much about US slapping 45% tariffs on cheap $LULU ripoffs or sock imports. If you completely freeze their entire AI/robotics/space programs b"
+        }
+      ]
+    },
+    {
+      "ticker": "LWLG",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 0,
+      "reply_mentions": 1,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-12T11:00:26.000Z",
+      "last_seen": "2026-05-12T11:00:26.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T11:00:26.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2054154731006955852",
+          "text": "The 2.5% dilution to get listed on NASDAQ is actually extremely bullish with $SIVE, and I see it heading to $3B+ once its trading on US markets. I think it's undervalued at current"
+        }
+      ]
+    },
+    {
+      "ticker": "MKA",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "MP",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 0,
+      "reply_mentions": 1,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-13T22:56:18.000Z",
+      "last_seen": "2026-05-13T22:56:18.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-13T22:56:18.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2054697272248766580",
+          "text": "@beroccan I wrote on article on why the US needs to scale more domestic rare earths projects rather than focusing on a few like $MP. But yes they’re critical to bring costs down ht"
+        }
+      ]
+    },
+    {
+      "ticker": "NOVT",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "PL",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 1,
+      "reply_mentions": 0,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-25T17:49:06.000Z",
+      "last_seen": "2026-05-25T17:49:06.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-25T17:49:06.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2058968617681899915",
+          "text": "I’m fully convinced the Stock Market secretly revolves around building the Death Star and Battle Droids: $RKLB / $SPCX / $PL = Death Star $LASR / $SIVE = Laser Beams $TSLA / Unitre"
+        }
+      ]
+    },
+    {
+      "ticker": "SANM",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-21T09:12:12.000Z",
+      "last_seen": "2026-05-21T09:12:12.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-21T09:12:12.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2057388984310132855",
+          "text": "Just as I say this: $AMD invests $10B+ into Taiwan ecosystem (for securing capacity/scaling infra) AMD is collaborating with $ASX and SPIL. As well as ODM partners like “ $SANM, Wi"
+        }
+      ]
+    },
+    {
+      "ticker": "SERV",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "SPCX",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 1,
+      "reply_mentions": 0,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-25T17:49:06.000Z",
+      "last_seen": "2026-05-25T17:49:06.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-25T17:49:06.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2058968617681899915",
+          "text": "I’m fully convinced the Stock Market secretly revolves around building the Death Star and Battle Droids: $RKLB / $SPCX / $PL = Death Star $LASR / $SIVE = Laser Beams $TSLA / Unitre"
+        }
+      ]
+    },
+    {
+      "ticker": "SWGAY",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 1,
+      "reply_mentions": 0,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-12T04:29:04.000Z",
+      "last_seen": "2026-05-12T04:29:04.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T04:29:04.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2054056239349539206",
+          "text": "Seems like everyone on X is looking to hoard AP x Swatch watches on release. I’m curious if that will show up in $SWGAY / $UHR (Swatch) stock prices from increased sales? https://t"
+        }
+      ]
+    },
+    {
+      "ticker": "SYM",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "TE",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 1,
+      "reply_mentions": 0,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-20T16:14:20.000Z",
+      "last_seen": "2026-05-20T16:14:20.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-20T16:14:20.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2057132829583274036",
+          "text": "Yeah I'm not sure all the shorts on $TE is a good idea... When the OpenAI runway model likely has enough to buy the entire company. That being said: Anyone remember I predicted Fak"
+        }
+      ]
+    },
+    {
+      "ticker": "TIGR",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 1,
+      "reply_mentions": 0,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-22T11:08:08.000Z",
+      "last_seen": "2026-05-22T11:08:08.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-22T11:08:08.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2057780545292308506",
+          "text": "Feels like $FUTU and $TIGR are kinda screwed? The Chinese Gov is going after their historical revenues. There's basically no fair law in China (esp. with IP), so if Gov wants somet"
+        }
+      ]
+    },
+    {
+      "ticker": "UHR",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 1,
+      "reply_mentions": 0,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-12T04:29:04.000Z",
+      "last_seen": "2026-05-12T04:29:04.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T04:29:04.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2054056239349539206",
+          "text": "Seems like everyone on X is looking to hoard AP x Swatch watches on release. I’m curious if that will show up in $SWGAY / $UHR (Swatch) stock prices from increased sales? https://t"
+        }
+      ]
+    },
+    {
+      "ticker": "VCX",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 0,
+      "reply_mentions": 1,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-17T13:14:26.000Z",
+      "last_seen": "2026-05-17T13:14:26.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-17T13:14:26.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2056000392090296524",
+          "text": "This is the same at argument I got with $VCX with people telling me SpaceX should trade at $30T because of how fast they’re growing while $META trades at $1.4T. You can just buy it"
+        }
+      ]
+    },
+    {
+      "ticker": "XLU",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 0,
+      "reply_mentions": 1,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-22T14:14:47.000Z",
+      "last_seen": "2026-05-22T14:14:47.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-22T14:14:47.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2057827518783406354",
+          "text": "@plaza404_ I made an update awhile back that Iran War caused a major issue with $XLU in terms increasing odds of no rate cuts. Large part of the utilities tailwind was multiple rat"
+        }
+      ]
+    },
+    {
+      "ticker": "ZBRA",
+      "mentioned_posts": 1,
+      "raw_occurrences": 2,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "2340",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 1,
+      "reply_mentions": 0,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-19T23:20:20.000Z",
+      "last_seen": "2026-05-19T23:20:20.000Z",
+      "names": [
+        "TASC photodiodes"
+      ],
+      "examples": [
+        {
+          "created_at": "2026-05-19T23:20:20.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2056877645275820418",
+          "text": "This is just confirmation on timelines: H2 2026 is the \"major redesign of high end Apple Watches\" for blood pressure related stuff using TASC photodiodes(2340). This next part is $"
+        }
+      ]
+    },
+    {
+      "ticker": "2356",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-21T09:12:12.000Z",
+      "last_seen": "2026-05-21T09:12:12.000Z",
+      "names": [
+        "Inventec"
+      ],
+      "examples": [
+        {
+          "created_at": "2026-05-21T09:12:12.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2057388984310132855",
+          "text": "Just as I say this: $AMD invests $10B+ into Taiwan ecosystem (for securing capacity/scaling infra) AMD is collaborating with $ASX and SPIL. As well as ODM partners like “ $SANM, Wi"
+        }
+      ]
+    },
+    {
+      "ticker": "2498",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [
+        "Robosense"
+      ],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "2525",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [
+        "Hesai"
+      ],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "3081",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 1,
+      "reply_mentions": 0,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-12T05:47:56.000Z",
+      "last_seen": "2026-05-12T05:47:56.000Z",
+      "names": [
+        "LandMark"
+      ],
+      "examples": [
+        {
+          "created_at": "2026-05-12T05:47:56.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2054076086452162675",
+          "text": "Random CPO related names I like: - $SIVE - Foci (3363) - $TSEM - Browave (3163) - PCL (4977) - $AXTI - Msscorps (6830) - $IQE - Shunsin (6451) - Furukawa Electric (5801) - $MTSI - "
+        }
+      ]
+    },
+    {
+      "ticker": "3105",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 1,
+      "reply_mentions": 0,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-26T01:11:30.000Z",
+      "last_seen": "2026-05-26T01:11:30.000Z",
+      "names": [
+        "Win Semi"
+      ],
+      "examples": [
+        {
+          "created_at": "2026-05-26T01:11:30.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2059079948980363774",
+          "text": "Win Semi (3105) is almost never mentioned in photonics analyst reports. But they’ll probably show up as an important bottleneck for scaling lasers next year. Glad to see Shunsin (6"
+        }
+      ]
+    },
+    {
+      "ticker": "3163",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 1,
+      "reply_mentions": 0,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-12T05:47:56.000Z",
+      "last_seen": "2026-05-12T05:47:56.000Z",
+      "names": [
+        "Browave"
+      ],
+      "examples": [
+        {
+          "created_at": "2026-05-12T05:47:56.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2054076086452162675",
+          "text": "Random CPO related names I like: - $SIVE - Foci (3363) - $TSEM - Browave (3163) - PCL (4977) - $AXTI - Msscorps (6830) - $IQE - Shunsin (6451) - Furukawa Electric (5801) - $MTSI - "
+        }
+      ]
+    },
+    {
+      "ticker": "3231",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-21T09:12:12.000Z",
+      "last_seen": "2026-05-21T09:12:12.000Z",
+      "names": [
+        "Wistron"
+      ],
+      "examples": [
+        {
+          "created_at": "2026-05-21T09:12:12.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2057388984310132855",
+          "text": "Just as I say this: $AMD invests $10B+ into Taiwan ecosystem (for securing capacity/scaling infra) AMD is collaborating with $ASX and SPIL. As well as ODM partners like “ $SANM, Wi"
+        }
+      ]
+    },
+    {
+      "ticker": "4977",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 1,
+      "reply_mentions": 0,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-12T05:47:56.000Z",
+      "last_seen": "2026-05-12T05:47:56.000Z",
+      "names": [
+        "PCL"
+      ],
+      "examples": [
+        {
+          "created_at": "2026-05-12T05:47:56.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2054076086452162675",
+          "text": "Random CPO related names I like: - $SIVE - Foci (3363) - $TSEM - Browave (3163) - PCL (4977) - $AXTI - Msscorps (6830) - $IQE - Shunsin (6451) - Furukawa Electric (5801) - $MTSI - "
+        }
+      ]
+    },
+    {
+      "ticker": "5333",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-25T04:17:19.000Z",
+      "last_seen": "2026-05-25T04:17:19.000Z",
+      "names": [
+        "NGK"
+      ],
+      "examples": [
+        {
+          "created_at": "2026-05-25T04:17:19.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2058764325326856414",
+          "text": "几个值得重点关注的“实质性垄断”标的: - MSSCORP (6830)：在检测和 CPO 良率把控上构筑了极深的专利护城河。 - $SOI：主导绝缘体上硅 (SOI) 衬底市场。 - NGK (5333)：稳拿薄膜铌酸锂 (TFLN) 晶圆核心技术。 - $AXTI：把控磷化铟 (InP) 衬底等上游关键材料。 像讯芯 (Shunsin) 这类公司其实很难"
+        }
+      ]
+    },
+    {
+      "ticker": "5801",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 1,
+      "reply_mentions": 0,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-12T05:47:56.000Z",
+      "last_seen": "2026-05-12T05:47:56.000Z",
+      "names": [
+        "Furukawa Electric"
+      ],
+      "examples": [
+        {
+          "created_at": "2026-05-12T05:47:56.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2054076086452162675",
+          "text": "Random CPO related names I like: - $SIVE - Foci (3363) - $TSEM - Browave (3163) - PCL (4977) - $AXTI - Msscorps (6830) - $IQE - Shunsin (6451) - Furukawa Electric (5801) - $MTSI - "
+        }
+      ]
+    },
+    {
+      "ticker": "6187",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 1,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-13T05:13:06.000Z",
+      "last_seen": "2026-05-13T05:13:06.000Z",
+      "names": [
+        "All Ring"
+      ],
+      "examples": [
+        {
+          "created_at": "2026-05-13T05:13:06.000Z",
+          "kind": "reply",
+          "url": "https://x.com/aleabitoreddit/status/2054429708868309239",
+          "text": "Hmm. If I were to do it -> Foci/Nextronics/Shunsin heavy add today on the drop. -> DCA MSScorps, Sivers, Furukawa Electric, Browave since those are very volatile -> Throw in a few "
+        }
+      ]
+    },
+    {
+      "ticker": "6268",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [
+        "Nabtesco"
+      ],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "6268.T",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "6669",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-21T09:12:12.000Z",
+      "last_seen": "2026-05-21T09:12:12.000Z",
+      "names": [
+        "Wiwynn"
+      ],
+      "examples": [
+        {
+          "created_at": "2026-05-21T09:12:12.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2057388984310132855",
+          "text": "Just as I say this: $AMD invests $10B+ into Taiwan ecosystem (for securing capacity/scaling infra) AMD is collaborating with $ASX and SPIL. As well as ODM partners like “ $SANM, Wi"
+        }
+      ]
+    },
+    {
+      "ticker": "6706",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 1,
+      "reply_mentions": 0,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-12T05:47:56.000Z",
+      "last_seen": "2026-05-12T05:47:56.000Z",
+      "names": [
+        "FitTech"
+      ],
+      "examples": [
+        {
+          "created_at": "2026-05-12T05:47:56.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2054076086452162675",
+          "text": "Random CPO related names I like: - $SIVE - Foci (3363) - $TSEM - Browave (3163) - PCL (4977) - $AXTI - Msscorps (6830) - $IQE - Shunsin (6451) - Furukawa Electric (5801) - $MTSI - "
+        }
+      ]
+    },
+    {
+      "ticker": "6728",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-20T03:25:34.000Z",
+      "last_seen": "2026-05-20T03:25:34.000Z",
+      "names": [
+        "US Gov/Japan should put Ulvac"
+      ],
+      "examples": [
+        {
+          "created_at": "2026-05-20T03:25:34.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2056939360222884144",
+          "text": "Just a shower thought: US Gov/Japan should put Ulvac (6728) on the export control list so they stop shipping to China. That way you can disrupt China's entire humanoid program (sin"
+        }
+      ]
+    },
+    {
+      "ticker": "8417",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 1,
+      "reply_mentions": 0,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-12T05:47:56.000Z",
+      "last_seen": "2026-05-12T05:47:56.000Z",
+      "names": [
+        "Nextronics"
+      ],
+      "examples": [
+        {
+          "created_at": "2026-05-12T05:47:56.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2054076086452162675",
+          "text": "Random CPO related names I like: - $SIVE - Foci (3363) - $TSEM - Browave (3163) - PCL (4977) - $AXTI - Msscorps (6830) - $IQE - Shunsin (6451) - Furukawa Electric (5801) - $MTSI - "
+        }
+      ]
+    },
+    {
+      "ticker": "ABB",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "ACUVI",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "ALNT",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "AMBQ",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "ASST",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-19T14:36:19.000Z",
+      "last_seen": "2026-05-19T14:36:19.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-19T14:36:19.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2056745774760026410",
+          "text": "$IREN back down -34% from $70 to $46. I wonder if one of the dumbest communities on X finally learned to read? $NBIS is objectively the better Neocloud, with actual financing. -> N"
+        }
+      ]
+    },
+    {
+      "ticker": "ATOM",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "AUR",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "BABA",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 1,
+      "reply_mentions": 0,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-22T11:08:08.000Z",
+      "last_seen": "2026-05-22T11:08:08.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-22T11:08:08.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2057780545292308506",
+          "text": "Feels like $FUTU and $TIGR are kinda screwed? The Chinese Gov is going after their historical revenues. There's basically no fair law in China (esp. with IP), so if Gov wants somet"
+        }
+      ]
+    },
+    {
+      "ticker": "BAM",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "BKKT",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-19T14:36:19.000Z",
+      "last_seen": "2026-05-19T14:36:19.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-19T14:36:19.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2056745774760026410",
+          "text": "$IREN back down -34% from $70 to $46. I wonder if one of the dumbest communities on X finally learned to read? $NBIS is objectively the better Neocloud, with actual financing. -> N"
+        }
+      ]
+    },
+    {
+      "ticker": "BSL",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "CGNX",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "CTH.V",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "HG",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "HLIT",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "IMSR",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "INDI",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "ISRG",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "KDK",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "KITT",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "KLIC",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "LSCC",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "MRAM",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "MRLN",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "NEO",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "PDD",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 1,
+      "reply_mentions": 0,
+      "quote_mentions": 0,
+      "first_seen": "2026-05-22T11:08:08.000Z",
+      "last_seen": "2026-05-22T11:08:08.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-22T11:08:08.000Z",
+          "kind": "post",
+          "url": "https://x.com/aleabitoreddit/status/2057780545292308506",
+          "text": "Feels like $FUTU and $TIGR are kinda screwed? The Chinese Gov is going after their historical revenues. There's basically no fair law in China (esp. with IP), so if Gov wants somet"
+        }
+      ]
+    },
+    {
+      "ticker": "PDY",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "RR",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "SHA.DE",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "SLNH",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-19T14:36:19.000Z",
+      "last_seen": "2026-05-19T14:36:19.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-19T14:36:19.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2056745774760026410",
+          "text": "$IREN back down -34% from $70 to $46. I wonder if one of the dumbest communities on X finally learned to read? $NBIS is objectively the better Neocloud, with actual financing. -> N"
+        }
+      ]
+    },
+    {
+      "ticker": "XBOT",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    },
+    {
+      "ticker": "XPEV",
+      "mentioned_posts": 1,
+      "raw_occurrences": 1,
+      "post_mentions": 0,
+      "reply_mentions": 0,
+      "quote_mentions": 1,
+      "first_seen": "2026-05-12T23:00:30.000Z",
+      "last_seen": "2026-05-12T23:00:30.000Z",
+      "names": [],
+      "examples": [
+        {
+          "created_at": "2026-05-12T23:00:30.000Z",
+          "kind": "quote",
+          "url": "https://x.com/aleabitoreddit/status/2054335940026573222",
+          "text": "Here's the humanoid exposure crowdsourced list: - $OUST - Rainbow Robotics (277810) - $AMBA - Ubtech Robotics - $MKA - Nextronics - $SYM - Harmonic Drive (6324) - $VPG - Beijing Ge"
+        }
+      ]
+    }
+  ]
+}

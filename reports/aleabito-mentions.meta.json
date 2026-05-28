@@ -1,0 +1,32 @@
+{
+  "status": "ok",
+  "generated_at": "2026-05-27T23:22:15.556Z",
+  "handle": "aleabitoreddit",
+  "mode": "rebuild",
+  "include_replies": true,
+  "resume": true,
+  "backfill_days": 60,
+  "overlap_hours": 48,
+  "timezone": "America/Los_Angeles",
+  "fetch_ranges": [],
+  "files": {
+    "events": "/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-mentions-events.csv",
+    "summary": "/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-stock-mentions-cumulative.csv",
+    "daily": "/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-stock-mentions-daily.csv",
+    "dated_summary_snapshot": "/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-stock-mentions-2026-05-27.csv",
+    "meta": "/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-mentions.meta.json",
+    "state": "/Users/vincentlan/.follow-aleabito/analytics-state.json"
+  },
+  "stats": {
+    "existing_events": 1660,
+    "fetched_events": 0,
+    "added_events": 0,
+    "total_events": 1660,
+    "tickers": 277,
+    "pages_used": 0,
+    "earliest_event": "2026-03-29T01:05:09.000Z",
+    "latest_event": "2026-05-27T16:43:49.000Z"
+  },
+  "rate_limit": {},
+  "page_details": []
+}

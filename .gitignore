@@ -3,3 +3,11 @@ node_modules/
 .env
 *.log
 tmp/
+
+# Local editor / tooling config
+.claude/
+
+# Personal daily analysis notes and raw fetch dumps (kept out of the public repo)
+reports/*-analysis.md
+reports/*-api.json
+reports/*-api.md

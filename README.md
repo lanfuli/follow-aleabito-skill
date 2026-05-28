@@ -4,6 +4,8 @@ Codex skill for tracking Serenity / `@aleabitoreddit` on X, turning new posts in
 
 This project is for personal research tracking. It does not provide investment advice.
 
+**Live dashboard:** https://lanfuli.github.io/follow-aleabito-skill/
+
 ## Features
 
 - Fetches posts, quotes, and optional replies from `@aleabitoreddit`.
@@ -144,6 +146,28 @@ Suggested website usage:
 - Trend charts: `aleabito-stock-mentions-daily.csv`
 - Detail pages and source links: `aleabito-mentions-events.csv`
 - Last update/API status: `aleabito-mentions.meta.json`
+
+## Dashboard
+
+A self-contained, interactive 60-day research dashboard is built from the cumulative analytics. It maps attention, mention structure (posts vs. replies vs. quotes), recent momentum, and research priority across the tracked tickers, with linked price trends.
+
+- Live: https://lanfuli.github.io/follow-aleabito-skill/
+- Source: `reports/aleabito-60d-dashboard.html` (fully self-contained, no external dependencies)
+
+Rebuild it after updating the analytics data:
+
+```bash
+node scripts/build-aleabito-dashboard.js --no-prices   # offline, reuse cached prices
+node scripts/build-aleabito-dashboard.js               # refresh prices from Yahoo (needs network)
+```
+
+Preview locally:
+
+```bash
+node scripts/preview-server.js   # then open http://localhost:8753
+```
+
+Published vs. private: this repo includes the dashboard and the aggregate analytics it rebuilds from (mention CSVs, `aleabito-research-map.json`, `aleabito-price-cache.json`). Personal daily analysis notes (`reports/*-analysis.md`) and raw fetch dumps (`reports/*-api.*`) are kept out of the repo via `.gitignore`. The dashboard is a research map only, not investment advice.
 
 ## CSV Schemas
 
