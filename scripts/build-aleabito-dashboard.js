@@ -13,6 +13,7 @@ const metaPath = path.join(reportsDir, "aleabito-mentions.meta.json");
 const researchMapPath = path.join(reportsDir, "aleabito-research-map.json");
 const priceCachePath = path.join(reportsDir, "aleabito-price-cache.json");
 const outputPath = path.join(reportsDir, "aleabito-60d-dashboard.html");
+const digestsDir = path.join(reportsDir, "aleabito-digests");
 
 const refreshPrices = process.argv.includes("--refresh-prices");
 const noPrices = process.argv.includes("--no-prices");
@@ -354,6 +355,139 @@ function computeMaxDrawdown(points) {
   return maxDrawdown;
 }
 
+const DIGEST_LABELS = [
+  ["view", /^她的观点[:：]\s*(.*)$/],
+  ["beginner", /^小白解释[:：]\s*(.*)$/],
+  ["firstPrinciples", /^第一性原理[:：]\s*(.*)$/],
+  ["buffett", /^Buffett\s*直接判断[:：]\s*(.*)$/],
+  ["conclusion", /^当前结论[:：]\s*(.*)$/],
+  ["links", /^关键链接[:：]\s*(.*)$/],
+];
+
+function parseDigest(text, fallbackDate) {
+  const lines = String(text || "").replace(/\r\n/g, "\n").split("\n");
+  const title = (lines[0] || "").trim();
+  const metaLine = (lines[1] || "").trim();
+  const rangeMatch = metaLine.match(/(\d{4}-\d{2}-\d{2})\s*到\s*(\d{4}-\d{2}-\d{2})/);
+  const rangeStart = rangeMatch ? rangeMatch[1] : "";
+  const rangeEnd = rangeMatch ? rangeMatch[2] : "";
+  const dedupMatch = metaLine.match(/去重后\s*([\d,]+)\s*条/);
+  const dedupCount = dedupMatch ? Number(dedupMatch[1].replace(/,/g, "")) : null;
+  const sourceMatch = metaLine.match(/来源[:：]\s*([^。.]+)/);
+  const source = sourceMatch ? sourceMatch[1].trim() : "";
+  const date = rangeEnd || fallbackDate || "";
+
+  const summary = [];
+  const totalAnalysis = [];
+  const themes = [];
+  let disclaimer = "";
+  let section = "preamble";
+  let theme = null;
+  let field = null;
+
+  const appendField = (line) => {
+    if (!theme) return;
+    if (field === "links") {
+      const urls = line.match(/https?:\/\/\S+/g);
+      if (urls) theme.links.push(...urls);
+    } else if (field) {
+      theme.fields[field] = theme.fields[field] ? theme.fields[field] + "\n" + line : line;
+    } else {
+      theme.body = theme.body ? theme.body + "\n" + line : line;
+    }
+  };
+
+  for (let i = 2; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (!line) continue;
+    if (/不构成投资建议/.test(line) && !/^\d+\.\s/.test(line)) {
+      disclaimer = line;
+      section = "done";
+      continue;
+    }
+    let m;
+    if ((m = line.match(/^今天她重点看什么[:：]\s*(.*)$/))) {
+      section = "summary";
+      theme = null;
+      field = null;
+      if (m[1]) summary.push(m[1]);
+      continue;
+    }
+    if ((m = line.match(/^总分析[:：]\s*(.*)$/))) {
+      section = "total";
+      theme = null;
+      field = null;
+      if (m[1]) totalAnalysis.push(m[1]);
+      continue;
+    }
+    if ((m = line.match(/^(\d+)\.\s+(.*)$/))) {
+      section = "theme";
+      theme = { n: Number(m[1]), title: m[2].trim(), fields: {}, links: [], body: "" };
+      themes.push(theme);
+      field = null;
+      continue;
+    }
+    if (section === "theme") {
+      let matched = false;
+      for (const [key, re] of DIGEST_LABELS) {
+        if ((m = line.match(re))) {
+          field = key;
+          if (key === "links") {
+            const urls = (m[1] || "").match(/https?:\/\/\S+/g);
+            if (urls) theme.links.push(...urls);
+          } else {
+            theme.fields[key] = m[1] || "";
+          }
+          matched = true;
+          break;
+        }
+      }
+      if (!matched) appendField(line);
+      continue;
+    }
+    if (section === "summary") summary.push(line);
+    else if (section === "total") totalAnalysis.push(line);
+  }
+
+  return {
+    date,
+    title,
+    rangeStart,
+    rangeEnd,
+    dedupCount,
+    source,
+    summary: summary.join("\n").trim(),
+    themes: themes.map((t) => ({
+      n: t.n,
+      title: t.title,
+      view: (t.fields.view || "").trim(),
+      beginner: (t.fields.beginner || "").trim(),
+      firstPrinciples: (t.fields.firstPrinciples || "").trim(),
+      buffett: (t.fields.buffett || "").trim(),
+      conclusion: (t.fields.conclusion || "").trim(),
+      links: t.links,
+      body: (t.body || "").trim(),
+    })),
+    totalAnalysis: totalAnalysis.join("\n").trim(),
+    disclaimer,
+  };
+}
+
+function readDigests(dir) {
+  if (!fs.existsSync(dir)) return [];
+  return fs
+    .readdirSync(dir)
+    .filter((name) => /\.(md|markdown|txt)$/i.test(name))
+    .map((name) => {
+      const fallbackDate = (name.match(/(\d{4}-\d{2}-\d{2})/) || [])[1] || "";
+      const parsed = parseDigest(readText(path.join(dir, name)), fallbackDate);
+      parsed.file = name;
+      return parsed;
+    })
+    .filter((digest) => digest.date)
+    .sort((a, b) => b.date.localeCompare(a.date));
+}
+
 async function main() {
   const summaryRows = parseCsv(readText(summaryPath));
   const dailyRows = parseCsv(readText(dailyPath));
@@ -557,6 +691,8 @@ async function main() {
       sparkPath: row.price.sparkPath,
     }));
 
+  const digests = readDigests(digestsDir);
+
   const dashboardData = {
     generatedAt: new Date().toISOString(),
     dataWindow: {
@@ -573,6 +709,7 @@ async function main() {
       meta: path.basename(metaPath),
       researchMap: fs.existsSync(researchMapPath) ? path.basename(researchMapPath) : null,
       priceCache: fs.existsSync(priceCachePath) ? path.basename(priceCachePath) : null,
+      digests: digests.length ? path.basename(digestsDir) + "/" : null,
     },
     priceProvider: {
       name: "Yahoo Finance chart API",
@@ -581,6 +718,7 @@ async function main() {
       total: summary.length,
     },
     allDates,
+    digests,
     themeStats: [...themeStats.values()].sort((a, b) => b.mentions - a.mentions),
     topMovers,
     rows: summary,
@@ -1643,6 +1781,150 @@ function buildHtmlV2(data) {
         margin-left: 18px;
         margin-right: 18px;
       }
+      .window-bar { align-items: stretch; }
+      .window-label { margin-left: 0; }
+      .brief-themes { grid-template-columns: 1fr; }
+    }
+    /* === date-window bar === */
+    .window-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin: 22px 0 4px;
+      padding: 14px 18px;
+      background: linear-gradient(180deg, var(--panel-2), var(--panel-3));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .window-bar-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 650;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+    }
+    .window-bar-title .accent {
+      width: 9px; height: 9px; border-radius: 50%;
+      background: var(--cyan); box-shadow: 0 0 12px var(--cyan);
+    }
+    .window-presets { display: flex; flex-wrap: wrap; gap: 8px; }
+    .window-preset {
+      appearance: none; cursor: pointer;
+      border: 1px solid var(--line-2);
+      background: rgba(15, 21, 38, 0.7);
+      color: var(--muted);
+      padding: 7px 13px; border-radius: 999px;
+      font-size: 13px; font-weight: 600;
+      transition: color 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+    }
+    .window-preset:hover { color: var(--ink); border-color: var(--cyan); }
+    .window-preset.active {
+      color: #06121b; background: var(--cyan);
+      border-color: var(--cyan); box-shadow: 0 0 16px var(--cyan-soft);
+    }
+    .window-dates { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .window-dates input[type="date"] {
+      background: rgba(15, 21, 38, 0.86);
+      border: 1px solid var(--line-2);
+      color: var(--ink);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px; font-size: 13px;
+      color-scheme: dark;
+    }
+    .window-dates input[type="date"]:focus { outline: none; border-color: var(--cyan); }
+    .window-dates .sep { color: var(--subtle); }
+    .window-reset {
+      appearance: none; cursor: pointer;
+      border: 1px solid var(--line-2);
+      background: transparent; color: var(--muted);
+      padding: 7px 12px; border-radius: 999px; font-size: 13px;
+      transition: color 0.16s ease, border-color 0.16s ease;
+    }
+    .window-reset:hover { color: var(--ink); border-color: var(--cyan); }
+    .window-label {
+      margin-left: auto; color: var(--cyan);
+      font-family: var(--mono); font-size: 12.5px;
+      white-space: nowrap;
+    }
+    /* === daily research brief === */
+    .brief-card { margin: 22px 0; }
+    .brief-head {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap;
+      padding: 22px 22px 6px;
+    }
+    .brief-date { max-width: 170px; }
+    .brief-summary {
+      margin: 8px 22px 4px;
+      padding: 16px 18px;
+      background: var(--cyan-soft);
+      border: 1px solid rgba(103, 217, 244, 0.3);
+      border-radius: var(--radius-sm);
+    }
+    .brief-summary-label {
+      font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--cyan); margin-bottom: 6px; font-weight: 700;
+    }
+    .brief-summary-text { color: var(--ink); line-height: 1.75; }
+    .brief-themes {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; padding: 14px 22px 6px;
+    }
+    .brief-theme {
+      background: var(--panel-3);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+    .brief-theme[open] { border-color: var(--line-2); }
+    .brief-theme > summary {
+      cursor: pointer; list-style: none;
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 16px; font-weight: 650; color: var(--ink);
+    }
+    .brief-theme > summary::-webkit-details-marker { display: none; }
+    .brief-theme > summary:hover { background: rgba(103, 217, 244, 0.06); }
+    .brief-theme-n {
+      flex: none; width: 24px; height: 24px; border-radius: 7px;
+      display: grid; place-items: center;
+      background: var(--cyan-soft); color: var(--cyan);
+      font-family: var(--mono); font-size: 13px; font-weight: 700;
+    }
+    .brief-theme-title { flex: 1; }
+    .brief-theme-body { padding: 4px 16px 16px; }
+    .brief-field { margin-top: 12px; }
+    .brief-field-label {
+      font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.07em;
+      color: var(--purple); font-weight: 700; margin-bottom: 4px;
+    }
+    .brief-field-text { color: var(--muted); line-height: 1.7; font-size: 14px; }
+    .brief-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .brief-link {
+      font-size: 12px; color: var(--cyan); text-decoration: none;
+      border: 1px solid var(--line-2); border-radius: 999px;
+      padding: 4px 11px; transition: background 0.16s ease, border-color 0.16s ease;
+    }
+    .brief-link:hover { border-color: var(--cyan); background: var(--cyan-soft); }
+    .brief-chip {
+      appearance: none; cursor: pointer;
+      font-family: var(--mono); font-size: 0.92em; font-weight: 700;
+      color: var(--cyan); background: var(--cyan-soft);
+      border: 1px solid rgba(103, 217, 244, 0.32);
+      border-radius: 6px; padding: 0 5px; margin: 0 1px;
+      transition: background 0.14s ease, color 0.14s ease;
+    }
+    .brief-chip:hover { background: var(--cyan); color: #06121b; }
+    .brief-total {
+      margin: 10px 22px 6px; padding: 16px 18px;
+      background: var(--panel-3); border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+    }
+    .brief-disclaimer {
+      margin: 6px 22px 20px; color: var(--subtle);
+      font-size: 12.5px; font-style: italic;
     }
   </style>
 </head>
@@ -1657,7 +1939,28 @@ function buildHtmlV2(data) {
       <div class="meta-strip" id="metaStrip"></div>
     </section>
 
+    <section class="window-bar reveal" aria-label="时间窗口选择">
+      <div class="window-bar-title"><span class="accent"></span>时间窗口</div>
+      <div class="window-presets" role="group" aria-label="预设时间窗口">
+        <button type="button" class="window-preset" data-days="7">7D</button>
+        <button type="button" class="window-preset" data-days="14">14D</button>
+        <button type="button" class="window-preset" data-days="30">30D</button>
+        <button type="button" class="window-preset" data-days="all">全部</button>
+      </div>
+      <div class="window-dates">
+        <input type="date" id="winStart" aria-label="开始日期">
+        <span class="sep">→</span>
+        <input type="date" id="winEnd" aria-label="结束日期">
+        <button type="button" class="window-reset" id="winReset">重置</button>
+      </div>
+      <div class="window-label" id="winLabel"></div>
+    </section>
+
     <section class="kpi-grid" id="kpiGrid"></section>
+
+    <section class="card reveal brief-card" id="briefCard" data-testid="brief-card">
+      <div id="briefBody"></div>
+    </section>
 
     <section class="dashboard-grid">
       <div class="main-stack">
@@ -1797,7 +2100,18 @@ function buildHtmlV2(data) {
       pinnedTicker: DASHBOARD_DATA.rows[0] ? DASHBOARD_DATA.rows[0].ticker : null,
       hoverTicker: null,
       visibleSeries: { posts: true, replies: true, quotes: true },
+      windowStart: null,
+      windowEnd: null,
     };
+
+    // Pristine full-range snapshots so the date-window picker can recompute from source.
+    DASHBOARD_DATA.baseRows = DASHBOARD_DATA.rows;
+    DASHBOARD_DATA.baseTopMovers = DASHBOARD_DATA.topMovers;
+    DASHBOARD_DATA.baseThemeStats = DASHBOARD_DATA.themeStats;
+    const WINDOW_MIN = DASHBOARD_DATA.dataWindow.earliestDate;
+    const WINDOW_MAX = DASHBOARD_DATA.dataWindow.latestDate;
+    state.windowStart = WINDOW_MIN;
+    state.windowEnd = WINDOW_MAX;
 
     const reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let firstPaint = true;
@@ -1956,6 +2270,312 @@ function buildHtmlV2(data) {
       return "M " + start.x + " " + start.y + " A " + r + " " + r + " 0 " + large + " 1 " + end.x + " " + end.y + " L " + cx + " " + cy + " Z";
     }
 
+    // ===== date-window engine (YYYY-MM-DD strings sort chronologically) =====
+    function toDateNum(str) {
+      const m = /^(\\d{4})-(\\d{2})-(\\d{2})/.exec(str || "");
+      return m ? Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3])) : NaN;
+    }
+    function daysBetweenStr(a, b) {
+      return Math.round((toDateNum(b) - toDateNum(a)) / 86400000);
+    }
+    function addDaysStr(str, delta) {
+      const n = toDateNum(str);
+      if (Number.isNaN(n)) return str;
+      return new Date(n + delta * 86400000).toISOString().slice(0, 10);
+    }
+    function clampDate(str) {
+      if (str < WINDOW_MIN) return WINDOW_MIN;
+      if (str > WINDOW_MAX) return WINDOW_MAX;
+      return str;
+    }
+    function isFullWindow() {
+      return state.windowStart === WINDOW_MIN && state.windowEnd === WINDOW_MAX;
+    }
+    function windowDays() {
+      return Math.max(1, daysBetweenStr(state.windowStart, state.windowEnd) + 1);
+    }
+    function priorityRankClient(priority) {
+      if (priority === "high") return 3;
+      if (priority === "medium") return 2;
+      if (priority === "low") return 1;
+      return 0;
+    }
+    function winSum(series, endDate, days, offset) {
+      const lo = offset || 0;
+      const hi = lo + days - 1;
+      return series.reduce((acc, p) => {
+        const d = daysBetweenStr(p.date, endDate);
+        if (d < lo || d > hi) return acc;
+        acc.posts += p.mentioned_posts;
+        acc.raw += p.raw_occurrences;
+        return acc;
+      }, { posts: 0, raw: 0 });
+    }
+    function maxDrawdownClient(points) {
+      let peak = -Infinity, dd = 0;
+      points.forEach((p) => {
+        const c = Number(p.close);
+        if (!Number.isFinite(c)) return;
+        peak = Math.max(peak, c);
+        if (peak > 0) dd = Math.min(dd, ((c - peak) / peak) * 100);
+      });
+      return dd;
+    }
+    function windowPrice(base, start, end) {
+      const pts = (base.points || []).filter((p) => p.date >= start && p.date <= end);
+      if (pts.length < 2) {
+        return Object.assign({}, base, {
+          points: pts,
+          change_pct: null,
+          range_high: null,
+          range_low: null,
+          max_drawdown_pct: null,
+          windowLimited: true,
+        });
+      }
+      const closes = pts.map((p) => Number(p.close)).filter(Number.isFinite);
+      const first = Number(pts[0].close);
+      const last = Number(pts[pts.length - 1].close);
+      return Object.assign({}, base, {
+        points: pts,
+        last_close: last,
+        change_pct: first ? ((last - first) / first) * 100 : null,
+        range_high: closes.length ? Math.max.apply(null, closes) : null,
+        range_low: closes.length ? Math.min.apply(null, closes) : null,
+        max_drawdown_pct: maxDrawdownClient(pts),
+        windowLimited: false,
+      });
+    }
+    function windowRow(base, start, end) {
+      const series = (base.mentionSeries || []).filter((p) => p.date >= start && p.date <= end);
+      let mentioned = 0, raw = 0, postM = 0, quoteM = 0, replyM = 0;
+      series.forEach((p) => {
+        mentioned += p.mentioned_posts;
+        raw += p.raw_occurrences;
+        postM += p.post_mentions;
+        quoteM += p.quote_mentions;
+        replyM += p.reply_mentions;
+      });
+      if (!mentioned) return null;
+      const originalWeight = mentioned ? (postM + quoteM) / mentioned : 0;
+      const w7 = winSum(series, end, 7);
+      const p7 = winSum(series, end, 7, 7);
+      const w14 = winSum(series, end, 14);
+      const w30 = winSum(series, end, 30);
+      const last7 = w7.posts;
+      const prev7 = p7.posts;
+      const velocity = last7 - prev7;
+      const lastSeen = series.length ? series[series.length - 1].date : base.last_seen;
+      const examples = (base.examples || []).filter((ex) => {
+        const d = (ex.created_at || "").slice(0, 10);
+        return d >= start && d <= end;
+      });
+      return {
+        rank: base.rank,
+        ticker: base.ticker,
+        mentioned_posts: mentioned,
+        raw_occurrences: raw,
+        post_mentions: postM,
+        quote_mentions: quoteM,
+        reply_mentions: replyM,
+        first_seen: series.length ? series[0].date : base.first_seen,
+        last_seen: lastSeen,
+        names: base.names,
+        primary_theme: base.primary_theme,
+        research_priority: base.research_priority,
+        example_url: base.example_url,
+        composition: { posts: postM, replies: replyM, quotes: quoteM, total: mentioned },
+        interaction: { xPosts: postM, yInteractions: replyM + quoteM, bubbleSize: Math.sqrt(Math.max(mentioned, 1)) },
+        last7,
+        prev7,
+        last14: w14.posts,
+        last30: w30.posts,
+        rawLast7: w7.raw,
+        velocity,
+        velocityPct: prev7 ? (velocity / prev7) * 100 : last7 > 0 ? 100 : 0,
+        daysSinceLast: lastSeen ? daysBetweenStr(lastSeen, end) : null,
+        originalWeight,
+        qualityFlag: base.qualityFlag,
+        mentionSeries: series,
+        examples,
+        price: windowPrice(base.price, start, end),
+      };
+    }
+    function recomputeWindow(start, end) {
+      if (start === WINDOW_MIN && end === WINDOW_MAX) {
+        DASHBOARD_DATA.rows = DASHBOARD_DATA.baseRows;
+        DASHBOARD_DATA.topMovers = DASHBOARD_DATA.baseTopMovers;
+        DASHBOARD_DATA.themeStats = DASHBOARD_DATA.baseThemeStats;
+        return;
+      }
+      const rows = [];
+      DASHBOARD_DATA.baseRows.forEach((base) => {
+        const r = windowRow(base, start, end);
+        if (r) rows.push(r);
+      });
+      const max = { mentioned: 1, raw: 1, last30: 1, last7: 1, velocity: 1 };
+      rows.forEach((r) => {
+        max.mentioned = Math.max(max.mentioned, Math.log1p(r.mentioned_posts));
+        max.raw = Math.max(max.raw, Math.log1p(r.raw_occurrences));
+        max.last30 = Math.max(max.last30, Math.log1p(r.last30));
+        max.last7 = Math.max(max.last7, Math.log1p(r.last7));
+        max.velocity = Math.max(max.velocity, Math.max(0, r.velocity));
+      });
+      rows.forEach((r) => {
+        const score = (Math.log1p(r.mentioned_posts) / max.mentioned) * 55
+          + (Math.log1p(r.raw_occurrences) / max.raw) * 15
+          + (Math.log1p(r.last30) / max.last30) * 12
+          + (Math.log1p(r.last7) / max.last7) * 8
+          + (Math.max(0, r.velocity) / max.velocity) * 4
+          + r.originalWeight * 4
+          + priorityRankClient(r.research_priority) * 0.7;
+        r.serenity_score = Math.round(score * 10) / 10;
+      });
+      rows.sort((a, b) => b.serenity_score - a.serenity_score || a.rank - b.rank);
+      rows.forEach((r, i) => { r.serenity_rank = i + 1; });
+      const themeMap = new Map();
+      rows.forEach((r) => {
+        const theme = r.primary_theme || "Other / unclassified";
+        const cur = themeMap.get(theme) || { theme, tickers: 0, mentions: 0, last7: 0, score: 0 };
+        cur.tickers += 1;
+        cur.mentions += r.mentioned_posts;
+        cur.last7 += r.last7;
+        cur.score += r.serenity_score;
+        themeMap.set(theme, cur);
+      });
+      DASHBOARD_DATA.themeStats = [...themeMap.values()].sort((a, b) => b.mentions - a.mentions);
+      DASHBOARD_DATA.topMovers = rows
+        .filter((r) => r.price.status === "ok" && Number.isFinite(r.price.change_pct))
+        .sort((a, b) => Math.abs(b.price.change_pct) - Math.abs(a.price.change_pct))
+        .slice(0, 12)
+        .map((r) => ({ ticker: r.ticker, symbol: r.price.symbol, change_pct: r.price.change_pct, sparkPath: r.price.sparkPath || "" }));
+      DASHBOARD_DATA.rows = rows;
+    }
+    function applyWindow(start, end) {
+      start = clampDate(start || state.windowStart);
+      end = clampDate(end || state.windowEnd);
+      if (toDateNum(start) > toDateNum(end)) { const t = start; start = end; end = t; }
+      state.windowStart = start;
+      state.windowEnd = end;
+      recomputeWindow(start, end);
+      if (!rowByTicker(state.pinnedTicker)) {
+        state.pinnedTicker = DASHBOARD_DATA.rows[0] ? DASHBOARD_DATA.rows[0].ticker : null;
+      }
+      state.hoverTicker = null;
+      syncWindowBar();
+      renderKpis();
+      renderFilters();
+      renderAll();
+    }
+    function syncWindowBar() {
+      const s = $("winStart"), e = $("winEnd"), label = $("winLabel");
+      if (s) s.value = state.windowStart;
+      if (e) e.value = state.windowEnd;
+      if (label) {
+        label.textContent = (isFullWindow() ? "全部 " : "窗口 ") + windowDays() + " 天 · " + state.windowStart + " → " + state.windowEnd;
+      }
+      document.querySelectorAll(".window-preset").forEach((btn) => {
+        const days = btn.dataset.days;
+        const active = days === "all"
+          ? isFullWindow()
+          : !isFullWindow() && state.windowEnd === WINDOW_MAX && windowDays() === Number(days);
+        btn.classList.toggle("active", active);
+        btn.setAttribute("aria-pressed", active ? "true" : "false");
+      });
+    }
+    function initWindowBar() {
+      const s = $("winStart"), e = $("winEnd");
+      if (s) { s.min = WINDOW_MIN; s.max = WINDOW_MAX; s.value = state.windowStart; }
+      if (e) { e.min = WINDOW_MIN; e.max = WINDOW_MAX; e.value = state.windowEnd; }
+      document.querySelectorAll(".window-preset").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const days = btn.dataset.days;
+          if (days === "all") { applyWindow(WINDOW_MIN, WINDOW_MAX); return; }
+          applyWindow(addDaysStr(WINDOW_MAX, -(Number(days) - 1)), WINDOW_MAX);
+        });
+      });
+      if (s) s.addEventListener("change", () => applyWindow(s.value, e ? e.value : state.windowEnd));
+      if (e) e.addEventListener("change", () => applyWindow(s ? s.value : state.windowStart, e.value));
+      const reset = $("winReset");
+      if (reset) reset.addEventListener("click", () => applyWindow(WINDOW_MIN, WINDOW_MAX));
+      syncWindowBar();
+    }
+
+    // ===== daily research brief =====
+    function knownTickerSet() {
+      if (!DASHBOARD_DATA._knownTickers) {
+        DASHBOARD_DATA._knownTickers = new Set(DASHBOARD_DATA.baseRows.map((r) => r.ticker));
+      }
+      return DASHBOARD_DATA._knownTickers;
+    }
+    function linkifyTickers(text) {
+      const known = knownTickerSet();
+      return html(text).replace(/\\$([A-Z][A-Z0-9.\\-]{0,9})/g, (whole, sym) =>
+        known.has(sym) ? '<button type="button" class="brief-chip" data-ticker="' + sym + '">$' + sym + '</button>' : whole
+      );
+    }
+    function briefText(value) {
+      return linkifyTickers(value).replace(/\\n/g, "<br>");
+    }
+    function briefField(label, value) {
+      if (!value) return "";
+      return '<div class="brief-field"><div class="brief-field-label">' + html(label) + '</div><div class="brief-field-text">' + briefText(value) + '</div></div>';
+    }
+    function renderBriefs() {
+      const host = $("briefBody");
+      if (!host) return;
+      const digests = DASHBOARD_DATA.digests || [];
+      if (!digests.length) {
+        $("briefCard").style.display = "none";
+        return;
+      }
+      const sel = $("briefDateSelect");
+      const activeDate = sel && sel.value ? sel.value : digests[0].date;
+      const digest = digests.find((d) => d.date === activeDate) || digests[0];
+      const themeCards = digest.themes.map((t) => {
+        const inner = t.body
+          ? '<div class="brief-field-text">' + briefText(t.body) + '</div>'
+          : briefField("她的观点", t.view)
+            + briefField("小白解释", t.beginner)
+            + briefField("第一性原理", t.firstPrinciples)
+            + briefField("Buffett 判断", t.buffett)
+            + briefField("当前结论", t.conclusion);
+        const links = (t.links || []).length
+          ? '<div class="brief-links">' + t.links.map((u, i) => '<a class="brief-link" href="' + html(u) + '" target="_blank" rel="noopener noreferrer">关键链接 ' + (i + 1) + '</a>').join("") + '</div>'
+          : "";
+        return '<details class="brief-theme"' + (t.n === 1 ? " open" : "") + '><summary><span class="brief-theme-n">' + t.n + '</span><span class="brief-theme-title">' + linkifyTickers(t.title) + '</span></summary><div class="brief-theme-body">' + inner + links + '</div></details>';
+      }).join("");
+      const picker = digests.length > 1
+        ? '<select class="control brief-date" id="briefDateSelect" aria-label="选择简报日期">' + digests.map((d) => '<option value="' + html(d.date) + '"' + (d.date === digest.date ? " selected" : "") + '>' + html(d.date) + '</option>').join("") + '</select>'
+        : '<span class="pill"><span class="dot"></span>' + html(digest.date) + '</span>';
+      const metaBits = [
+        digest.rangeStart && digest.rangeEnd ? '范围 ' + html(digest.rangeStart) + ' → ' + html(digest.rangeEnd) : '',
+        digest.dedupCount != null ? '去重 ' + formatNumber(digest.dedupCount) + ' 条' : '',
+        digest.source ? '来源 ' + html(digest.source) : '',
+      ].filter(Boolean).join(' · ');
+      host.innerHTML =
+        '<div class="brief-head">' +
+          '<div><div class="title-row"><span class="accent"></span><h2>每日研究简报</h2></div>' +
+          '<div class="card-sub">' + html(digest.title) + (metaBits ? ' · ' + metaBits : '') + '</div></div>' +
+          picker +
+        '</div>' +
+        (digest.summary ? '<div class="brief-summary"><div class="brief-summary-label">今天她重点看什么</div><div class="brief-summary-text">' + briefText(digest.summary) + '</div></div>' : '') +
+        '<div class="brief-themes">' + themeCards + '</div>' +
+        (digest.totalAnalysis ? '<div class="brief-total"><div class="brief-field-label">总分析</div><div class="brief-field-text">' + briefText(digest.totalAnalysis) + '</div></div>' : '') +
+        (digest.disclaimer ? '<div class="brief-disclaimer">' + html(digest.disclaimer) + '</div>' : '');
+      host.querySelectorAll(".brief-chip").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const ticker = btn.dataset.ticker;
+          if (!rowByTicker(ticker)) applyWindow(WINDOW_MIN, WINDOW_MAX);
+          setPinnedTicker(ticker);
+          const detail = document.querySelector('[data-testid="stock-detail-card"]');
+          if (detail && detail.scrollIntoView) detail.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "center" });
+        });
+      });
+      const newSel = $("briefDateSelect");
+      if (newSel) newSel.addEventListener("change", renderBriefs);
+    }
+
     function renderMeta() {
       const win = DASHBOARD_DATA.dataWindow;
       const price = DASHBOARD_DATA.priceProvider;
@@ -1983,7 +2603,7 @@ function buildHtmlV2(data) {
       }, { posts: 0, replies: 0, quotes: 0 });
       const kpis = [
         ["Universe", formatNumber(rows.length), "可排序研究标的", rows.length],
-        ["Mentions", formatNumber(totalMentions), "60 天 ticker mention posts", totalMentions],
+        ["Mentions", formatNumber(totalMentions), (isFullWindow() ? "60" : windowDays()) + " 天 ticker mention posts", totalMentions],
         ["High Priority", formatNumber(high), "skill 标记的高优先级线索", high],
         ["Top Theme", topTheme ? topTheme.theme : "—", topTheme ? formatNumber(topTheme.mentions) + " mentions" : "—", null],
         ["Hot 7D", hot ? hot.ticker : "—", hot ? formatNumber(hot.last7) + " mentions" : "—", null],
@@ -1993,7 +2613,7 @@ function buildHtmlV2(data) {
         const counts = item[3] != null && !reducedMotion;
         const valueAttr = counts ? ' data-count="' + item[3] + '"' : '';
         const valueText = counts ? "0" : html(item[1]);
-        return '<div class="kpi reveal" style="--reveal-delay:' + (index * 45) + 'ms"><div class="kpi-label">' + html(item[0]) + '</div><div class="kpi-value"' + valueAttr + '>' + valueText + '</div><div class="kpi-note">' + html(item[2]) + '</div></div>';
+        return '<div class="kpi reveal' + (firstPaint ? '' : ' reveal-in') + '" style="--reveal-delay:' + (index * 45) + 'ms"><div class="kpi-label">' + html(item[0]) + '</div><div class="kpi-value"' + valueAttr + '>' + valueText + '</div><div class="kpi-note">' + html(item[2]) + '</div></div>';
       }).join("");
       $("kpiGrid").querySelectorAll(".kpi-value[data-count]").forEach((el) => {
         countUp(el, Number(el.dataset.count), 1100);
@@ -2316,10 +2936,10 @@ function buildHtmlV2(data) {
       $("detailBody").innerHTML =
         '<div class="detail-title"><div><div class="detail-ticker">' + row.ticker + '</div><div class="card-sub">' + html(row.primary_theme) + ' · ' + html(row.research_priority) + ' ' + statusChip + '</div></div><div class="score-badge">' + formatNumber(row.serenity_score, 1) + '</div></div>' +
         '<div class="detail-metrics">' +
-          '<div class="mini-metric"><div class="mini-label">60D Mentions</div><div class="mini-value">' + formatNumber(row.mentioned_posts) + '</div></div>' +
+          '<div class="mini-metric"><div class="mini-label">' + (isFullWindow() ? "60D" : windowDays() + "D") + ' Mentions</div><div class="mini-value">' + formatNumber(row.mentioned_posts) + '</div></div>' +
           '<div class="mini-metric"><div class="mini-label">Composition</div><div class="mini-value"><span class="c-posts">' + row.post_mentions + '</span> / <span class="c-replies">' + row.reply_mentions + '</span> / <span class="c-quotes">' + row.quote_mentions + '</span></div></div>' +
           '<div class="mini-metric"><div class="mini-label">7D Momentum</div><div class="mini-value ' + deltaClass(row.velocity) + '">' + (row.velocity > 0 ? "+" : "") + formatNumber(row.velocity) + '</div></div>' +
-          '<div class="mini-metric"><div class="mini-label">3M Price</div><div class="mini-value ' + deltaClass(row.price.change_pct) + '">' + formatPct(row.price.change_pct) + '</div></div>' +
+          '<div class="mini-metric"><div class="mini-label">' + (isFullWindow() ? "3M Price" : windowDays() + "D Price") + '</div><div class="mini-value ' + deltaClass(row.price.change_pct) + '">' + formatPct(row.price.change_pct) + '</div></div>' +
         '</div>' +
         '<div class="section-label"><span>Mention Trend</span><span class="muted">daily posts</span></div>' +
         lineChart(mentionPoints, "value", row.ticker, "mention") +
@@ -2487,6 +3107,8 @@ function buildHtmlV2(data) {
     }
 
     renderMeta();
+    renderBriefs();
+    initWindowBar();
     renderKpis();
     renderFilters();
     attachEvents();
