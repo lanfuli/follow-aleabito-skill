@@ -1106,16 +1106,26 @@ function buildHtmlV2(data) {
       opacity: 0.82;
       stroke: rgba(255,255,255,0.25);
       stroke-width: 1;
-      transition: opacity 0.16s ease, filter 0.16s ease, transform 0.16s ease;
+      transition: opacity 0.2s ease, filter 0.2s ease, transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
       transform-box: fill-box;
       transform-origin: center;
     }
 
-    .bubble:hover,
     .bubble.active {
       opacity: 1;
-      filter: drop-shadow(0 0 18px currentColor);
-      transform: scale(1.035);
+      filter: drop-shadow(0 0 16px currentColor);
+      transform: scale(1.06);
+    }
+
+    .bubble:hover {
+      opacity: 1;
+      filter: drop-shadow(0 0 22px currentColor);
+      transform: scale(1.12);
+    }
+
+    #bubbleChart:has(.bubble:hover) .bubble:not(:hover) {
+      opacity: 0.3;
+      filter: saturate(0.7);
     }
 
     .donut-center {
@@ -1126,11 +1136,18 @@ function buildHtmlV2(data) {
       cursor: pointer;
       stroke: var(--panel);
       stroke-width: 6;
-      transition: opacity 0.16s ease, filter 0.16s ease;
+      transform-box: view-box;
+      transform-origin: 260px 215px;
+      transition: opacity 0.2s ease, filter 0.2s ease, transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .donut-seg:hover {
-      filter: drop-shadow(0 0 18px currentColor);
+      filter: drop-shadow(0 0 20px currentColor) brightness(1.14);
+      transform: scale(1.04);
+    }
+
+    #donutChart:has(.donut-seg:hover) .donut-seg:not(:hover) {
+      opacity: 0.4;
     }
 
     .donut-label {
@@ -1339,12 +1356,13 @@ function buildHtmlV2(data) {
     }
 
     .spark-crosshair {
-      display: none;
+      opacity: 0;
       pointer-events: none;
+      transition: opacity 0.14s ease;
     }
 
-    .spark-wrap:hover .spark-crosshair {
-      display: block;
+    .spark-crosshair.is-on {
+      opacity: 1;
     }
 
     .detail-body {
@@ -1442,12 +1460,23 @@ function buildHtmlV2(data) {
     }
 
     .crosshair {
-      display: none;
+      opacity: 0;
       pointer-events: none;
+      transition: opacity 0.14s ease;
     }
 
-    .line-chart:hover .crosshair {
-      display: block;
+    .crosshair.is-on {
+      opacity: 1;
+    }
+
+    .crosshair.is-on .cross-line,
+    .spark-crosshair.is-on .cross-line {
+      transition: x1 0.12s ease-out, x2 0.12s ease-out;
+    }
+
+    .crosshair.is-on .cross-dot,
+    .spark-crosshair.is-on .cross-dot {
+      transition: cx 0.12s ease-out, cy 0.12s ease-out;
     }
 
     .empty {
@@ -1547,8 +1576,9 @@ function buildHtmlV2(data) {
 
     .tooltip {
       position: fixed;
+      top: 0;
+      left: 0;
       z-index: 1000;
-      display: none;
       min-width: 190px;
       max-width: 320px;
       padding: 10px 12px;
@@ -1561,6 +1591,19 @@ function buildHtmlV2(data) {
       font-size: 12px;
       line-height: 1.45;
       backdrop-filter: blur(12px);
+      opacity: 0;
+      visibility: hidden;
+      transform: translate3d(var(--tx, 0px), var(--ty, 0px), 0) scale(0.96);
+      transform-origin: top left;
+      will-change: transform, opacity;
+      transition: opacity 0.16s ease, transform 0.13s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 0.16s;
+    }
+
+    .tooltip.is-visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translate3d(var(--tx, 0px), var(--ty, 0px), 0) scale(1);
+      transition: opacity 0.16s ease, transform 0.13s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .tooltip strong {
@@ -2184,18 +2227,25 @@ function buildHtmlV2(data) {
       let y = event.clientY + pad;
       if (x + rect.width > window.innerWidth - 10) x = event.clientX - rect.width - pad;
       if (y + rect.height > window.innerHeight - 10) y = event.clientY - rect.height - pad;
-      tooltip.style.left = Math.max(10, x) + "px";
-      tooltip.style.top = Math.max(10, y) + "px";
+      tooltip.style.setProperty("--tx", Math.max(10, x) + "px");
+      tooltip.style.setProperty("--ty", Math.max(10, y) + "px");
     }
 
     function showTooltip(event, content) {
       tooltip.innerHTML = content;
-      tooltip.style.display = "block";
-      moveTooltip(event);
+      if (tooltip.classList.contains("is-visible")) {
+        moveTooltip(event);
+      } else {
+        tooltip.style.transition = "none";
+        moveTooltip(event);
+        void tooltip.offsetWidth;
+        tooltip.style.transition = "";
+        tooltip.classList.add("is-visible");
+      }
     }
 
     function hideTooltip() {
-      tooltip.style.display = "none";
+      tooltip.classList.remove("is-visible");
     }
 
     function rowByTicker(ticker) {
@@ -2976,17 +3026,17 @@ function buildHtmlV2(data) {
           const y = 38 - 4 - ((point.close - min) / (max - min || 1)) * (38 - 8);
           const cross = svg.querySelector(".spark-crosshair");
           if (cross) {
-            cross.style.display = "block";
             cross.querySelector(".cross-line").setAttribute("x1", x);
             cross.querySelector(".cross-line").setAttribute("x2", x);
             cross.querySelector(".cross-dot").setAttribute("cx", x);
             cross.querySelector(".cross-dot").setAttribute("cy", y);
+            cross.classList.add("is-on");
           }
           showTooltip(event, '<strong>' + row.ticker + '</strong><br><span class="muted">' + point.date + '</span><br>Price: ' + formatNumber(point.close, 2) + ' ' + html(row.price.currency || '') + '<br>3M: ' + formatPct(row.price.change_pct));
         });
         svg.addEventListener("mouseleave", () => {
           const cross = svg.querySelector(".spark-crosshair");
-          if (cross) cross.style.display = "none";
+          if (cross) cross.classList.remove("is-on");
           hideTooltip();
         });
       });
@@ -3013,18 +3063,18 @@ function buildHtmlV2(data) {
           const x = pad + (index / Math.max(points.length - 1, 1)) * (width - pad * 2);
           const y = height - pad - ((point.close - min) / (max - min || 1)) * (height - pad * 2);
           const cross = svg.querySelector(".crosshair");
-          cross.style.display = "block";
           cross.querySelector(".cross-line").setAttribute("x1", x);
           cross.querySelector(".cross-line").setAttribute("x2", x);
           cross.querySelector(".cross-dot").setAttribute("cx", x);
           cross.querySelector(".cross-dot").setAttribute("cy", y);
+          cross.classList.add("is-on");
           const label = svg.dataset.mode === "price" ? "Price" : "Mention posts";
           const suffix = svg.dataset.mode === "price" ? " " + html(row.price.currency || "") : "";
           showTooltip(event, '<strong>' + row.ticker + '</strong><br><span class="muted">' + point.date + '</span><br>' + label + ': ' + formatNumber(point.close, 2) + suffix);
         });
         svg.addEventListener("mouseleave", () => {
           const cross = svg.querySelector(".crosshair");
-          if (cross) cross.style.display = "none";
+          if (cross) cross.classList.remove("is-on");
           hideTooltip();
         });
       });
