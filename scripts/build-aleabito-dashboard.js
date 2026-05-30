@@ -745,7 +745,7 @@ function buildHtmlV2(data) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Serenity 500 · AleaBito 60D Research Dashboard</title>
+  <title>Serenity 500 · AleaBito Research Dashboard</title>
   <style>
     :root {
       --bg: #090d1a;
@@ -1975,9 +1975,9 @@ function buildHtmlV2(data) {
   <main class="shell">
     <section class="hero reveal">
       <div>
-        <div class="eyebrow"><span class="accent"></span>AleaBito 60D Equity Intelligence</div>
+        <div class="eyebrow"><span class="accent"></span>AleaBito Equity Intelligence</div>
         <h1>Serenity 500</h1>
-        <div class="hero-copy">基于 @aleabitoreddit 过去 60 天提及数据生成的研究地图。排名代表注意力、提及结构、近期动量和研究优先级，不代表买卖建议。</div>
+        <div class="hero-copy">基于 @aleabitoreddit 自建号以来全部提及数据生成的研究地图。排名代表注意力、提及结构、近期动量和研究优先级，不代表买卖建议。</div>
       </div>
       <div class="meta-strip" id="metaStrip"></div>
     </section>
@@ -2653,7 +2653,7 @@ function buildHtmlV2(data) {
       }, { posts: 0, replies: 0, quotes: 0 });
       const kpis = [
         ["Universe", formatNumber(rows.length), "可排序研究标的", rows.length],
-        ["Mentions", formatNumber(totalMentions), (isFullWindow() ? "60" : windowDays()) + " 天 ticker mention posts", totalMentions],
+        ["Mentions", formatNumber(totalMentions), windowDays() + " 天 ticker mention posts", totalMentions],
         ["High Priority", formatNumber(high), "skill 标记的高优先级线索", high],
         ["Top Theme", topTheme ? topTheme.theme : "—", topTheme ? formatNumber(topTheme.mentions) + " mentions" : "—", null],
         ["Hot 7D", hot ? hot.ticker : "—", hot ? formatNumber(hot.last7) + " mentions" : "—", null],
@@ -2986,7 +2986,7 @@ function buildHtmlV2(data) {
       $("detailBody").innerHTML =
         '<div class="detail-title"><div><div class="detail-ticker">' + row.ticker + '</div><div class="card-sub">' + html(row.primary_theme) + ' · ' + html(row.research_priority) + ' ' + statusChip + '</div></div><div class="score-badge">' + formatNumber(row.serenity_score, 1) + '</div></div>' +
         '<div class="detail-metrics">' +
-          '<div class="mini-metric"><div class="mini-label">' + (isFullWindow() ? "60D" : windowDays() + "D") + ' Mentions</div><div class="mini-value">' + formatNumber(row.mentioned_posts) + '</div></div>' +
+          '<div class="mini-metric"><div class="mini-label">' + windowDays() + 'D Mentions</div><div class="mini-value">' + formatNumber(row.mentioned_posts) + '</div></div>' +
           '<div class="mini-metric"><div class="mini-label">Composition</div><div class="mini-value"><span class="c-posts">' + row.post_mentions + '</span> / <span class="c-replies">' + row.reply_mentions + '</span> / <span class="c-quotes">' + row.quote_mentions + '</span></div></div>' +
           '<div class="mini-metric"><div class="mini-label">7D Momentum</div><div class="mini-value ' + deltaClass(row.velocity) + '">' + (row.velocity > 0 ? "+" : "") + formatNumber(row.velocity) + '</div></div>' +
           '<div class="mini-metric"><div class="mini-label">' + (isFullWindow() ? "3M Price" : windowDays() + "D Price") + '</div><div class="mini-value ' + deltaClass(row.price.change_pct) + '">' + formatPct(row.price.change_pct) + '</div></div>' +
@@ -3178,7 +3178,7 @@ function buildHtml(data) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Serenity 500 · AleaBito 60D Research Dashboard</title>
+  <title>Serenity 500 · AleaBito Research Dashboard</title>
   <style>
     :root {
       --bg: #f7f4ed;

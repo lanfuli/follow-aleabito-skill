@@ -488,6 +488,74 @@ async function fetchTimelineRange({ userId, handle, bearerToken, startTime, endT
   };
 }
 
+// Full-archive backfill via /2/tweets/search/all (no ~3200-tweet timeline cap).
+// Requires an X API project entitled to full-archive search (Pro/Enterprise).
+async function fetchArchiveRange({ handle, bearerToken, startTime, endTime, includeReplies, maxPages }) {
+  let pages = 0;
+  let cursor = null;
+  let exhausted = false;
+  let oldestSeen = null;
+  const events = [];
+  const pageDetails = [];
+  let rateLimit = {};
+  const query = includeReplies
+    ? `from:${handle} -is:retweet`
+    : `from:${handle} -is:retweet -is:reply`;
+
+  while (pages < maxPages && !exhausted) {
+    const params = new URLSearchParams({
+      query,
+      max_results: "100",
+      "tweet.fields": "created_at,public_metrics,referenced_tweets,note_tweet,entities,conversation_id",
+      start_time: startTime,
+      end_time: endTime,
+    });
+    if (cursor) params.set("next_token", cursor);
+
+    const res = await fetchWithTimeout(`${X_API_BASE}/tweets/search/all?${params}`, {
+      headers: { Authorization: `Bearer ${bearerToken}` },
+    });
+    rateLimit = {
+      limit: res.headers.get("x-rate-limit-limit") || "",
+      remaining: res.headers.get("x-rate-limit-remaining") || "",
+      reset: res.headers.get("x-rate-limit-reset") || "",
+    };
+    if (!res.ok) {
+      const detail = await res.text().catch(() => "");
+      throw new Error(`X search/all failed: HTTP ${res.status} ${detail.slice(0, 200)}`);
+    }
+
+    const payload = await res.json();
+    const rows = payload.data || [];
+    pages += 1;
+
+    for (const tweet of rows) {
+      const event = normalizeTweet(tweet, handle);
+      if (!event.tweet_id || !event.created_at || !event.text) continue;
+      events.push(event);
+      if (!oldestSeen || new Date(event.created_at) < new Date(oldestSeen)) oldestSeen = event.created_at;
+    }
+
+    pageDetails.push({
+      page: pages,
+      result_count: payload.meta?.result_count ?? rows.length,
+      data_count: rows.length,
+      next_token: Boolean(payload.meta?.next_token),
+      oldest_seen: oldestSeen,
+      reason: "archive",
+    });
+
+    if (payload.meta?.next_token) {
+      cursor = payload.meta.next_token;
+      await new Promise((resolve) => setTimeout(resolve, 1100)); // search/all ~1 req/sec
+      continue;
+    }
+    exhausted = true;
+  }
+
+  return { events, pages, pageDetails, rateLimit, complete: exhausted };
+}
+
 function planFetchRanges({ mode, backfillDays, overlapHours, existingEvents, nowIso, resume }) {
   if (!resume || existingEvents.length === 0) {
     const days = mode === "incremental" ? backfillDays : backfillDays;
@@ -528,6 +596,7 @@ async function main() {
   const includeReplies = hasFlag("--include-replies");
   const incremental = hasFlag("--incremental");
   const rebuildOnly = hasFlag("--rebuild-only");
+  const useArchive = hasFlag("--archive");
   const resume = hasFlag("--resume") || incremental;
   const backfillDays = numberArg("--backfill-days", 60);
   const maxPages = numberArg("--max-pages", Number.POSITIVE_INFINITY);
@@ -583,15 +652,24 @@ async function main() {
         break;
       }
       if (new Date(range.startTime) >= new Date(range.endTime)) continue;
-      const result = await fetchTimelineRange({
-        userId: user.id,
-        handle,
-        bearerToken: env.X_BEARER_TOKEN,
-        startTime: range.startTime,
-        endTime: range.endTime,
-        includeReplies,
-        maxPages: remainingPages,
-      });
+      const result = useArchive
+        ? await fetchArchiveRange({
+            handle,
+            bearerToken: env.X_BEARER_TOKEN,
+            startTime: range.startTime,
+            endTime: range.endTime,
+            includeReplies,
+            maxPages: remainingPages,
+          })
+        : await fetchTimelineRange({
+            userId: user.id,
+            handle,
+            bearerToken: env.X_BEARER_TOKEN,
+            startTime: range.startTime,
+            endTime: range.endTime,
+            includeReplies,
+            maxPages: remainingPages,
+          });
       fetchedEvents = fetchedEvents.concat(result.events);
       pagesUsed += result.pages;
       remainingPages -= result.pages;

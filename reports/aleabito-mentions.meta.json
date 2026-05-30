@@ -1,18 +1,18 @@
 {
   "status": "ok",
-  "generated_at": "2026-05-30T21:00:52.595Z",
+  "generated_at": "2026-05-30T22:15:02.133Z",
   "handle": "aleabitoreddit",
-  "mode": "incremental",
+  "mode": "backfill",
   "include_replies": true,
   "resume": true,
-  "backfill_days": 60,
+  "backfill_days": 335,
   "overlap_hours": 48,
   "timezone": "America/Los_Angeles",
   "fetch_ranges": [
     {
-      "startTime": "2026-05-27T13:57:15.000Z",
-      "endTime": "2026-05-30T21:00:51.966Z",
-      "reason": "incremental-overlap"
+      "startTime": "2025-06-29T22:14:06.102Z",
+      "endTime": "2026-03-10T19:52:26.000Z",
+      "reason": "older-gap"
     }
   ],
   "files": {
@@ -24,38 +24,340 @@
     "state": "/Users/vincentlan/.follow-aleabito/analytics-state.json"
   },
   "stats": {
-    "existing_events": 1710,
-    "fetched_events": 85,
-    "added_events": 25,
-    "total_events": 1735,
-    "tickers": 280,
-    "pages_used": 2,
-    "earliest_event": "2026-03-29T01:05:09.000Z",
+    "existing_events": 2508,
+    "fetched_events": 3612,
+    "added_events": 3612,
+    "total_events": 6120,
+    "tickers": 750,
+    "pages_used": 40,
+    "earliest_event": "2025-07-02T10:48:09.000Z",
     "latest_event": "2026-05-30T19:35:32.000Z"
   },
   "rate_limit": {
-    "limit": "10000",
-    "remaining": "9998",
-    "reset": "1780175752"
+    "limit": "300",
+    "remaining": "252",
+    "reset": "1780179837"
   },
   "page_details": [
     {
       "page": 1,
       "result_count": 85,
       "data_count": 85,
-      "next_token": false,
-      "end_time": "2026-05-30T21:00:51.966Z",
-      "oldest_seen": "2026-05-27T13:58:41.000Z",
-      "reason": "incremental-overlap"
+      "next_token": true,
+      "oldest_seen": "2026-03-09T00:52:21.000Z",
+      "reason": "older-gap"
     },
     {
       "page": 2,
-      "result_count": 0,
-      "data_count": 0,
+      "result_count": 94,
+      "data_count": 94,
+      "next_token": true,
+      "oldest_seen": "2026-03-06T19:44:58.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 3,
+      "result_count": 90,
+      "data_count": 90,
+      "next_token": true,
+      "oldest_seen": "2026-03-04T17:45:40.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 4,
+      "result_count": 79,
+      "data_count": 79,
+      "next_token": true,
+      "oldest_seen": "2026-03-02T15:49:06.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 5,
+      "result_count": 75,
+      "data_count": 75,
+      "next_token": true,
+      "oldest_seen": "2026-02-28T15:40:12.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 6,
+      "result_count": 81,
+      "data_count": 81,
+      "next_token": true,
+      "oldest_seen": "2026-02-26T18:11:01.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 7,
+      "result_count": 74,
+      "data_count": 74,
+      "next_token": true,
+      "oldest_seen": "2026-02-25T03:08:06.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 8,
+      "result_count": 72,
+      "data_count": 72,
+      "next_token": true,
+      "oldest_seen": "2026-02-22T07:30:54.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 9,
+      "result_count": 78,
+      "data_count": 78,
+      "next_token": true,
+      "oldest_seen": "2026-02-19T19:49:09.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 10,
+      "result_count": 79,
+      "data_count": 79,
+      "next_token": true,
+      "oldest_seen": "2026-02-17T12:18:59.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 11,
+      "result_count": 80,
+      "data_count": 80,
+      "next_token": true,
+      "oldest_seen": "2026-02-14T07:17:58.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 12,
+      "result_count": 75,
+      "data_count": 75,
+      "next_token": true,
+      "oldest_seen": "2026-02-09T19:07:35.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 13,
+      "result_count": 75,
+      "data_count": 75,
+      "next_token": true,
+      "oldest_seen": "2026-02-05T13:40:32.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 14,
+      "result_count": 59,
+      "data_count": 59,
+      "next_token": true,
+      "oldest_seen": "2026-02-03T04:14:03.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 15,
+      "result_count": 96,
+      "data_count": 96,
+      "next_token": true,
+      "oldest_seen": "2026-01-29T18:46:28.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 16,
+      "result_count": 100,
+      "data_count": 100,
+      "next_token": true,
+      "oldest_seen": "2026-01-25T01:51:39.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 17,
+      "result_count": 100,
+      "data_count": 100,
+      "next_token": true,
+      "oldest_seen": "2026-01-20T14:46:21.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 18,
+      "result_count": 100,
+      "data_count": 100,
+      "next_token": true,
+      "oldest_seen": "2026-01-15T18:58:37.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 19,
+      "result_count": 100,
+      "data_count": 100,
+      "next_token": true,
+      "oldest_seen": "2026-01-12T04:45:41.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 20,
+      "result_count": 100,
+      "data_count": 100,
+      "next_token": true,
+      "oldest_seen": "2026-01-08T17:38:39.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 21,
+      "result_count": 100,
+      "data_count": 100,
+      "next_token": true,
+      "oldest_seen": "2026-01-03T17:25:14.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 22,
+      "result_count": 100,
+      "data_count": 100,
+      "next_token": true,
+      "oldest_seen": "2025-12-27T16:46:52.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 23,
+      "result_count": 98,
+      "data_count": 98,
+      "next_token": true,
+      "oldest_seen": "2025-12-15T13:31:49.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 24,
+      "result_count": 100,
+      "data_count": 100,
+      "next_token": true,
+      "oldest_seen": "2025-12-03T13:32:38.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 25,
+      "result_count": 100,
+      "data_count": 100,
+      "next_token": true,
+      "oldest_seen": "2025-11-25T22:06:02.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 26,
+      "result_count": 100,
+      "data_count": 100,
+      "next_token": true,
+      "oldest_seen": "2025-11-19T12:09:58.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 27,
+      "result_count": 100,
+      "data_count": 100,
+      "next_token": true,
+      "oldest_seen": "2025-11-12T17:00:33.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 28,
+      "result_count": 100,
+      "data_count": 100,
+      "next_token": true,
+      "oldest_seen": "2025-11-02T13:51:48.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 29,
+      "result_count": 100,
+      "data_count": 100,
+      "next_token": true,
+      "oldest_seen": "2025-10-28T08:25:54.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 30,
+      "result_count": 100,
+      "data_count": 100,
+      "next_token": true,
+      "oldest_seen": "2025-10-20T23:18:24.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 31,
+      "result_count": 100,
+      "data_count": 100,
+      "next_token": true,
+      "oldest_seen": "2025-10-13T19:01:51.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 32,
+      "result_count": 100,
+      "data_count": 100,
+      "next_token": true,
+      "oldest_seen": "2025-10-08T14:38:14.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 33,
+      "result_count": 100,
+      "data_count": 100,
+      "next_token": true,
+      "oldest_seen": "2025-10-04T22:58:03.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 34,
+      "result_count": 100,
+      "data_count": 100,
+      "next_token": true,
+      "oldest_seen": "2025-10-01T18:56:41.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 35,
+      "result_count": 100,
+      "data_count": 100,
+      "next_token": true,
+      "oldest_seen": "2025-09-28T03:25:56.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 36,
+      "result_count": 100,
+      "data_count": 100,
+      "next_token": true,
+      "oldest_seen": "2025-09-25T15:20:24.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 37,
+      "result_count": 100,
+      "data_count": 100,
+      "next_token": true,
+      "oldest_seen": "2025-09-18T21:59:30.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 38,
+      "result_count": 100,
+      "data_count": 100,
+      "next_token": true,
+      "oldest_seen": "2025-09-11T17:00:30.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 39,
+      "result_count": 99,
+      "data_count": 99,
+      "next_token": true,
+      "oldest_seen": "2025-07-21T08:15:56.000Z",
+      "reason": "older-gap"
+    },
+    {
+      "page": 40,
+      "result_count": 23,
+      "data_count": 23,
       "next_token": false,
-      "end_time": "2026-05-27T13:58:40.000Z",
-      "oldest_seen": "2026-05-27T13:58:41.000Z",
-      "reason": "incremental-overlap"
+      "oldest_seen": "2025-07-02T10:48:09.000Z",
+      "reason": "older-gap"
     }
   ]
 }
