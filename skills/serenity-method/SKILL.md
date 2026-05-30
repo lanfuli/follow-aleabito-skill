@@ -97,7 +97,7 @@ Default output is **研究地图** (a lead worth tracking), with the specific th
 | Plain-language definitions (CPO, photonics, 800VDC, TAM, ASP, P/B, FAU, second source…) | `references/glossary.md` |
 
 ## Optional: tie into the live feed
-If the user wants this applied to her *latest* posts, run the `follow-aleabito` skill's fetch first (`scripts/analyze-mentions.js --incremental --resume` for analytics, or `scripts/fetch-updates.js` for raw posts), then apply Steps 1–5 to the returned content. The output structure here is identical to the dashboard digests in `reports/aleabito-digests/`, so results drop straight into that pipeline.
+If the user wants this applied to her *latest* posts, run the `follow-aleabito` skill's fetch first (its `follow-aleabito/scripts/analyze-mentions.js --incremental --resume` for analytics, or `follow-aleabito/scripts/fetch-updates.js` for raw posts), then apply Steps 1–5 to the returned content. The output structure here is identical to the dashboard digests in `reports/aleabito-digests/`, so results drop straight into that pipeline.
 
 ---
 仅作信息跟踪，不构成投资建议。 / For information tracking only; not investment advice.

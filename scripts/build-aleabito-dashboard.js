@@ -2178,13 +2178,19 @@ function buildHtmlV2(data) {
     function countUp(el, target, duration) {
       if (reducedMotion) { el.textContent = formatNumber(target); return; }
       const start = performance.now();
+      let done = false;
+      function finish() { if (!done) { done = true; el.textContent = formatNumber(target); } }
       function tick(now) {
+        if (done) return;
         const progress = Math.min(1, (now - start) / duration);
         const eased = 1 - Math.pow(1 - progress, 3);
         el.textContent = formatNumber(Math.round(target * eased));
         if (progress < 1) requestAnimationFrame(tick);
+        else done = true;
       }
       requestAnimationFrame(tick);
+      // Guarantee the final value even if rAF is throttled (e.g. background tab), so KPIs never stay stuck mid-animation.
+      setTimeout(finish, duration + 250);
     }
 
     function html(value) {
