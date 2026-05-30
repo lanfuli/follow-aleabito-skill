@@ -7,7 +7,9 @@ description: Track Serenity / @aleabitoreddit on X and turn the feed into (1) a 
 
 ## Purpose
 
-Track `@aleabitoreddit` on X and produce Chinese deliverables grounded only in fetched posts. Always include source URLs. Treat the content as market commentary, not investment advice.
+Track `@aleabitoreddit` on X and produce deliverables grounded only in fetched posts. Always include source URLs. Treat the content as market commentary, not investment advice.
+
+**Language / 语言:** deliverables default to **中文** (the digest and Xiaohongshu workflows are Chinese-first by design), but any of them can be produced in **English** when the user asks. The analytics CSVs and research map are language-neutral.
 
 This skill handles four workflows. Pick the one(s) the user asked for and read the matching reference file only when needed:
 

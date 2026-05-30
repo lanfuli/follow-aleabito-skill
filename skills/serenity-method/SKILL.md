@@ -16,19 +16,21 @@ This skill is **method only**. It does not fetch data. To pull her live posts or
 - "Analyze $X the way Serenity / aleabito would."
 - "Is $X a critical chokepoint? Map its supply chain."
 - "Give me a first-principles + Buffett judgment on $X."
-- Turning a Serenity post (or any thesis) into a structured, beginner-friendly Chinese analysis.
+- Turning a Serenity post (or any thesis) into a structured, beginner-friendly analysis (中文 or English).
 
 ## What you produce
 
-For each ticker or theme, output these blocks **in Chinese**, beginner-friendly, defining jargon on first use (see `references/glossary.md`):
+**Language / 语言:** respond in the **user's language** — 中文 by default, **English** when the request is in English or the user asks. The structure is identical in both; bilingual block labels are shown below.
 
-1. **核心论点 / 她的观点** — the one-paragraph thesis (if analyzing a Serenity post, ground it in the post + cite the source URL; if analyzing your own idea, state it plainly).
-2. **小白解释** — re-explain in plain language a beginner can follow.
-3. **第一性原理** — decompose with the five levers (Step 2).
-4. **Buffett 直接判断** — answer the five fields (Step 3). *Answer them, do not pose them as questions.*
-5. **当前结论** — classify: `研究地图`(a lead worth tracking)vs `可投资结论`(only after moat + financials + valuation + margin-of-safety work). Default to `研究地图`.
+For each ticker or theme, output these blocks, beginner-friendly, defining jargon on first use (see `references/glossary.md`):
 
-End every deliverable with: **仅作信息跟踪，不构成投资建议。**
+1. **核心论点 / 她的观点 · Core thesis / Her view** — the one-paragraph thesis (if analyzing a Serenity post, ground it in the post + cite the source URL; if analyzing your own idea, state it plainly).
+2. **小白解释 · Plain-language** — re-explain in plain language a beginner can follow.
+3. **第一性原理 · First principles** — decompose with the five levers (Step 2).
+4. **Buffett 直接判断 · Buffett verdict** — answer the five fields (Step 3). *Answer them, do not pose them as questions.*
+5. **当前结论 · Conclusion** — classify: `研究地图 / research-map`(a lead worth tracking)vs `可投资结论 / investable-conclusion`(only after moat + financials + valuation + margin-of-safety work). Default to `研究地图`.
+
+End every deliverable with the disclaimer in the output language: **仅作信息跟踪，不构成投资建议。** / **For information tracking only; not investment advice.**
 
 For multi-name digests, compress blocks 2–4 into 1–3 paragraphs per name. Use the full template only for a single deep-dive. (This mirrors the dashboard digests in `reports/aleabito-digests/`.)
 
@@ -98,4 +100,4 @@ Default output is **研究地图** (a lead worth tracking), with the specific th
 If the user wants this applied to her *latest* posts, run the `follow-aleabito` skill's fetch first (`scripts/analyze-mentions.js --incremental --resume` for analytics, or `scripts/fetch-updates.js` for raw posts), then apply Steps 1–5 to the returned content. The output structure here is identical to the dashboard digests in `reports/aleabito-digests/`, so results drop straight into that pipeline.
 
 ---
-仅作信息跟踪，不构成投资建议。
+仅作信息跟踪，不构成投资建议。 / For information tracking only; not investment advice.
