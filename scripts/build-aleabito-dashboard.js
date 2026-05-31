@@ -1988,6 +1988,8 @@ function buildHtmlV2(data) {
         <button type="button" class="window-preset" data-days="7">7D</button>
         <button type="button" class="window-preset" data-days="14">14D</button>
         <button type="button" class="window-preset" data-days="30">30D</button>
+        <button type="button" class="window-preset" data-days="90">90D</button>
+        <button type="button" class="window-preset" data-days="180">180D</button>
         <button type="button" class="window-preset" data-days="all">全部</button>
       </div>
       <div class="window-dates">

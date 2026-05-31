@@ -13,11 +13,12 @@ import { join } from "path";
 import { homedir } from "os";
 
 const THEMES = [
-  { name: "CPO / photonics / optical", tickers: ["SIVE","AAOI","LITE","COHR","POET","JBL","AXTI","SOI","IQE","TSEM","MTSI","LPK"], keywords: ["cpo","photonic","laser","optical","transceiver","silicon photonics","inp","fau","els"] },
-  { name: "Power semis / 800VDC", tickers: ["XFAB","NVTS","POWI","WOLF","ON"], keywords: ["800vdc","800 vdc","sic","gan","wide bandgap","power semi"] },
-  { name: "AI compute / neocloud / hyperscalers", tickers: ["NVDA","AMD","MU","MRVL","AVGO","INTC","MSFT","AMZN","GOOGL","NBIS","META","IREN","CIFR","CRWV","WULF","ALAB","CRDO"], keywords: ["gpu","hbm","asic","hyperscaler","data center","datacenter","neocloud","inference","maia","tpu"] },
-  { name: "Western supply chain / policy", tickers: ["SIVE","XFAB","SOI","IQE","GFS","TSM"], keywords: ["chips act","funding","supply chain","sovereignty","nist","msci","nasdaq","index inclusion"] },
-  { name: "Fintech / crypto / squeeze", tickers: ["HOOD","SOFI","BULL","ETORO","KSPI","COIN","IBIT","BTC","CRCL","HIMS","UPWK","GME","DNUT"], keywords: ["short interest","squeeze","etf","stablecoin","dilution","p/e","value"] },
+  { name: "CPO / photonics / optical", tickers: ["SIVE","AAOI","LITE","COHR","POET","JBL","AXTI","SOI","IQE","TSEM","MTSI","LPK","AEHR","CRDO","GLW","AEVA","LPTH","OSS","VLN","ALRIB","NOK"], keywords: ["cpo","photonic","laser","optical","transceiver","silicon photonics","inp","epiwafer","epitaxial","substrate","pluggable","co-packaged","fau","els"] },
+  { name: "Power semis / 800VDC / grid", tickers: ["XFAB","NVTS","POWI","WOLF","ON","IFNNY","ETN","GEV","PWR","HPS.A"], keywords: ["800vdc","800 vdc","sic","gan","wide bandgap","power semi","power semiconductor","transformer","grid"] },
+  { name: "AI compute / neocloud / memory", tickers: ["NVDA","AMD","MU","MRVL","AVGO","INTC","MSFT","AMZN","GOOGL","META","NBIS","IREN","CIFR","CRWV","WULF","ALAB","TSM","GFS","AAPL","ORCL","HUT","BITF","CLSK","MARA","SNDK"], keywords: ["gpu","hbm","asic","hyperscaler","data center","datacenter","neocloud","inference","maia","tpu","memory","mining"] },
+  { name: "Western supply chain / policy", tickers: ["RPI"], keywords: ["chips act","funding","supply chain","sovereignty","nist","msci","nasdaq","index inclusion","europe","reshoring"] },
+  { name: "Space / defense", tickers: ["RKLB","ASTS","SPCE","SPCX","LMT","NOC"], keywords: ["satcom","satellite","space","defense"] },
+  { name: "Fintech / crypto / consumer / squeeze", tickers: ["HOOD","SOFI","BULL","ETORO","KSPI","COIN","IBIT","BTC","MSTR","CRCL","HIMS","UPWK","GME","DNUT","NVO","UNH","OSCR","BKKT","RDDT","PYPL","V","SG","OKLO","IONQ","QBTS"], keywords: ["short interest","squeeze","etf","stablecoin","dilution","ipo"] },
 ];
 
 function arg(name, fallback) { const i = process.argv.indexOf(name); return i === -1 ? fallback : (process.argv[i + 1] ?? fallback); }
