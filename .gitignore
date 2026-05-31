@@ -11,3 +11,8 @@ tmp/
 reports/*-analysis.md
 reports/*-api.json
 reports/*-api.md
+
+# Local video project — kept out of GitHub
+serenity-remotion/
+video-assets/
+video-scripts/
