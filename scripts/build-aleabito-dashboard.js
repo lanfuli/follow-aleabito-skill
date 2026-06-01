@@ -901,6 +901,7 @@ async function main() {
     }
   });
   // (deepByTicker + benchDeep held in scope for Stage 2/4/5 build-time metrics)
+  const trackRecordAgg = computeTrackRecord(summary, deepCache, meaningfulSet);
 
   const themeStats = new Map();
   summary.forEach((row) => {
@@ -956,6 +957,7 @@ async function main() {
     themeStats: [...themeStats.values()].sort((a, b) => b.mentions - a.mentions),
     topMovers,
     benchmarks: benchmarksData,
+    trackRecord: trackRecordAgg,
     rows: summary,
   };
 
@@ -972,6 +974,43 @@ async function main() {
     price_missing: summary.length - priceSuccess,
     price_cache: priceCachePath,
   }, null, 2));
+}
+
+function median(arr) { if (!arr.length) return null; const s = arr.slice().sort((a, b) => a - b); const m = Math.floor(s.length / 2); return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; }
+function benchCloseOn(daily, date) {
+  let lo = 0, hi = daily.length - 1, ans = -1;
+  while (lo <= hi) { const mid = (lo + hi) >> 1; if (daily[mid].d <= date) { ans = mid; lo = mid + 1; } else hi = mid - 1; }
+  return ans >= 0 ? daily[ans].c : null;
+}
+function computeTrackRecord(rows, deepCache, meaningfulSet) {
+  const spy = (deepCache.series.SPY && deepCache.series.SPY.daily) || [];
+  const recs = [];
+  rows.forEach((r) => {
+    if (!meaningfulSet.has(r.ticker)) return;
+    const s = deepCache.series[r.ticker]; const daily = s && s.daily;
+    if (!daily || daily.length < 2 || !r.first_seen) return;
+    const fs = dateOnly(r.first_seen);
+    let ei = -1; for (let i = 0; i < daily.length; i++) { if (daily[i].d > fs) { ei = i; break; } }
+    if (ei < 0 || ei >= daily.length - 1) return;
+    const entry = daily[ei], exit = daily[daily.length - 1];
+    if (!(entry.c > 0) || !(exit.c > 0)) return;
+    const fwdRet = exit.c / entry.c - 1;
+    const i1 = ei + 21, i3 = ei + 63;
+    const fwd1m = (i1 < daily.length && daily[i1].c > 0) ? daily[i1].c / entry.c - 1 : null;
+    const fwd3m = (i3 < daily.length && daily[i3].c > 0) ? daily[i3].c / entry.c - 1 : null;
+    let spyRet = null;
+    if (spy.length) { const a = benchCloseOn(spy, entry.d), b = benchCloseOn(spy, exit.d); if (a > 0 && b > 0) spyRet = b / a - 1; }
+    const excess = spyRet == null ? null : fwdRet - spyRet;
+    r.trackRecord = { entryDate: entry.d, fwdRet, fwd1m, fwd3m, spyRet, excess, holdDays: daily.length - 1 - ei };
+    recs.push(r.trackRecord);
+  });
+  const meaningfulCount = meaningfulSet.size;
+  const mean = (a) => a.length ? a.reduce((s, x) => s + x, 0) / a.length : null;
+  if (!recs.length) return { n: 0, coverage: 0, winRate: null, meanFwd: null, medianFwd: null, meanExcess: null, medianExcess: null, basketRet: null, basketExcess: null, meaningfulCount };
+  const fwd = recs.map((x) => x.fwdRet);
+  const exc = recs.filter((x) => x.excess != null).map((x) => x.excess);
+  const wins = fwd.filter((x) => x > 0).length;
+  return { n: recs.length, coverage: meaningfulCount ? recs.length / meaningfulCount : 0, winRate: wins / recs.length, meanFwd: mean(fwd), medianFwd: median(fwd), meanExcess: mean(exc), medianExcess: median(exc), basketRet: mean(fwd), basketExcess: mean(exc), meaningfulCount };
 }
 
 function buildHtmlV2(data) {
@@ -1739,6 +1778,17 @@ function buildHtmlV2(data) {
     .combo-hdr-px { font-size: 14px; font-weight: 800; font-variant-numeric: tabular-nums; }
     .combo-ftr { display: flex; justify-content: space-between; margin: 6px 2px 0; font-family: var(--mono); font-size: 11px; color: var(--subtle); }
 
+    .track-card { padding: 16px 22px 18px; margin: 0 0 18px; }
+    .track-empty { display: flex; flex-direction: column; gap: 4px; }
+    .track-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+    .track-title { font-size: 14px; font-weight: 800; letter-spacing: -0.01em; }
+    .track-kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .track-kpi { background: rgba(13,18,33,0.55); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+    .tk-v { font-family: var(--mono); font-size: 23px; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.1; }
+    .tk-l { font-size: 11px; color: var(--muted); margin-top: 4px; }
+    .track-note { font-size: 11px; color: var(--subtle); margin-top: 11px; line-height: 1.55; }
+    .focus-track { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: rgba(13,18,33,0.6); border: 1px solid var(--line); margin: 0 0 10px; }
+    @media (max-width: 720px) { .track-kpis { grid-template-columns: repeat(2, 1fr); } }
     .focus-card { padding: 18px 22px 20px; margin: 0 0 18px; }
     .focus-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; margin-bottom: 12px; }
     .focus-id { display: flex; flex-direction: column; gap: 2px; }
@@ -2289,6 +2339,8 @@ function buildHtmlV2(data) {
     </section>
 
     <section class="kpi-grid" id="kpiGrid"></section>
+
+    <section class="card reveal track-card" id="trackCard" data-testid="track-card"><div id="trackBody"></div></section>
 
     <section class="card reveal brief-card" id="briefCard" data-testid="brief-card">
       <div id="briefBody"></div>
@@ -3529,6 +3581,28 @@ function buildHtmlV2(data) {
         '<div class="stats-note">样本 n=' + model.n + ' 个交易日 · 小样本 + 多重比较；格兰杰为"预测性先后"而非真正因果 · 仅描述，不构成投资建议</div>' +
         '</div>';
     }
+    function renderTrackRecord() {
+      var el = $("trackBody");
+      if (!el) return;
+      var tr = DASHBOARD_DATA.trackRecord;
+      if (!tr || !tr.n) { el.innerHTML = '<div class="track-empty"><span class="track-title">跟随战绩 · Track Record</span><span class="muted">待价格历史回填后计算：自她首次提及（次日入场）起算的前向收益、胜率与超额 SPY。</span></div>'; return; }
+      var p = function (v) { return v == null ? '—' : formatPct(v * 100); };
+      el.innerHTML =
+        '<div class="track-head"><span class="track-title">跟随战绩 · Track Record</span><span class="muted">自她首次提及（次日收盘入场）起算 · 不随上方时间窗变化</span></div>' +
+        '<div class="track-kpis">' +
+          '<div class="track-kpi"><div class="tk-v ' + (tr.winRate >= 0.5 ? 'delta-up' : 'delta-down') + '">' + Math.round(tr.winRate * 100) + '%</div><div class="tk-l">胜率 / Win rate</div></div>' +
+          '<div class="track-kpi"><div class="tk-v ' + deltaClass(tr.medianExcess) + '">' + p(tr.medianExcess) + '</div><div class="tk-l">中位超额 vs SPY</div></div>' +
+          '<div class="track-kpi"><div class="tk-v ' + deltaClass(tr.basketRet) + '">' + p(tr.basketRet) + '</div><div class="tk-l">等权篮子回报</div></div>' +
+          '<div class="track-kpi"><div class="tk-v ' + deltaClass(tr.medianFwd) + '">' + p(tr.medianFwd) + '</div><div class="tk-l">中位个股回报</div></div>' +
+        '</div>' +
+        '<div class="track-note">基于 ' + tr.n + ' / ' + tr.meaningfulCount + ' 只有价格覆盖的标的 · 入场=首次提及次日收盘 · 未做幸存者偏差校正 · 仅描述历史，不构成投资建议</div>';
+    }
+    function trackBadge(row) {
+      var tr = row.trackRecord;
+      if (!tr) return '';
+      var p = function (v) { return v == null ? '—' : formatPct(v * 100); };
+      return '<div class="focus-track ' + deltaClass(tr.excess == null ? tr.fwdRet : tr.excess) + '">自首次提及 ' + tr.entryDate + '：' + p(tr.fwdRet) + ' <span class="muted">超额 SPY ' + p(tr.excess) + '</span></div>';
+    }
     function renderFocus(row) {
       const el = $("focusBody");
       if (!el) return;
@@ -3543,6 +3617,7 @@ function buildHtmlV2(data) {
       el.innerHTML =
         '<div class="focus-head"><div class="focus-id"><span class="focus-ticker">' + row.ticker + '</span><span class="focus-name muted">' + html(px.symbol || row.ticker) + ' · ' + html(row.primary_theme) + '</span></div>' +
         pxHtml + '</div>' +
+        trackBadge(row) +
         combinedChart(row, true) +
         statsPanel(model);
       attachComboHandlers();
@@ -3706,6 +3781,7 @@ function buildHtmlV2(data) {
     }
 
     function renderAll() {
+      renderTrackRecord();
       renderLegend();
       renderCompositionChart();
       renderBubbleChart();
