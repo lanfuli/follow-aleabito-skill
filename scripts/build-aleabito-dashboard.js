@@ -902,6 +902,14 @@ async function main() {
   });
   // (deepByTicker + benchDeep held in scope for Stage 2/4/5 build-time metrics)
   const trackRecordAgg = computeTrackRecord(summary, deepCache, meaningfulSet);
+  const spyDeepDaily = (deepCache.series.SPY && deepCache.series.SPY.daily) || null;
+  const smhDeepDaily = (deepCache.series.SMH && deepCache.series.SMH.daily) || null;
+  summary.forEach((r) => {
+    if (!meaningfulSet.has(r.ticker)) return;
+    const daily = deepByTicker.get(r.ticker); if (!daily) return;
+    const mbd = {}; (r.mentionSeries || []).forEach((p) => { mbd[p.date] = (mbd[p.date] || 0) + (p.mentioned_posts || 0); });
+    r.marketStats = computeMarketStats(daily, spyDeepDaily, smhDeepDaily, mbd);
+  });
 
   const themeStats = new Map();
   summary.forEach((row) => {
@@ -976,6 +984,53 @@ async function main() {
   }, null, 2));
 }
 
+function pearsonB(a, b) {
+  const n = Math.min(a.length, b.length); if (n < 5) return 0;
+  let sa = 0, sb = 0; for (let i = 0; i < n; i++) { sa += a[i]; sb += b[i]; }
+  const ma = sa / n, mb = sb / n; let num = 0, da = 0, db = 0;
+  for (let i = 0; i < n; i++) { const xa = a[i] - ma, xb = b[i] - mb; num += xa * xb; da += xa * xa; db += xb * xb; }
+  if (da === 0 || db === 0) return 0; return num / Math.sqrt(da * db);
+}
+function logRetSeries(daily) {
+  const out = [];
+  for (let i = 1; i < daily.length; i++) { if (daily[i - 1].c > 0 && daily[i].c > 0) out.push({ d: daily[i].d, r: Math.log(daily[i].c / daily[i - 1].c) }); }
+  return out;
+}
+function computeMarketStats(daily, spyDaily, smhDaily, mentionByDate) {
+  if (!daily || daily.length < 30 || !spyDaily || !spyDaily.length) return null;
+  const tr = logRetSeries(daily);
+  const spyMap = new Map(); for (const x of logRetSeries(spyDaily)) spyMap.set(x.d, x.r);
+  const smhMap = new Map(); if (smhDaily) for (const x of logRetSeries(smhDaily)) smhMap.set(x.d, x.r);
+  const dts = [], ri = [], rspy = [], rsmh = [];
+  for (const x of tr) { const s = spyMap.get(x.d); if (s != null) { dts.push(x.d); ri.push(x.r); rspy.push(s); rsmh.push(smhMap.has(x.d) ? smhMap.get(x.d) : null); } }
+  const n = ri.length; if (n < 20) return null;
+  const mean = (a) => a.reduce((s, x) => s + x, 0) / a.length;
+  const mi = mean(ri), msp = mean(rspy);
+  let cov = 0, varS = 0; for (let i = 0; i < n; i++) { cov += (ri[i] - mi) * (rspy[i] - msp); varS += (rspy[i] - msp) * (rspy[i] - msp); }
+  if (varS <= 0) return null;
+  const beta = cov / varS, alpha = mi - beta * msp, alphaAnnual = alpha * 252;
+  let betaSMH = null;
+  if (rsmh.every((x) => x != null)) {
+    const msmh = mean(rsmh); let covS = 0, vS = 0; for (let i = 0; i < n; i++) { covS += (ri[i] - mi) * (rsmh[i] - msmh); vS += (rsmh[i] - msmh) * (rsmh[i] - msmh); }
+    if (vS > 0) betaSMH = covS / vS;
+  }
+  const tail = Math.min(63, n); let cumI = 0, cumS = 0; for (let i = n - tail; i < n; i++) { cumI += ri[i]; cumS += rspy[i]; }
+  const relStr = (Math.exp(cumI) - 1) - (Math.exp(cumS) - 1);
+  const resid = ri.map((r, i) => r - (alpha + beta * rspy[i]));
+  const m = dts.map((d) => (mentionByDate && mentionByDate[d]) || 0);
+  let adjContemp = null, adjBest = null, adjSig = null, adjN = 0;
+  if (m.reduce((s, x) => s + x, 0) > 0) {
+    adjN = n; adjSig = 1.96 / Math.sqrt(n); const ccf = [];
+    for (let k = -7; k <= 7; k++) {
+      const xs = [], ys = [];
+      for (let t = 0; t < n; t++) { const tk = t + k; if (tk >= 0 && tk < n) { xs.push(m[t]); ys.push(resid[tk]); } }
+      const rr = xs.length >= 5 ? pearsonB(xs, ys) : 0;
+      ccf.push({ lag: k, r: rr, sig: Math.abs(rr) > adjSig });
+    }
+    adjContemp = ccf[7].r; adjBest = ccf[0]; for (const c of ccf) if (Math.abs(c.r) > Math.abs(adjBest.r)) adjBest = c;
+  }
+  return { beta, alpha, alphaAnnual, betaSMH, relStr, n, adjContemp, adjBest, adjSig, adjN };
+}
 function median(arr) { if (!arr.length) return null; const s = arr.slice().sort((a, b) => a - b); const m = Math.floor(s.length / 2); return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; }
 function benchCloseOn(daily, date) {
   let lo = 0, hi = daily.length - 1, ans = -1;
@@ -1802,6 +1857,10 @@ function buildHtmlV2(data) {
     .focus-px { font-family: var(--mono); font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums; }
     .focus-chg { font-size: 14px; }
     .combo-chart--lg { height: 360px; }
+    .combo-bench { fill: none; stroke: var(--purple); stroke-width: 1.5; stroke-dasharray: 4 3; opacity: 0.7; vector-effect: non-scaling-stroke; }
+    .combo-legend { font-size: 10px; color: var(--purple); margin-left: 8px; font-weight: 700; }
+    .stats-market { font-family: var(--mono); font-size: 11.5px; color: var(--ink); margin-top: 8px; line-height: 1.6; }
+    .stats-adj { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 3px; line-height: 1.6; }
     .stats-panel { margin-top: 14px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 14px; background: rgba(13,18,33,0.55); }
     .stats-verdict { display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 700; color: var(--ink); }
     .stats-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); flex: none; }
@@ -3373,7 +3432,15 @@ function buildHtmlV2(data) {
       const mMap = {};
       for (const p of (row.mentionSeries || [])) mMap[p.date] = (mMap[p.date] || 0) + (p.mentioned_posts || 0);
       const ment = dates.map((d) => mMap[d] || 0);
-      const pMin = Math.min.apply(null, price), pMax = Math.max.apply(null, price), pSpan = (pMax - pMin) || 1;
+      var bench = null, hasBench = false;
+      var BM = DASHBOARD_DATA.benchmarks;
+      if (BM && BM.SPY && BM.SPY.points && BM.SPY.points.length) {
+        var bmap = {}; BM.SPY.points.forEach(function (bp) { bmap[bp.date] = bp.close; });
+        var bbase = null; for (var bi = 0; bi < dates.length; bi++) { if (bmap[dates[bi]] != null) { bbase = bmap[dates[bi]]; break; } }
+        if (bbase && price[0] > 0) { bench = dates.map(function (d) { var c = bmap[d]; return c != null ? price[0] * (c / bbase) : null; }); hasBench = bench.some(function (v) { return v != null; }); }
+      }
+      var allV = price.slice(); if (hasBench) bench.forEach(function (v) { if (v != null) allV.push(v); });
+      const pMin = Math.min.apply(null, allV), pMax = Math.max.apply(null, allV), pSpan = (pMax - pMin) || 1;
       const mMax = Math.max.apply(null, ment) || 1;
       const n = pts.length, stepX = (W - padX * 2) / Math.max(n - 1, 1);
       const yOf = (v) => padTop + (1 - (v - pMin) / pSpan) * (H - padTop - padBot);
@@ -3383,6 +3450,8 @@ function buildHtmlV2(data) {
       const fid = 'cg' + (++__comboSeq);
       const line = smoothPath(coords);
       const area = line + ' L' + coords[n - 1][0].toFixed(1) + ' ' + (H - padBot) + ' L' + coords[0][0].toFixed(1) + ' ' + (H - padBot) + ' Z';
+      var benchPath = '';
+      if (hasBench) { var bcoords = []; for (var bj = 0; bj < bench.length; bj++) if (bench[bj] != null) bcoords.push([padX + bj * stepX, yOf(bench[bj])]); if (bcoords.length >= 2) benchPath = '<path class="combo-bench" d="' + smoothPath(bcoords) + '"></path>'; }
       const barW = Math.max(1.2, Math.min(7, stepX * 0.55)), barMaxH = (H - padTop - padBot) * 0.42;
       let bars = '';
       for (let i = 0; i < n; i++) {
@@ -3391,12 +3460,13 @@ function buildHtmlV2(data) {
         bars += '<rect class="combo-bar' + (ment[i] >= 0.7 * mMax ? ' spike' : '') + '" x="' + bx.toFixed(1) + '" y="' + by.toFixed(1) + '" width="' + barW.toFixed(1) + '" height="' + bh.toFixed(1) + '" rx="1"></rect>';
       }
       return '<div class="combo-wrap">' +
-        '<div class="combo-hdr"><span>价格走势 · 柱 = 当日提及量</span><span class="combo-hdr-px" style="color:' + stroke + '">' + formatNumber(price[n - 1], 2) + ' ' + html(row.price.currency || '') + ' · ' + formatPct(row.price.change_pct) + '</span></div>' +
+        '<div class="combo-hdr"><span>价格走势 · 柱 = 当日提及量' + (hasBench ? ' <span class="combo-legend">— SPY</span>' : '') + '</span><span class="combo-hdr-px" style="color:' + stroke + '">' + formatNumber(price[n - 1], 2) + ' ' + html(row.price.currency || '') + ' · ' + formatPct(row.price.change_pct) + '</span></div>' +
         '<svg class="combo-chart js-combo-chart' + (big ? ' combo-chart--lg' : '') + '" data-ticker="' + row.ticker + '" data-h="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" role="img" aria-label="' + row.ticker + ' 价格与提及叠加图">' +
         '<defs><linearGradient id="' + fid + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="' + stroke + '" stop-opacity="0.32"></stop><stop offset="82%" stop-color="' + stroke + '" stop-opacity="0.02"></stop></linearGradient></defs>' +
         '<line class="combo-base" x1="' + padX + '" y1="' + (H - padBot) + '" x2="' + (W - padX) + '" y2="' + (H - padBot) + '"></line>' +
         bars +
         '<path d="' + area + '" fill="url(#' + fid + ')"></path>' +
+        benchPath +
         '<path class="combo-line" d="' + line + '" stroke="' + stroke + '"></path>' +
         '<g class="combo-cross"><line class="cc-line" y1="' + padTop + '" y2="' + (H - padBot) + '" stroke="#edf3ff" stroke-width="1" opacity="0.5"></line><circle class="cc-dot" r="3.5" fill="#edf3ff"></circle></g>' +
         '</svg>' +
@@ -3560,8 +3630,15 @@ function buildHtmlV2(data) {
         bars +
         '</svg>';
     }
-    function statsPanel(model) {
-      if (!model) return '<div class="stats-panel stats-na">提及 × 股价模型：重叠的价格/提及数据不足（需 ≥12 个交易日），暂无法建模。</div>';
+    function statsPanel(model, row) {
+      var ms = row && row.marketStats;
+      var fr2 = function (v) { return v == null || !isFinite(v) ? '—' : (v >= 0 ? '+' : '') + v.toFixed(2); };
+      var marketLine = '';
+      if (ms) {
+        marketLine = '<div class="stats-market">β·SPY=' + fr2(ms.beta) + (ms.betaSMH != null ? ' · β·SMH=' + fr2(ms.betaSMH) : '') + ' · α(年化)=' + (ms.alphaAnnual == null ? '—' : formatPct(ms.alphaAnnual * 100)) + ' · 63D相对强弱=' + (ms.relStr == null ? '—' : formatPct(ms.relStr * 100)) + '</div>';
+        if (ms.adjBest) marketLine += '<div class="stats-adj">剔除大盘后（残差·完整窗口）：同步 ρ=' + fr2(ms.adjContemp) + ' · 峰值 lag=' + (ms.adjBest.lag > 0 ? '+' : '') + ms.adjBest.lag + ' r=' + fr2(ms.adjBest.r) + (ms.adjBest.sig ? ' ✓ 仍显著' : ' · 噪声内') + '</div>';
+      }
+      if (!model) return '<div class="stats-panel">' + marketLine + '<div class="stats-na">提及 × 股价模型：重叠的价格/提及数据不足（需 ≥12 个交易日），暂无法建模。</div></div>';
       const fr = (v) => (v >= 0 ? '+' : '') + v.toFixed(2);
       const fp = (v) => v < 0.001 ? '<0.001' : v.toFixed(3);
       const gf = model.grangerFwd, gr = model.grangerRev;
@@ -3580,6 +3657,7 @@ function buildHtmlV2(data) {
         ' · CCF 峰值 lag=' + (best.lag > 0 ? '+' : '') + best.lag + ' r=' + fr(best.r) + (best.sig ? ' ✓' : ' (ns)');
       return '<div class="stats-panel ' + vcls + '">' +
         '<div class="stats-verdict"><span class="stats-dot"></span>' + verdict + '</div>' +
+        marketLine +
         '<div class="stats-ccf"><div class="stats-ccf-cap"><span>互相关 CCF：提及 → 收益（滞后/领先天数）</span><span class="muted">虚线=95%显著带 ±' + model.sig.toFixed(2) + '</span></div>' + ccfChart(model) +
         '<div class="ccf-axis"><span>← 收益领先提及（她在反应）</span><span>提及领先收益（她在预测）→</span></div></div>' +
         '<div class="stats-tech">' + tech + '</div>' +
@@ -3658,7 +3736,7 @@ function buildHtmlV2(data) {
         pxHtml + '</div>' +
         trackBadge(row) +
         combinedChart(row, true) +
-        statsPanel(model);
+        statsPanel(model, row);
       attachComboHandlers();
     }
     function initGridSplitter() {
