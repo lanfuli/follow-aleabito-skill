@@ -2518,30 +2518,34 @@ function buildHtmlV2(data) {
       <div>
         <div class="eyebrow"><span class="accent"></span>AleaBito Equity Intelligence</div>
         <h1>Serenity 500</h1>
-        <div class="hero-copy">基于 @aleabitoreddit 自建号以来全部提及数据生成的研究地图。排名代表注意力、提及结构、近期动量和研究优先级，不代表买卖建议。</div>
+        <div class="hero-copy" data-i18n="hero_copy">基于 @aleabitoreddit 自建号以来全部提及数据生成的研究地图。排名代表注意力、提及结构、近期动量和研究优先级，不代表买卖建议。</div>
       </div>
       <div class="meta-strip" id="metaStrip"></div>
     </section>
 
-    <section class="window-bar reveal" aria-label="时间窗口选择">
-      <div class="window-bar-title"><span class="accent"></span>时间窗口</div>
-      <div class="window-presets" role="group" aria-label="预设时间窗口">
+    <section class="window-bar reveal" aria-label="时间窗口选择" data-i18n-aria="aria_win_section">
+      <div class="window-bar-title"><span class="accent"></span><span data-i18n="win_title">时间窗口</span></div>
+      <div class="window-presets" role="group" aria-label="预设时间窗口" data-i18n-aria="aria_win_presets">
         <button type="button" class="window-preset" data-days="7">7D</button>
         <button type="button" class="window-preset" data-days="14">14D</button>
         <button type="button" class="window-preset" data-days="30">30D</button>
         <button type="button" class="window-preset" data-days="90">90D</button>
         <button type="button" class="window-preset" data-days="180">180D</button>
-        <button type="button" class="window-preset" data-days="all">全部</button>
+        <button type="button" class="window-preset" data-days="all" data-i18n="win_all">全部</button>
       </div>
       <div class="window-dates">
-        <input type="date" id="winStart" aria-label="开始日期">
+        <input type="date" id="winStart" aria-label="开始日期" data-i18n-aria="aria_date_start">
         <span class="sep">→</span>
-        <input type="date" id="winEnd" aria-label="结束日期">
-        <button type="button" class="window-reset" id="winReset">重置</button>
+        <input type="date" id="winEnd" aria-label="结束日期" data-i18n-aria="aria_date_end">
+        <button type="button" class="window-reset" id="winReset" data-i18n="reset">重置</button>
       </div>
       <div class="seg-toggle theme-toggle" role="group" aria-label="主题 / Theme">
         <button type="button" class="seg-btn" data-theme-val="light">浅 Light</button>
         <button type="button" class="seg-btn" data-theme-val="dark">深 Dark</button>
+      </div>
+      <div class="seg-toggle lang-toggle" role="group" aria-label="语言 / Language">
+        <button type="button" class="seg-btn" data-lang-val="zh">中</button>
+        <button type="button" class="seg-btn" data-lang-val="en">EN</button>
       </div>
       <div class="window-label" id="winLabel"></div>
     </section>
@@ -2562,8 +2566,8 @@ function buildHtmlV2(data) {
         <section class="card reveal" data-testid="composition-card">
           <div class="card-head">
             <div>
-              <div class="title-row"><span class="accent"></span><h2>Top 30 Ticker · 提及构成分解</h2></div>
-              <div class="card-sub">横向堆叠条显示主帖、回复和引用的构成。图例可点击开关。</div>
+              <div class="title-row"><span class="accent"></span><h2 data-i18n="card_comp_title">Top 30 Ticker · 提及构成分解</h2></div>
+              <div class="card-sub" data-i18n="card_comp_sub">横向堆叠条显示主帖、回复和引用的构成。图例可点击开关。</div>
             </div>
             <div class="legend" id="seriesLegend"></div>
           </div>
@@ -2576,8 +2580,8 @@ function buildHtmlV2(data) {
           <div class="card reveal" data-testid="bubble-card">
             <div class="card-head">
               <div>
-                <div class="title-row"><span class="accent"></span><h2>提及结构 · 主帖 vs 互动</h2></div>
-                <div class="card-sub">气泡大小 = 原始提及次数，展示哪些 ticker 是主动 thesis，哪些更多来自互动讨论。</div>
+                <div class="title-row"><span class="accent"></span><h2 data-i18n="card_bubble_title">提及结构 · 主帖 vs 互动</h2></div>
+                <div class="card-sub" data-i18n="card_bubble_sub">气泡大小 = 原始提及次数，展示哪些 ticker 是主动 thesis，哪些更多来自互动讨论。</div>
               </div>
               <span class="pill">Top 50</span>
             </div>
@@ -2589,8 +2593,8 @@ function buildHtmlV2(data) {
           <div class="card reveal" data-testid="donut-card">
             <div class="card-head">
               <div>
-                <div class="title-row"><span class="accent"></span><h2>提及类型分布</h2></div>
-                <div class="card-sub">全样本聚合：主帖、回复、引用的占比。</div>
+                <div class="title-row"><span class="accent"></span><h2 data-i18n="card_donut_title">提及类型分布</h2></div>
+                <div class="card-sub" data-i18n="card_donut_sub">全样本聚合：主帖、回复、引用的占比。</div>
               </div>
             </div>
             <div class="chart-body">
@@ -2602,51 +2606,51 @@ function buildHtmlV2(data) {
         <section class="card reveal" data-testid="data-table-card">
           <div class="card-head">
             <div>
-              <div class="title-row"><span class="accent"></span><h2>完整数据 · <span id="tableTickerCount"></span> 个 Ticker</h2></div>
-              <div class="card-sub">搜索、排序和筛选会联动详情面板。鼠标悬停或点击行可快速查看单个 ticker。</div>
+              <div class="title-row"><span class="accent"></span><h2><span data-i18n="tbl_full">完整数据</span> · <span id="tableTickerCount"></span> <span data-i18n="tbl_tickers">个 Ticker</span></h2></div>
+              <div class="card-sub" data-i18n="card_table_sub">搜索、排序和筛选会联动详情面板。鼠标悬停或点击行可快速查看单个 ticker。</div>
             </div>
             <span class="pill"><span class="dot"></span><span id="resultCount"></span></span>
           </div>
           <div class="controls">
-            <div class="search-wrap"><input class="control search-input" id="searchBox" placeholder="搜索 ticker / theme / priority" aria-label="搜索 ticker、theme 或 priority"><button class="search-clear" id="searchClear" type="button" aria-label="清除搜索" style="display:none">×</button></div>
+            <div class="search-wrap"><input class="control search-input" id="searchBox" placeholder="搜索 ticker / theme / priority" aria-label="搜索 ticker、theme 或 priority" data-i18n-ph="search_ph" data-i18n-aria="aria_search"><button class="search-clear" id="searchClear" type="button" aria-label="清除搜索" data-i18n-aria="aria_search_clear" style="display:none">×</button></div>
             <select class="control" id="themeFilter"></select>
             <select class="control" id="priorityFilter">
-              <option value="all">所有优先级</option>
+              <option value="all" data-i18n="f_all_priority">所有优先级</option>
               <option value="high">High</option>
               <option value="medium">Medium</option>
               <option value="low">Low</option>
               <option value="unverified">Unverified</option>
             </select>
             <select class="control" id="priceFilter">
-              <option value="all">所有价格状态</option>
-              <option value="ok">有价格图</option>
-              <option value="missing">暂无价格图</option>
-              <option value="up">3M 上涨</option>
-              <option value="down">3M 下跌</option>
+              <option value="all" data-i18n="f_all_price">所有价格状态</option>
+              <option value="ok" data-i18n="f_price_ok">有价格图</option>
+              <option value="missing" data-i18n="f_price_missing">暂无价格图</option>
+              <option value="up" data-i18n="f_price_up">3M 上涨</option>
+              <option value="down" data-i18n="f_price_down">3M 下跌</option>
             </select>
             <select class="control" id="limitSelect">
               <option value="50">Top 50</option>
               <option value="100">Top 100</option>
               <option value="all">全部</option>
             </select>
-            <button class="control control-button" id="resetFilters" type="button">重置筛选</button>
+            <button class="control control-button" id="resetFilters" type="button" data-i18n="reset_filters">重置筛选</button>
           </div>
           <div class="table-wrap">
-            <table aria-label="Ticker 完整数据表">
+            <table aria-label="Ticker 完整数据表" data-i18n-aria="aria_table">
               <thead>
                 <tr>
                   <th scope="col" data-sort="serenity_rank">#</th>
                   <th scope="col" data-sort="ticker">Ticker</th>
-                  <th scope="col" data-sort="mentioned_posts">提及帖子</th>
-                  <th scope="col" data-sort="raw_occurrences">原始次数</th>
-                  <th scope="col" data-sort="post_mentions">主帖</th>
-                  <th scope="col" data-sort="reply_mentions">回复</th>
-                  <th scope="col" data-sort="quote_mentions">引用</th>
-                  <th scope="col" data-sort="primary_theme">主题</th>
+                  <th scope="col" data-sort="mentioned_posts" data-i18n="th_posts">提及帖子</th>
+                  <th scope="col" data-sort="raw_occurrences" data-i18n="th_raw">原始次数</th>
+                  <th scope="col" data-sort="post_mentions" data-i18n="th_post">主帖</th>
+                  <th scope="col" data-sort="reply_mentions" data-i18n="th_reply">回复</th>
+                  <th scope="col" data-sort="quote_mentions" data-i18n="th_quote">引用</th>
+                  <th scope="col" data-sort="primary_theme" data-i18n="th_theme">主题</th>
                   <th scope="col" data-sort="last7">7D</th>
                   <th scope="col" data-sort="price.change_pct">3M Price</th>
-                  <th scope="col">价格趋势</th>
-                  <th scope="col" data-sort="last_seen">最后提及</th>
+                  <th scope="col" data-i18n="th_spark">价格趋势</th>
+                  <th scope="col" data-sort="last_seen" data-i18n="th_last">最后提及</th>
                 </tr>
               </thead>
               <tbody id="rankBody"></tbody>
@@ -2655,13 +2659,13 @@ function buildHtmlV2(data) {
         </section>
       </div>
 
-      <div class="grid-splitter" id="gridSplitter" role="separator" aria-orientation="vertical" title="拖动调整宽度"></div>
+      <div class="grid-splitter" id="gridSplitter" role="separator" aria-orientation="vertical" title="拖动调整宽度" data-i18n-title="splitter_title"></div>
       <aside class="side-stack">
         <section class="card reveal" data-testid="stock-detail-card">
           <div class="card-head">
             <div>
-              <div class="title-row"><span class="accent"></span><h2>Stock Detail</h2></div>
-              <div class="card-sub">提及趋势、价格趋势、中文来源摘要和英文原文。</div>
+              <div class="title-row"><span class="accent"></span><h2 data-i18n="card_detail_title">Stock Detail</h2></div>
+              <div class="card-sub" data-i18n="card_detail_sub">提及趋势、价格趋势、中文来源摘要和英文原文。</div>
             </div>
           </div>
           <div class="detail-body" id="detailBody"></div>
@@ -2670,8 +2674,8 @@ function buildHtmlV2(data) {
         <section class="card reveal" data-testid="movers-card">
           <div class="card-head">
             <div>
-              <div class="title-row"><span class="accent"></span><h2>Price Movers</h2></div>
-              <div class="card-sub">按 3 个月价格变化绝对值排序。</div>
+              <div class="title-row"><span class="accent"></span><h2 data-i18n="card_movers_title">Price Movers</h2></div>
+              <div class="card-sub" data-i18n="card_movers_sub">按 3 个月价格变化绝对值排序。</div>
             </div>
           </div>
           <div class="movers" id="movers"></div>
@@ -2685,12 +2689,44 @@ function buildHtmlV2(data) {
 
   <script>
     const DASHBOARD_DATA = ${json};
+    var I18N = {
+      zh: {
+        hero_copy: '基于 @aleabitoreddit 自建号以来全部提及数据生成的研究地图。排名代表注意力、提及结构、近期动量和研究优先级，不代表买卖建议。',
+        win_title: '时间窗口', win_all: '全部', reset: '重置', reset_filters: '重置筛选',
+        aria_win_section: '时间窗口选择', aria_win_presets: '预设时间窗口', aria_date_start: '开始日期', aria_date_end: '结束日期', lang_aria: '语言 / Language',
+        card_comp_title: 'Top 30 Ticker · 提及构成分解', card_comp_sub: '横向堆叠条显示主帖、回复和引用的构成。图例可点击开关。',
+        card_bubble_title: '提及结构 · 主帖 vs 互动', card_bubble_sub: '气泡大小 = 原始提及次数，展示哪些 ticker 是主动 thesis，哪些更多来自互动讨论。',
+        card_donut_title: '提及类型分布', card_donut_sub: '全样本聚合：主帖、回复、引用的占比。',
+        tbl_full: '完整数据', tbl_tickers: '个 Ticker', card_table_sub: '搜索、排序和筛选会联动详情面板。鼠标悬停或点击行可快速查看单个 ticker。',
+        card_detail_title: '个股详情 Stock Detail', card_detail_sub: '提及趋势、价格趋势、中文来源摘要和英文原文。',
+        card_movers_title: '价格异动 Price Movers', card_movers_sub: '按 3 个月价格变化绝对值排序。',
+        f_all_priority: '所有优先级', f_all_price: '所有价格状态', f_price_ok: '有价格图', f_price_missing: '暂无价格图', f_price_up: '3M 上涨', f_price_down: '3M 下跌',
+        search_ph: '搜索 ticker / theme / priority', aria_search: '搜索 ticker、theme 或 priority', aria_search_clear: '清除搜索', aria_table: 'Ticker 完整数据表', splitter_title: '拖动调整宽度',
+        th_posts: '提及帖子', th_raw: '原始次数', th_post: '主帖', th_reply: '回复', th_quote: '引用', th_theme: '主题', th_spark: '价格趋势', th_last: '最后提及'
+      },
+      en: {
+        hero_copy: 'A research map built from every cashtag mention since @aleabitoreddit started posting. Rank reflects attention, mention structure, recent momentum and research priority — not buy/sell advice.',
+        win_title: 'Time Window', win_all: 'All', reset: 'Reset', reset_filters: 'Reset filters',
+        aria_win_section: 'Time window selection', aria_win_presets: 'Preset time windows', aria_date_start: 'Start date', aria_date_end: 'End date', lang_aria: '语言 / Language',
+        card_comp_title: 'Top 30 Tickers · Mention Composition', card_comp_sub: 'Stacked bars show the post / reply / quote composition. Click the legend to toggle series.',
+        card_bubble_title: 'Mention Structure · Posts vs Interaction', card_bubble_sub: 'Bubble size = raw mentions; shows which tickers are active theses vs interaction-driven chatter.',
+        card_donut_title: 'Mention Type Distribution', card_donut_sub: 'Whole-sample aggregate: share of posts, replies and quotes.',
+        tbl_full: 'Full Data', tbl_tickers: 'tickers', card_table_sub: 'Search, sort and filter drive the detail panel. Hover or click a row to inspect a single ticker.',
+        card_detail_title: 'Stock Detail', card_detail_sub: 'Mention trend, price trend, Chinese source summaries and English originals.',
+        card_movers_title: 'Price Movers', card_movers_sub: 'Sorted by absolute 3-month price change.',
+        f_all_priority: 'All priorities', f_all_price: 'All price status', f_price_ok: 'Has price', f_price_missing: 'No price', f_price_up: '3M up', f_price_down: '3M down',
+        search_ph: 'Search ticker / theme / priority', aria_search: 'Search ticker, theme or priority', aria_search_clear: 'Clear search', aria_table: 'Full ticker data table', splitter_title: 'Drag to resize',
+        th_posts: 'Posts', th_raw: 'Raw', th_post: 'Post', th_reply: 'Reply', th_quote: 'Quote', th_theme: 'Theme', th_spark: 'Price trend', th_last: 'Last seen'
+      }
+    };
+    function t(k) { var d = I18N[state.lang] || I18N.zh; return (d[k] != null) ? d[k] : (I18N.zh[k] != null ? I18N.zh[k] : k); }
     const SERIES = [
       { key: "posts", label: "主帖 Posts", color: "#67d9f4", className: "c-posts" },
       { key: "replies", label: "回复 Replies", color: "#8274f6", className: "c-replies" },
       { key: "quotes", label: "引用 Quotes", color: "#ee79b8", className: "c-quotes" },
     ];
     const state = {
+      lang: 'zh',
       sortKey: "serenity_rank",
       sortDir: "asc",
       pinnedTicker: DASHBOARD_DATA.rows[0] ? DASHBOARD_DATA.rows[0].ticker : null,
@@ -3890,6 +3926,36 @@ function buildHtmlV2(data) {
         b.addEventListener('click', function () { var v = b.getAttribute('data-theme-val'); applyTheme(v); setStored('aleabito.theme', v); });
       });
     }
+    function applyLang() {
+      var d = I18N[state.lang] || I18N.zh;
+      document.querySelectorAll('[data-i18n]').forEach(function (el) { var k = el.getAttribute('data-i18n'); if (d[k] != null) el.textContent = d[k]; });
+      document.querySelectorAll('[data-i18n-ph]').forEach(function (el) { var k = el.getAttribute('data-i18n-ph'); if (d[k] != null) el.setAttribute('placeholder', d[k]); });
+      document.querySelectorAll('[data-i18n-title]').forEach(function (el) { var k = el.getAttribute('data-i18n-title'); if (d[k] != null) el.setAttribute('title', d[k]); });
+      document.querySelectorAll('[data-i18n-aria]').forEach(function (el) { var k = el.getAttribute('data-i18n-aria'); if (d[k] != null) el.setAttribute('aria-label', d[k]); });
+    }
+    function syncLangToggle() {
+      document.querySelectorAll('.lang-toggle .seg-btn').forEach(function (b) {
+        var on = b.getAttribute('data-lang-val') === state.lang;
+        b.classList.toggle('active', on); b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    }
+    function setLang(l) {
+      state.lang = l;
+      document.documentElement.setAttribute('data-lang', l);
+      document.documentElement.setAttribute('lang', l === 'en' ? 'en' : 'zh-CN');
+      setStored('aleabito.lang', l);
+      applyLang(); syncLangToggle();
+      renderMeta(); renderKpis(); renderFilters(); renderBriefs(); renderAll();
+    }
+    function initLang() {
+      var saved = getStored('aleabito.lang');
+      var l = (saved === 'en' || saved === 'zh') ? saved : 'zh';
+      state.lang = l;
+      document.documentElement.setAttribute('data-lang', l);
+      document.documentElement.setAttribute('lang', l === 'en' ? 'en' : 'zh-CN');
+      syncLangToggle();
+      document.querySelectorAll('.lang-toggle .seg-btn').forEach(function (b) { b.addEventListener('click', function () { setLang(b.getAttribute('data-lang-val')); }); });
+    }
     function renderTrackRecord() {
       var el = $("trackBody");
       if (!el) return;
@@ -4169,6 +4235,7 @@ function buildHtmlV2(data) {
       document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
     }
 
+    initLang();
     renderMeta();
     initTheme();
     renderBriefs();
@@ -4179,6 +4246,7 @@ function buildHtmlV2(data) {
     attachEvents();
     setupReveal();
     renderAll();
+    applyLang();
     firstPaint = false;
     syncSearchClear();
   </script>
