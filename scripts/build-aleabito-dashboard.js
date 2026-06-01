@@ -1778,6 +1778,11 @@ function buildHtmlV2(data) {
     .combo-hdr-px { font-size: 14px; font-weight: 800; font-variant-numeric: tabular-nums; }
     .combo-ftr { display: flex; justify-content: space-between; margin: 6px 2px 0; font-family: var(--mono); font-size: 11px; color: var(--subtle); }
 
+    .fund-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 2px 0 14px; }
+    .fund-cell { background: rgba(13,18,33,0.5); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; }
+    .fc-l { font-size: 10px; color: var(--subtle); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .fc-v { font-family: var(--mono); font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; margin-top: 2px; }
+    .foreign-pill { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 999px; background: rgba(246,200,95,0.16); color: var(--amber); }
     .track-card { padding: 16px 22px 18px; margin: 0 0 18px; }
     .track-empty { display: flex; flex-direction: column; gap: 4px; }
     .track-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
@@ -3581,6 +3586,40 @@ function buildHtmlV2(data) {
         '<div class="stats-note">样本 n=' + model.n + ' 个交易日 · 小样本 + 多重比较；格兰杰为"预测性先后"而非真正因果 · 仅描述，不构成投资建议</div>' +
         '</div>';
     }
+    function compactNum(v) {
+      if (v == null || !isFinite(v)) return '—';
+      var a = Math.abs(v);
+      if (a >= 1e12) return (v / 1e12).toFixed(2) + 'T';
+      if (a >= 1e9) return (v / 1e9).toFixed(2) + 'B';
+      if (a >= 1e6) return (v / 1e6).toFixed(1) + 'M';
+      if (a >= 1e3) return (v / 1e3).toFixed(1) + 'K';
+      return String(Math.round(v));
+    }
+    function fundCell(label, value, cls) { return '<div class="fund-cell"><div class="fc-l">' + label + '</div><div class="fc-v ' + (cls || '') + '">' + value + '</div></div>'; }
+    function fundGrid(f) {
+      if (!f) return '';
+      var num2 = function (v) { return v == null || !isFinite(v) ? '—' : Number(v).toFixed(2); };
+      var pct = function (v) { return v == null || !isFinite(v) ? '—' : (v * 100).toFixed(1) + '%'; };
+      var earn = '—';
+      if (f.nextEarnings) {
+        var t = new Date(f.nextEarnings + 'T00:00:00Z').getTime();
+        var dd = isFinite(t) ? Math.round((t - Date.now()) / 86400000) : null;
+        earn = f.nextEarnings + (dd == null ? '' : ' (' + (dd >= 0 ? dd + ' 天后' : (-dd) + ' 天前') + ')');
+      }
+      var srcLabel = f.source === 'quoteSummary' ? 'Yahoo 完整' : (f.source === 'quote' ? 'Yahoo 简表' : '部分数据');
+      var cells = '';
+      cells += fundCell('市值 Mkt Cap', f.marketCap != null ? compactNum(f.marketCap) : '—');
+      cells += fundCell('日均成交额 ADV', f.avgDollarVol != null ? '$' + compactNum(f.avgDollarVol) : '—');
+      cells += fundCell('做空 / 流通 Short%', pct(f.shortPercentFloat));
+      cells += fundCell('回补天数 D2C', f.shortRatio != null ? Number(f.shortRatio).toFixed(1) + 'd' : '—');
+      cells += fundCell('市盈率 P/E', num2(f.trailingPE));
+      cells += fundCell('预期 Fwd P/E', num2(f.forwardPE));
+      cells += fundCell('市销率 P/S', num2(f.priceToSales));
+      cells += fundCell('Beta', num2(f.beta));
+      cells += fundCell('净利率 Margin', pct(f.profitMargin), deltaClass(f.profitMargin));
+      cells += fundCell('下次财报 Earnings', earn);
+      return '<div class="section-label"><span>基本面与流动性 · Fundamentals</span><span class="muted">' + srcLabel + (f.foreignListed ? ' · 海外上市' : '') + '</span></div><div class="fund-grid">' + cells + '</div>';
+    }
     function renderTrackRecord() {
       var el = $("trackBody");
       if (!el) return;
@@ -3615,7 +3654,7 @@ function buildHtmlV2(data) {
         ? '<div class="focus-px ' + deltaClass(chg) + '">' + formatNumber(px.last_close, 2) + ' ' + html(px.currency || '') + ' <span class="focus-chg">' + formatPct(chg) + '</span></div>'
         : '<div class="focus-px muted">暂无价格</div>';
       el.innerHTML =
-        '<div class="focus-head"><div class="focus-id"><span class="focus-ticker">' + row.ticker + '</span><span class="focus-name muted">' + html(px.symbol || row.ticker) + ' · ' + html(row.primary_theme) + '</span></div>' +
+        '<div class="focus-head"><div class="focus-id"><span class="focus-ticker">' + row.ticker + '</span><span class="focus-name muted">' + html(px.symbol || row.ticker) + ' · ' + html(row.primary_theme) + (row.fundamentals && row.fundamentals.foreignListed ? ' <span class="foreign-pill">海外</span>' : '') + '</span></div>' +
         pxHtml + '</div>' +
         trackBadge(row) +
         combinedChart(row, true) +
@@ -3695,6 +3734,7 @@ function buildHtmlV2(data) {
           '<div class="mini-metric"><div class="mini-label">7D Momentum</div><div class="mini-value ' + deltaClass(row.velocity) + '">' + (row.velocity > 0 ? "+" : "") + formatNumber(row.velocity) + '</div></div>' +
           '<div class="mini-metric"><div class="mini-label">' + (isFullWindow() ? "3M Price" : windowDays() + "D Price") + '</div><div class="mini-value ' + deltaClass(row.price.change_pct) + '">' + formatPct(row.price.change_pct) + '</div></div>' +
         '</div>' +
+        fundGrid(row.fundamentals) +
         '<div class="section-label"><span>最新来源样本</span><span class="muted">中文摘要 + 英文原文</span></div>' +
         '<div class="sample-list">' + samples + '</div>';
       renderFocus(row);
