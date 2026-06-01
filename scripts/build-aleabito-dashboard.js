@@ -2702,7 +2702,30 @@ function buildHtmlV2(data) {
         card_movers_title: '价格异动 Price Movers', card_movers_sub: '按 3 个月价格变化绝对值排序。',
         f_all_priority: '所有优先级', f_all_price: '所有价格状态', f_price_ok: '有价格图', f_price_missing: '暂无价格图', f_price_up: '3M 上涨', f_price_down: '3M 下跌',
         search_ph: '搜索 ticker / theme / priority', aria_search: '搜索 ticker、theme 或 priority', aria_search_clear: '清除搜索', aria_table: 'Ticker 完整数据表', splitter_title: '拖动调整宽度',
-        th_posts: '提及帖子', th_raw: '原始次数', th_post: '主帖', th_reply: '回复', th_quote: '引用', th_theme: '主题', th_spark: '价格趋势', th_last: '最后提及'
+        th_posts: '提及帖子', th_raw: '原始次数', th_post: '主帖', th_reply: '回复', th_quote: '引用', th_theme: '主题', th_spark: '价格趋势',
+        kpi_universe_sub: '可排序研究标的', kpi_mentions_unit: ' 天 ticker mention posts', kpi_priority_sub: 'skill 标记的高优先级线索', kpi_price_sub: 'Yahoo chart 拉取成功',
+        bf_view: '她的观点', bf_beginner: '小白解释', bf_fp: '第一性原理', bf_buffett: 'Buffett 判断', bf_conclusion: '当前结论', bf_links: '关键链接', bf_title: '每日研究简报', bf_focus: '今天她重点看什么', bf_total: '总分析', bf_range: '范围', bf_dedup: '去重', bf_items: '条', bf_source: '来源', aria_brief_date: '选择简报日期', f_all_theme: '所有主题',
+        foot_src: '数据源：', foot_price: '。价格趋势来自 ', foot_disc: '。高提及度只代表研究地图信号，不构成投资建议。',
+        stats_na: '提及 × 股价模型：重叠的价格/提及数据不足（需 ≥12 个交易日），暂无法建模。',
+        dir_pos: '正相关', dir_neg: '负相关',
+        v_granger_a: '提及对其后收益有统计显著的领先关系，方向为', v_granger_b: '（格兰杰检验通过，证据较强）',
+        v_leads_a: '提及领先收益约 ', v_leads_b: ' 天，呈', v_leads_c_strong: '（提及增多→其后收益偏强；相关显著但格兰杰未达显著，证据偏弱）', v_leads_c_weak: '（提及增多→其后收益偏弱；相关显著但格兰杰未达显著，证据偏弱）',
+        v_react_a: '收益领先提及约 ', v_react_b: ' 天，呈', v_react_c: '——更像她对价格已动的反应，而非预测',
+        v_sync_a: '提及与当日收益同步', v_sync_b: '（无明显领先或滞后）',
+        v_none_a: '在此样本下未发现提及与收益的统计显著关系（最强信号为', v_none_b: '，仍在噪声带内）',
+        tech_g: '格兰杰 提及→收益 F=', tech_rev: ' · 收益→提及 p=', tech_sp: ' · 同步 Spearman ρ=', tech_ccf: ' · CCF 峰值 lag=',
+        stats_caveat_a: '样本 n=', stats_caveat_b: ' 个交易日 · 小样本 + 多重比较；格兰杰为"预测性先后"而非真正因果 · 仅描述，不构成投资建议',
+        ccf_cap: '互相关 CCF：提及 → 收益（滞后/领先天数）', ccf_band: '虚线=95%显著带 ±', ccf_left: '← 收益领先提及（她在反应）', ccf_right: '提及领先收益（她在预测）→',
+        mkt_adj_a: '剔除大盘后（残差·完整窗口）：同步 ρ=', mkt_adj_sig: ' ✓ 仍显著', mkt_adj_ns: ' · 噪声内', mkt_alpha: ' · α(年化)=', mkt_rel: ' · 63D相对强弱=',
+        fund_label: '基本面与流动性 · Fundamentals', fund_src_full: 'Yahoo 完整', fund_src_quote: 'Yahoo 简表', fund_src_part: '部分数据', fund_foreign: ' · 海外上市', foreign_short: '海外',
+        fd_mktcap: '市值 Mkt Cap', fd_adv: '日均成交额 ADV', fd_short: '做空 / 流通 Short%', fd_d2c: '回补天数 D2C', fd_pe: '市盈率 P/E', fd_fpe: '预期 Fwd P/E', fd_ps: '市销率 P/S', fd_margin: '净利率 Margin', fd_earn: '下次财报 Earnings', fd_days_after: ' 天后', fd_days_before: ' 天前',
+        mom_accel: '加速 ', mom_age: '入档 ', mom_recency: '最近提及 ', mom_ago: 'd前',
+        conc_title: '主题集中度 · Concentration', conc_sub: '她的注意力分布 + 7D 轮动 ▲▼', conc_cluster: '相关性集群 · 同一押注', conc_cluster_sub: '日收益相关性 ≥ 0.6', conc_note: '提示集中度风险（这些其实是同一条供应链押注），非统计因果。',
+        track_title: '跟随战绩 · Track Record', track_empty: '待价格历史回填后计算：自她首次提及（次日入场）起算的前向收益、胜率与超额 SPY。', track_head_sub: '自她首次提及（次日收盘入场）起算 · 不随上方时间窗变化', track_win: '胜率 / Win rate', track_excess: '中位超额 vs SPY', track_basket: '等权篮子回报', track_median: '中位个股回报', track_note_a: '基于 ', track_note_b: ' 只有价格覆盖的标的 · 入场=首次提及次日收盘 · 未做幸存者偏差校正 · 仅描述历史，不构成投资建议', track_badge_a: '自首次提及 ', track_badge_b: '超额 SPY ',
+        empty_focus: '悬停或点击任意标的查看其价格 × 提及焦点图', empty_price: '暂无价格数据', empty_price_sub: '该标的价格无法解析，无法绘制提及×价格叠加图。', empty_chart: '暂无可绘制数据', empty_chart_sub: '价格数据可能缺失或 Yahoo symbol 无法解析。', empty_samples: '暂无来源样本', empty_data: '暂无数据', empty_noprice: '暂无价格',
+        det_preview: '预览中 · 点击锁定', det_locked: '已锁定', det_samples: '最新来源样本', det_samples_sub: '中文摘要 + 英文原文', det_src_hint: '这条来源需要结合英文原文判断语境。', det_view_en: '查看英文原文', det_open_src: '打开来源', det_attempted: '暂无价格数据 · attempted ',
+        combo_hdr: '价格走势 · 柱 = 当日提及量',
+        th_last: '最后提及'
       },
       en: {
         hero_copy: 'A research map built from every cashtag mention since @aleabitoreddit started posting. Rank reflects attention, mention structure, recent momentum and research priority — not buy/sell advice.',
@@ -2716,7 +2739,30 @@ function buildHtmlV2(data) {
         card_movers_title: 'Price Movers', card_movers_sub: 'Sorted by absolute 3-month price change.',
         f_all_priority: 'All priorities', f_all_price: 'All price status', f_price_ok: 'Has price', f_price_missing: 'No price', f_price_up: '3M up', f_price_down: '3M down',
         search_ph: 'Search ticker / theme / priority', aria_search: 'Search ticker, theme or priority', aria_search_clear: 'Clear search', aria_table: 'Full ticker data table', splitter_title: 'Drag to resize',
-        th_posts: 'Posts', th_raw: 'Raw', th_post: 'Post', th_reply: 'Reply', th_quote: 'Quote', th_theme: 'Theme', th_spark: 'Price trend', th_last: 'Last seen'
+        th_posts: 'Posts', th_raw: 'Raw', th_post: 'Post', th_reply: 'Reply', th_quote: 'Quote', th_theme: 'Theme', th_spark: 'Price trend',
+        kpi_universe_sub: 'Sortable research names', kpi_mentions_unit: 'd ticker mention posts', kpi_priority_sub: 'Skill-flagged high-priority leads', kpi_price_sub: 'Yahoo charts fetched',
+        bf_view: 'Her view', bf_beginner: 'In plain terms', bf_fp: 'First principles', bf_buffett: 'Buffett lens', bf_conclusion: 'Current take', bf_links: 'Key link', bf_title: 'Daily Research Brief', bf_focus: 'Today’s focus', bf_total: 'Synthesis', bf_range: 'Range', bf_dedup: 'Deduped', bf_items: 'items', bf_source: 'Source', aria_brief_date: 'Select brief date', f_all_theme: 'All themes',
+        foot_src: 'Sources: ', foot_price: '. Price trends from ', foot_disc: '. High mention counts are research-map signals only — not investment advice.',
+        stats_na: 'Mention × Price model: not enough overlapping price/mention data (need ≥12 trading days) to model yet.',
+        dir_pos: 'positive', dir_neg: 'negative',
+        v_granger_a: 'Mentions significantly lead subsequent returns; direction: ', v_granger_b: ' (Granger test passes — stronger evidence)',
+        v_leads_a: 'Mentions lead returns by ~', v_leads_b: ' days, ', v_leads_c_strong: ' (more mentions → stronger subsequent returns; correlation significant but Granger n.s. — weaker evidence)', v_leads_c_weak: ' (more mentions → weaker subsequent returns; correlation significant but Granger n.s. — weaker evidence)',
+        v_react_a: 'Returns lead mentions by ~', v_react_b: ' days, ', v_react_c: ' — looks more like her reacting to a move than predicting it',
+        v_sync_a: 'Mentions move with same-day returns, ', v_sync_b: ' (no clear lead or lag)',
+        v_none_a: 'No statistically significant mention↔return relationship in this sample (strongest signal ', v_none_b: ', still within the noise band)',
+        tech_g: 'Granger mentions→returns F=', tech_rev: ' · returns→mentions p=', tech_sp: ' · contemp. Spearman ρ=', tech_ccf: ' · CCF peak lag=',
+        stats_caveat_a: 'Sample n=', stats_caveat_b: ' trading days · small sample + multiple comparisons; Granger = predictive precedence, not true causation · descriptive only, not advice',
+        ccf_cap: 'Cross-correlation: mentions → returns (lag/lead days)', ccf_band: 'dashed = 95% band ±', ccf_left: '← returns lead mentions (reacting)', ccf_right: 'mentions lead returns (predicting) →',
+        mkt_adj_a: 'Market-adjusted (residual · full window): contemp. ρ=', mkt_adj_sig: ' ✓ still significant', mkt_adj_ns: ' · within noise', mkt_alpha: ' · α(ann.)=', mkt_rel: ' · 63D rel. strength=',
+        fund_label: 'Fundamentals & Liquidity', fund_src_full: 'Yahoo full', fund_src_quote: 'Yahoo quote', fund_src_part: 'partial', fund_foreign: ' · foreign-listed', foreign_short: 'Intl',
+        fd_mktcap: 'Mkt Cap', fd_adv: 'Avg $ Vol', fd_short: 'Short % Float', fd_d2c: 'Days to Cover', fd_pe: 'P/E', fd_fpe: 'Fwd P/E', fd_ps: 'P/S', fd_margin: 'Profit Margin', fd_earn: 'Next Earnings', fd_days_after: 'd away', fd_days_before: 'd ago',
+        mom_accel: 'Accel ', mom_age: 'Age ', mom_recency: 'Last seen ', mom_ago: 'd ago',
+        conc_title: 'Theme Concentration', conc_sub: 'Her attention split + 7D rotation ▲▼', conc_cluster: 'Correlated cluster · same bet', conc_cluster_sub: 'daily-return correlation ≥ 0.6', conc_note: 'Flags concentration risk (these are really one supply-chain bet) — not statistical causation.',
+        track_title: 'Track Record', track_empty: 'Computed after the price-history backfill: forward return, win rate and excess vs SPY from her first mention (next-day entry).', track_head_sub: 'From her first mention (next-day close entry) · does not change with the window above', track_win: 'Win rate', track_excess: 'Median excess vs SPY', track_basket: 'Equal-weight basket', track_median: 'Median single-name', track_note_a: 'Based on ', track_note_b: ' priced names · entry = next close after first mention · not survivorship-adjusted · descriptive history, not advice', track_badge_a: 'Since first mention ', track_badge_b: 'excess SPY ',
+        empty_focus: 'Hover or click any ticker to see its price × mention focus chart', empty_price: 'No price data', empty_price_sub: 'Price for this ticker could not be resolved; cannot draw the mention × price overlay.', empty_chart: 'Nothing to plot', empty_chart_sub: 'Price data may be missing or the Yahoo symbol could not be resolved.', empty_samples: 'No source samples', empty_data: 'No data', empty_noprice: 'No price',
+        det_preview: 'Previewing · click to pin', det_locked: 'Pinned', det_samples: 'Latest source samples', det_samples_sub: 'Chinese summary + English original', det_src_hint: 'This source needs the English original for context.', det_view_en: 'View English original', det_open_src: 'Open source', det_attempted: 'No price data · attempted ',
+        combo_hdr: 'Price trend · bars = daily mentions',
+        th_last: 'Last seen'
       }
     };
     function t(k) { var d = I18N[state.lang] || I18N.zh; return (d[k] != null) ? d[k] : (I18N.zh[k] != null ? I18N.zh[k] : k); }
@@ -3181,36 +3227,37 @@ function buildHtmlV2(data) {
       const sel = $("briefDateSelect");
       const activeDate = sel && sel.value ? sel.value : digests[0].date;
       const digest = digests.find((d) => d.date === activeDate) || digests[0];
+      var T = t;
       const themeCards = digest.themes.map((t) => {
         const inner = t.body
           ? '<div class="brief-field-text">' + briefText(t.body) + '</div>'
-          : briefField("她的观点", t.view)
-            + briefField("小白解释", t.beginner)
-            + briefField("第一性原理", t.firstPrinciples)
-            + briefField("Buffett 判断", t.buffett)
-            + briefField("当前结论", t.conclusion);
+          : briefField(T('bf_view'), t.view)
+            + briefField(T('bf_beginner'), t.beginner)
+            + briefField(T('bf_fp'), t.firstPrinciples)
+            + briefField(T('bf_buffett'), t.buffett)
+            + briefField(T('bf_conclusion'), t.conclusion);
         const links = (t.links || []).length
-          ? '<div class="brief-links">' + t.links.map((u, i) => '<a class="brief-link" href="' + html(u) + '" target="_blank" rel="noopener noreferrer">关键链接 ' + (i + 1) + '</a>').join("") + '</div>'
+          ? '<div class="brief-links">' + t.links.map((u, i) => '<a class="brief-link" href="' + html(u) + '" target="_blank" rel="noopener noreferrer">' + T('bf_links') + ' ' + (i + 1) + '</a>').join("") + '</div>'
           : "";
         return '<details class="brief-theme"' + (t.n === 1 ? " open" : "") + '><summary><span class="brief-theme-n">' + t.n + '</span><span class="brief-theme-title">' + linkifyTickers(t.title) + '</span></summary><div class="brief-theme-body">' + inner + links + '</div></details>';
       }).join("");
       const picker = digests.length > 1
-        ? '<select class="control brief-date" id="briefDateSelect" aria-label="选择简报日期">' + digests.map((d) => '<option value="' + html(d.date) + '"' + (d.date === digest.date ? " selected" : "") + '>' + html(d.date) + '</option>').join("") + '</select>'
+        ? '<select class="control brief-date" id="briefDateSelect" aria-label="' + t('aria_brief_date') + '">' + digests.map((d) => '<option value="' + html(d.date) + '"' + (d.date === digest.date ? " selected" : "") + '>' + html(d.date) + '</option>').join("") + '</select>'
         : '<span class="pill"><span class="dot"></span>' + html(digest.date) + '</span>';
       const metaBits = [
-        digest.rangeStart && digest.rangeEnd ? '范围 ' + html(digest.rangeStart) + ' → ' + html(digest.rangeEnd) : '',
-        digest.dedupCount != null ? '去重 ' + formatNumber(digest.dedupCount) + ' 条' : '',
-        digest.source ? '来源 ' + html(digest.source) : '',
+        digest.rangeStart && digest.rangeEnd ? t('bf_range') + ' ' + html(digest.rangeStart) + ' → ' + html(digest.rangeEnd) : '',
+        digest.dedupCount != null ? t('bf_dedup') + ' ' + formatNumber(digest.dedupCount) + ' ' + t('bf_items') : '',
+        digest.source ? t('bf_source') + ' ' + html(digest.source) : '',
       ].filter(Boolean).join(' · ');
       host.innerHTML =
         '<div class="brief-head">' +
-          '<div><div class="title-row"><span class="accent"></span><h2>每日研究简报</h2></div>' +
+          '<div><div class="title-row"><span class="accent"></span><h2>' + t('bf_title') + '</h2></div>' +
           '<div class="card-sub">' + html(digest.title) + (metaBits ? ' · ' + metaBits : '') + '</div></div>' +
           picker +
         '</div>' +
-        (digest.summary ? '<div class="brief-summary"><div class="brief-summary-label">今天她重点看什么</div><div class="brief-summary-text">' + briefText(digest.summary) + '</div></div>' : '') +
+        (digest.summary ? '<div class="brief-summary"><div class="brief-summary-label">' + t('bf_focus') + '</div><div class="brief-summary-text">' + briefText(digest.summary) + '</div></div>' : '') +
         '<div class="brief-themes">' + themeCards + '</div>' +
-        (digest.totalAnalysis ? '<div class="brief-total"><div class="brief-field-label">总分析</div><div class="brief-field-text">' + briefText(digest.totalAnalysis) + '</div></div>' : '') +
+        (digest.totalAnalysis ? '<div class="brief-total"><div class="brief-field-label">' + t('bf_total') + '</div><div class="brief-field-text">' + briefText(digest.totalAnalysis) + '</div></div>' : '') +
         (digest.disclaimer ? '<div class="brief-disclaimer">' + html(digest.disclaimer) + '</div>' : '');
       host.querySelectorAll(".brief-chip").forEach((btn) => {
         btn.addEventListener("click", () => {
@@ -3234,7 +3281,7 @@ function buildHtmlV2(data) {
         '<span class="pill">' + formatNumber(win.tickers) + ' tickers</span>',
         '<span class="pill">' + price.success + '/' + price.total + ' price charts</span>',
       ].join("");
-      $("footerNote").innerHTML = "数据源：" + DASHBOARD_DATA.sourceFiles.summary + "、" + DASHBOARD_DATA.sourceFiles.daily + "、" + DASHBOARD_DATA.sourceFiles.events + "。价格趋势来自 " + DASHBOARD_DATA.priceProvider.name + "。高提及度只代表研究地图信号，不构成投资建议。";
+      $("footerNote").innerHTML = t('foot_src') + DASHBOARD_DATA.sourceFiles.summary + "、" + DASHBOARD_DATA.sourceFiles.daily + "、" + DASHBOARD_DATA.sourceFiles.events + t('foot_price') + DASHBOARD_DATA.priceProvider.name + t('foot_disc');
     }
 
     function renderKpis() {
@@ -3251,12 +3298,12 @@ function buildHtmlV2(data) {
         return acc;
       }, { posts: 0, replies: 0, quotes: 0 });
       const kpis = [
-        ["Universe", formatNumber(rows.length), "可排序研究标的", rows.length],
-        ["Mentions", formatNumber(totalMentions), windowDays() + " 天 ticker mention posts", totalMentions],
-        ["High Priority", formatNumber(high), "skill 标记的高优先级线索", high],
+        ["Universe", formatNumber(rows.length), t('kpi_universe_sub'), rows.length],
+        ["Mentions", formatNumber(totalMentions), windowDays() + t('kpi_mentions_unit'), totalMentions],
+        ["High Priority", formatNumber(high), t('kpi_priority_sub'), high],
         ["Top Theme", topTheme ? topTheme.theme : "—", topTheme ? formatNumber(topTheme.mentions) + " mentions" : "—", null],
         ["Hot 7D", hot ? hot.ticker : "—", hot ? formatNumber(hot.last7) + " mentions" : "—", null],
-        ["Price Coverage", priceOk + "/" + rows.length, "Yahoo chart 拉取成功", null],
+        ["Price Coverage", priceOk + "/" + rows.length, t('kpi_price_sub'), null],
       ];
       $("kpiGrid").innerHTML = kpis.map((item, index) => {
         const counts = item[3] != null && !reducedMotion;
@@ -3272,7 +3319,7 @@ function buildHtmlV2(data) {
 
     function renderFilters() {
       const themes = ["all"].concat(DASHBOARD_DATA.themeStats.map((item) => item.theme));
-      $("themeFilter").innerHTML = themes.map((theme) => '<option value="' + html(theme) + '">' + (theme === "all" ? "所有主题" : html(theme)) + '</option>').join("");
+      $("themeFilter").innerHTML = themes.map((theme) => '<option value="' + html(theme) + '">' + (theme === "all" ? t('f_all_theme') : html(theme)) + '</option>').join("");
       $("tableTickerCount").textContent = formatNumber(DASHBOARD_DATA.rows.length);
     }
 
@@ -3607,7 +3654,7 @@ function buildHtmlV2(data) {
     let __comboSeq = 0;
     function combinedChart(row, big) {
       const pts = (row.price && row.price.points) || [];
-      if (pts.length < 2) return '<div class="empty">暂无价格数据<br><span class="muted">该标的价格无法解析，无法绘制提及×价格叠加图。</span></div>';
+      if (pts.length < 2) return '<div class="empty">' + t('empty_price') + '<br><span class="muted">' + t('empty_price_sub') + '</span></div>';
       const W = 560, H = big ? 300 : 210, padX = 14, padTop = 26, padBot = 30;
       const dates = pts.map((p) => p.date);
       const price = pts.map((p) => Number(p.close) || 0);
@@ -3642,7 +3689,7 @@ function buildHtmlV2(data) {
         bars += '<rect class="combo-bar' + (ment[i] >= 0.7 * mMax ? ' spike' : '') + '" x="' + bx.toFixed(1) + '" y="' + by.toFixed(1) + '" width="' + barW.toFixed(1) + '" height="' + bh.toFixed(1) + '" rx="1"></rect>';
       }
       return '<div class="combo-wrap">' +
-        '<div class="combo-hdr"><span>价格走势 · 柱 = 当日提及量' + (hasBench ? ' <span class="combo-legend">— SPY</span>' : '') + '</span><span class="combo-hdr-px" style="color:' + stroke + '">' + formatNumber(price[n - 1], 2) + ' ' + html(row.price.currency || '') + ' · ' + formatPct(row.price.change_pct) + '</span></div>' +
+        '<div class="combo-hdr"><span>' + t('combo_hdr') + (hasBench ? ' <span class="combo-legend">— SPY</span>' : '') + '</span><span class="combo-hdr-px" style="color:' + stroke + '">' + formatNumber(price[n - 1], 2) + ' ' + html(row.price.currency || '') + ' · ' + formatPct(row.price.change_pct) + '</span></div>' +
         '<svg class="combo-chart js-combo-chart' + (big ? ' combo-chart--lg' : '') + '" data-ticker="' + row.ticker + '" data-h="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" role="img" aria-label="' + row.ticker + ' 价格与提及叠加图">' +
         '<defs><linearGradient id="' + fid + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="' + stroke + '" stop-opacity="0.32"></stop><stop offset="82%" stop-color="' + stroke + '" stop-opacity="0.02"></stop></linearGradient></defs>' +
         '<line class="combo-base" x1="' + padX + '" y1="' + (H - padBot) + '" x2="' + (W - padX) + '" y2="' + (H - padBot) + '"></line>' +
@@ -3816,34 +3863,35 @@ function buildHtmlV2(data) {
       var ms = row && row.marketStats;
       var fr2 = function (v) { return v == null || !isFinite(v) ? '—' : (v >= 0 ? '+' : '') + v.toFixed(2); };
       var marketLine = '';
+      var fpct = function (x) { return x == null ? '—' : formatPct(x * 100); };
       if (ms) {
-        marketLine = '<div class="stats-market">β·SPY=' + fr2(ms.beta) + (ms.betaSMH != null ? ' · β·SMH=' + fr2(ms.betaSMH) : '') + ' · α(年化)=' + (ms.alphaAnnual == null ? '—' : formatPct(ms.alphaAnnual * 100)) + ' · 63D相对强弱=' + (ms.relStr == null ? '—' : formatPct(ms.relStr * 100)) + '</div>';
-        if (ms.adjBest) marketLine += '<div class="stats-adj">剔除大盘后（残差·完整窗口）：同步 ρ=' + fr2(ms.adjContemp) + ' · 峰值 lag=' + (ms.adjBest.lag > 0 ? '+' : '') + ms.adjBest.lag + ' r=' + fr2(ms.adjBest.r) + (ms.adjBest.sig ? ' ✓ 仍显著' : ' · 噪声内') + '</div>';
+        marketLine = '<div class="stats-market">β·SPY=' + fr2(ms.beta) + (ms.betaSMH != null ? ' · β·SMH=' + fr2(ms.betaSMH) : '') + t('mkt_alpha') + fpct(ms.alphaAnnual) + t('mkt_rel') + fpct(ms.relStr) + '</div>';
+        if (ms.adjBest) marketLine += '<div class="stats-adj">' + t('mkt_adj_a') + fr2(ms.adjContemp) + ' · 峰值 lag=' + (ms.adjBest.lag > 0 ? '+' : '') + ms.adjBest.lag + ' r=' + fr2(ms.adjBest.r) + (ms.adjBest.sig ? t('mkt_adj_sig') : t('mkt_adj_ns')) + '</div>';
       }
-      if (!model) return '<div class="stats-panel">' + marketLine + '<div class="stats-na">提及 × 股价模型：重叠的价格/提及数据不足（需 ≥12 个交易日），暂无法建模。</div></div>';
+      if (!model) return '<div class="stats-panel">' + marketLine + '<div class="stats-na">' + t('stats_na') + '</div></div>';
       const fr = (v) => (v >= 0 ? '+' : '') + v.toFixed(2);
       const fp = (v) => v < 0.001 ? '<0.001' : v.toFixed(3);
       const gf = model.grangerFwd, gr = model.grangerRev;
       const gp = gf ? gf.p : 1;
       const best = model.best;
-      const dir = best.r >= 0 ? '正相关' : '负相关';
+      const dir = best.r >= 0 ? t('dir_pos') : t('dir_neg');
       let verdict, vcls;
-      if (gf && gp < 0.05) { verdict = '提及对其后收益有统计显著的领先关系，方向为' + dir + '（格兰杰检验通过，证据较强）'; vcls = 'stat-sig'; }
-      else if (best.sig && best.lag > 0) { verdict = '提及领先收益约 ' + best.lag + ' 天，呈' + dir + '（' + (best.r >= 0 ? '提及增多→其后收益偏强' : '提及增多→其后收益偏弱') + '；相关显著但格兰杰未达显著，证据偏弱）'; vcls = 'stat-mid'; }
-      else if (best.sig && best.lag < 0) { verdict = '收益领先提及约 ' + (-best.lag) + ' 天，呈' + dir + '——更像她对价格已动的反应，而非预测'; vcls = 'stat-mid'; }
-      else if (best.sig) { verdict = '提及与当日收益同步' + dir + '（无明显领先或滞后）'; vcls = 'stat-mid'; }
-      else { verdict = '在此样本下未发现提及与收益的统计显著关系（最强信号为' + dir + ' r=' + best.r.toFixed(2) + '，仍在噪声带内）'; vcls = 'stat-weak'; }
-      const tech = '格兰杰 提及→收益 F=' + (gf ? gf.F.toFixed(2) : '—') + ' p=' + (gf ? fp(gf.p) : '—') + (gf && gf.p < 0.05 ? ' ✓' : ' (ns)') +
-        ' · 收益→提及 p=' + (gr ? fp(gr.p) : '—') +
-        ' · 同步 Spearman ρ=' + fr(model.spearman) +
-        ' · CCF 峰值 lag=' + (best.lag > 0 ? '+' : '') + best.lag + ' r=' + fr(best.r) + (best.sig ? ' ✓' : ' (ns)');
+      if (gf && gp < 0.05) { verdict = t('v_granger_a') + dir + t('v_granger_b'); vcls = 'stat-sig'; }
+      else if (best.sig && best.lag > 0) { verdict = t('v_leads_a') + best.lag + t('v_leads_b') + dir + (best.r >= 0 ? t('v_leads_c_strong') : t('v_leads_c_weak')); vcls = 'stat-mid'; }
+      else if (best.sig && best.lag < 0) { verdict = t('v_react_a') + (-best.lag) + t('v_react_b') + dir + t('v_react_c'); vcls = 'stat-mid'; }
+      else if (best.sig) { verdict = t('v_sync_a') + dir + t('v_sync_b'); vcls = 'stat-mid'; }
+      else { verdict = t('v_none_a') + dir + ' r=' + best.r.toFixed(2) + t('v_none_b'); vcls = 'stat-weak'; }
+      const tech = t('tech_g') + (gf ? gf.F.toFixed(2) : '—') + ' p=' + (gf ? fp(gf.p) : '—') + (gf && gf.p < 0.05 ? ' ✓' : ' (ns)') +
+        t('tech_rev') + (gr ? fp(gr.p) : '—') +
+        t('tech_sp') + fr(model.spearman) +
+        t('tech_ccf') + (best.lag > 0 ? '+' : '') + best.lag + ' r=' + fr(best.r) + (best.sig ? ' ✓' : ' (ns)');
       return '<div class="stats-panel ' + vcls + '">' +
         '<div class="stats-verdict"><span class="stats-dot"></span>' + verdict + '</div>' +
         marketLine +
-        '<div class="stats-ccf"><div class="stats-ccf-cap"><span>互相关 CCF：提及 → 收益（滞后/领先天数）</span><span class="muted">虚线=95%显著带 ±' + model.sig.toFixed(2) + '</span></div>' + ccfChart(model) +
-        '<div class="ccf-axis"><span>← 收益领先提及（她在反应）</span><span>提及领先收益（她在预测）→</span></div></div>' +
+        '<div class="stats-ccf"><div class="stats-ccf-cap"><span>' + t('ccf_cap') + '</span><span class="muted">' + t('ccf_band') + model.sig.toFixed(2) + '</span></div>' + ccfChart(model) +
+        '<div class="ccf-axis"><span>' + t('ccf_left') + '</span><span>' + t('ccf_right') + '</span></div></div>' +
         '<div class="stats-tech">' + tech + '</div>' +
-        '<div class="stats-note">样本 n=' + model.n + ' 个交易日 · 小样本 + 多重比较；格兰杰为"预测性先后"而非真正因果 · 仅描述，不构成投资建议</div>' +
+        '<div class="stats-note">' + t('stats_caveat_a') + model.n + t('stats_caveat_b') + '</div>' +
         '</div>';
     }
     function compactNum(v) {
@@ -3864,29 +3912,29 @@ function buildHtmlV2(data) {
       if (f.nextEarnings) {
         var t = new Date(f.nextEarnings + 'T00:00:00Z').getTime();
         var dd = isFinite(t) ? Math.round((t - Date.now()) / 86400000) : null;
-        earn = f.nextEarnings + (dd == null ? '' : ' (' + (dd >= 0 ? dd + ' 天后' : (-dd) + ' 天前') + ')');
+        earn = f.nextEarnings + (dd == null ? '' : ' (' + (dd >= 0 ? dd + t('fd_days_after') : (-dd) + t('fd_days_before')) + ')');
       }
-      var srcLabel = f.source === 'quoteSummary' ? 'Yahoo 完整' : (f.source === 'quote' ? 'Yahoo 简表' : '部分数据');
+      var srcLabel = f.source === 'quoteSummary' ? t('fund_src_full') : (f.source === 'quote' ? t('fund_src_quote') : t('fund_src_part'));
       var cells = '';
-      cells += fundCell('市值 Mkt Cap', f.marketCap != null ? compactNum(f.marketCap) : '—');
-      cells += fundCell('日均成交额 ADV', f.avgDollarVol != null ? '$' + compactNum(f.avgDollarVol) : '—');
-      cells += fundCell('做空 / 流通 Short%', pct(f.shortPercentFloat));
-      cells += fundCell('回补天数 D2C', f.shortRatio != null ? Number(f.shortRatio).toFixed(1) + 'd' : '—');
-      cells += fundCell('市盈率 P/E', num2(f.trailingPE));
-      cells += fundCell('预期 Fwd P/E', num2(f.forwardPE));
-      cells += fundCell('市销率 P/S', num2(f.priceToSales));
+      cells += fundCell(t('fd_mktcap'), f.marketCap != null ? compactNum(f.marketCap) : '—');
+      cells += fundCell(t('fd_adv'), f.avgDollarVol != null ? '$' + compactNum(f.avgDollarVol) : '—');
+      cells += fundCell(t('fd_short'), pct(f.shortPercentFloat));
+      cells += fundCell(t('fd_d2c'), f.shortRatio != null ? Number(f.shortRatio).toFixed(1) + 'd' : '—');
+      cells += fundCell(t('fd_pe'), num2(f.trailingPE));
+      cells += fundCell(t('fd_fpe'), num2(f.forwardPE));
+      cells += fundCell(t('fd_ps'), num2(f.priceToSales));
       cells += fundCell('Beta', num2(f.beta));
-      cells += fundCell('净利率 Margin', pct(f.profitMargin), deltaClass(f.profitMargin));
-      cells += fundCell('下次财报 Earnings', earn);
-      return '<div class="section-label"><span>基本面与流动性 · Fundamentals</span><span class="muted">' + srcLabel + (f.foreignListed ? ' · 海外上市' : '') + '</span></div><div class="fund-grid">' + cells + '</div>';
+      cells += fundCell(t('fd_margin'), pct(f.profitMargin), deltaClass(f.profitMargin));
+      cells += fundCell(t('fd_earn'), earn);
+      return '<div class="section-label"><span>' + t('fund_label') + '</span><span class="muted">' + srcLabel + (f.foreignListed ? t('fund_foreign') : '') + '</span></div><div class="fund-grid">' + cells + '</div>';
     }
     function momentumBadges(row) {
       var m = row.momentum;
       if (!m) return '';
       var parts = [];
-      if (m.accel != null && m.accel !== 0) parts.push('<span class="mb ' + deltaClass(m.accel) + '">加速 ' + (m.accel > 0 ? '+' : '') + m.accel + '</span>');
-      if (m.ageDays != null) parts.push('<span class="mb">入档 ' + m.ageDays + 'd</span>');
-      if (m.recencyDays != null) parts.push('<span class="mb ' + (m.recencyDays <= 2 ? 'delta-up' : (m.recencyDays > 14 ? 'delta-down' : '')) + '">最近提及 ' + m.recencyDays + 'd前</span>');
+      if (m.accel != null && m.accel !== 0) parts.push('<span class="mb ' + deltaClass(m.accel) + '">' + t('mom_accel') + (m.accel > 0 ? '+' : '') + m.accel + '</span>');
+      if (m.ageDays != null) parts.push('<span class="mb">' + t('mom_age') + m.ageDays + 'd</span>');
+      if (m.recencyDays != null) parts.push('<span class="mb ' + (m.recencyDays <= 2 ? 'delta-up' : (m.recencyDays > 14 ? 'delta-down' : '')) + '">' + t('mom_recency') + m.recencyDays + t('mom_ago') + '</span>');
       return parts.length ? '<div class="mb-row">' + parts.join('') + '</div>' : '';
     }
     var CONC_COLORS = ['var(--cyan)', 'var(--purple)', 'var(--green)', 'var(--amber)', 'var(--pink)', 'var(--subtle)'];
@@ -3902,11 +3950,11 @@ function buildHtmlV2(data) {
       var legend = top.map(function (t, i) { var d = t.delta > 0 ? '▲' : (t.delta < 0 ? '▼' : '·'); return '<span class="conc-lg"><i style="background:' + CONC_COLORS[i % 6] + '"></i>' + html(t.theme) + ' ' + (t.mentions / total * 100).toFixed(0) + '% <span class="' + (t.delta > 0 ? 'delta-up' : (t.delta < 0 ? 'delta-down' : 'muted')) + '">' + d + '</span></span>'; }).join('');
       var clusterHtml = '';
       if (clusters.length) {
-        clusterHtml = '<div class="section-label" style="margin-top:14px"><span>相关性集群 · 同一押注</span><span class="muted">日收益相关性 ≥ 0.6</span></div>' +
+        clusterHtml = '<div class="section-label" style="margin-top:14px"><span>' + t('conc_cluster') + '</span><span class="muted">' + t('conc_cluster_sub') + '</span></div>' +
           clusters.map(function (c) { return '<div class="cluster"><span class="cluster-label">' + html(c.label) + ' · ρ̄=' + c.avgCorr.toFixed(2) + '</span> ' + c.members.map(function (m) { return '<button type="button" class="cluster-mem" data-ticker="' + m + '">' + m + '</button>'; }).join('') + '</div>'; }).join('') +
-          '<div class="muted conc-note">提示集中度风险（这些其实是同一条供应链押注），非统计因果。</div>';
+          '<div class="muted conc-note">' + t('conc_note') + '</div>';
       }
-      el.innerHTML = '<div class="section-label"><span>主题集中度 · Concentration</span><span class="muted">她的注意力分布 + 7D 轮动 ▲▼</span></div><div class="conc-bar">' + bar + '</div><div class="conc-legend">' + legend + '</div>' + clusterHtml;
+      el.innerHTML = '<div class="section-label"><span>' + t('conc_title') + '</span><span class="muted">' + t('conc_sub') + '</span></div><div class="conc-bar">' + bar + '</div><div class="conc-legend">' + legend + '</div>' + clusterHtml;
       el.querySelectorAll('.cluster-mem').forEach(function (b) { b.addEventListener('click', function () { setPinnedTicker(b.dataset.ticker); }); });
     }
     function getStored(k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } }
@@ -3960,28 +4008,28 @@ function buildHtmlV2(data) {
       var el = $("trackBody");
       if (!el) return;
       var tr = DASHBOARD_DATA.trackRecord;
-      if (!tr || !tr.n) { el.innerHTML = '<div class="track-empty"><span class="track-title">跟随战绩 · Track Record</span><span class="muted">待价格历史回填后计算：自她首次提及（次日入场）起算的前向收益、胜率与超额 SPY。</span></div>'; return; }
+      if (!tr || !tr.n) { el.innerHTML = '<div class="track-empty"><span class="track-title">' + t('track_title') + '</span><span class="muted">' + t('track_empty') + '</span></div>'; return; }
       var p = function (v) { return v == null ? '—' : formatPct(v * 100); };
       el.innerHTML =
-        '<div class="track-head"><span class="track-title">跟随战绩 · Track Record</span><span class="muted">自她首次提及（次日收盘入场）起算 · 不随上方时间窗变化</span></div>' +
+        '<div class="track-head"><span class="track-title">' + t('track_title') + '</span><span class="muted">' + t('track_head_sub') + '</span></div>' +
         '<div class="track-kpis">' +
-          '<div class="track-kpi"><div class="tk-v ' + (tr.winRate >= 0.5 ? 'delta-up' : 'delta-down') + '">' + Math.round(tr.winRate * 100) + '%</div><div class="tk-l">胜率 / Win rate</div></div>' +
-          '<div class="track-kpi"><div class="tk-v ' + deltaClass(tr.medianExcess) + '">' + p(tr.medianExcess) + '</div><div class="tk-l">中位超额 vs SPY</div></div>' +
-          '<div class="track-kpi"><div class="tk-v ' + deltaClass(tr.basketRet) + '">' + p(tr.basketRet) + '</div><div class="tk-l">等权篮子回报</div></div>' +
-          '<div class="track-kpi"><div class="tk-v ' + deltaClass(tr.medianFwd) + '">' + p(tr.medianFwd) + '</div><div class="tk-l">中位个股回报</div></div>' +
+          '<div class="track-kpi"><div class="tk-v ' + (tr.winRate >= 0.5 ? 'delta-up' : 'delta-down') + '">' + Math.round(tr.winRate * 100) + '%</div><div class="tk-l">' + t('track_win') + '</div></div>' +
+          '<div class="track-kpi"><div class="tk-v ' + deltaClass(tr.medianExcess) + '">' + p(tr.medianExcess) + '</div><div class="tk-l">' + t('track_excess') + '</div></div>' +
+          '<div class="track-kpi"><div class="tk-v ' + deltaClass(tr.basketRet) + '">' + p(tr.basketRet) + '</div><div class="tk-l">' + t('track_basket') + '</div></div>' +
+          '<div class="track-kpi"><div class="tk-v ' + deltaClass(tr.medianFwd) + '">' + p(tr.medianFwd) + '</div><div class="tk-l">' + t('track_median') + '</div></div>' +
         '</div>' +
-        '<div class="track-note">基于 ' + tr.n + ' / ' + tr.meaningfulCount + ' 只有价格覆盖的标的 · 入场=首次提及次日收盘 · 未做幸存者偏差校正 · 仅描述历史，不构成投资建议</div>';
+        '<div class="track-note">' + t('track_note_a') + tr.n + ' / ' + tr.meaningfulCount + t('track_note_b') + '</div>';
     }
     function trackBadge(row) {
       var tr = row.trackRecord;
       if (!tr) return '';
       var p = function (v) { return v == null ? '—' : formatPct(v * 100); };
-      return '<div class="focus-track ' + deltaClass(tr.excess == null ? tr.fwdRet : tr.excess) + '">自首次提及 ' + tr.entryDate + '：' + p(tr.fwdRet) + ' <span class="muted">超额 SPY ' + p(tr.excess) + '</span></div>';
+      return '<div class="focus-track ' + deltaClass(tr.excess == null ? tr.fwdRet : tr.excess) + '">' + t('track_badge_a') + tr.entryDate + '：' + p(tr.fwdRet) + ' <span class="muted">' + t('track_badge_b') + p(tr.excess) + '</span></div>';
     }
     function renderFocus(row) {
       const el = $("focusBody");
       if (!el) return;
-      if (!row) { el.innerHTML = '<div class="empty">悬停或点击任意标的查看其价格 × 提及焦点图</div>'; return; }
+      if (!row) { el.innerHTML = '<div class="empty">' + t('empty_focus') + '</div>'; return; }
       const model = mentionPriceModel(row);
       const px = row.price || {};
       const hasPx = px.last_close != null;
@@ -3990,7 +4038,7 @@ function buildHtmlV2(data) {
         ? '<div class="focus-px ' + deltaClass(chg) + '">' + formatNumber(px.last_close, 2) + ' ' + html(px.currency || '') + ' <span class="focus-chg">' + formatPct(chg) + '</span></div>'
         : '<div class="focus-px muted">暂无价格</div>';
       el.innerHTML =
-        '<div class="focus-head"><div class="focus-id"><span class="focus-ticker">' + row.ticker + '</span><span class="focus-name muted">' + html(px.symbol || row.ticker) + ' · ' + html(row.primary_theme) + (row.fundamentals && row.fundamentals.foreignListed ? ' <span class="foreign-pill">海外</span>' : '') + '</span></div>' +
+        '<div class="focus-head"><div class="focus-id"><span class="focus-ticker">' + row.ticker + '</span><span class="focus-name muted">' + html(px.symbol || row.ticker) + ' · ' + html(row.primary_theme) + (row.fundamentals && row.fundamentals.foreignListed ? ' <span class="foreign-pill">' + t('foreign_short') + '</span>' : '') + '</span></div>' +
         pxHtml + '</div>' +
         trackBadge(row) +
         momentumBadges(row) +
