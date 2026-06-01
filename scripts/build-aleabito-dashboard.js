@@ -1157,18 +1157,18 @@ function buildHtmlV2(data) {
       --panel-3: #eef2f8;
       --ink: #0f1b2d;
       --muted: #51607d;
-      --subtle: #71809e;
+      --subtle: #5a6884;
       --line: #e3e9f2;
       --line-2: #d3dbe8;
-      --cyan: #1899bd;
-      --cyan-soft: rgba(24, 153, 189, 0.12);
+      --cyan: #0e7593;
+      --cyan-soft: rgba(14, 117, 147, 0.12);
       --purple: #6c5ce0;
       --purple-soft: rgba(108, 92, 224, 0.14);
       --pink: #d6489a;
       --pink-soft: rgba(214, 72, 154, 0.14);
-      --green: #1f9d57;
-      --red: #e0484d;
-      --amber: #b9810f;
+      --green: #15803d;
+      --red: #cc2f35;
+      --amber: #8a6206;
       --shadow: 0 12px 30px rgba(15, 23, 42, 0.1);
     }
     :root[data-theme="light"] body {
@@ -1203,7 +1203,7 @@ function buildHtmlV2(data) {
     :root[data-theme="light"] .section-label,
     :root[data-theme="light"] .sample-summary,
     :root[data-theme="light"] .priority-pill { color: #25324c; fill: #25324c; }
-    :root[data-theme="light"] .rank { color: #8593ad; }
+    :root[data-theme="light"] .rank { color: #6c7a96; }
     :root[data-theme="light"] .chart-axis { stroke: #c3ccdb; }
     :root[data-theme="light"] .grid-line { stroke: rgba(15, 23, 42, 0.08); }
     :root[data-theme="light"] .cross-line,
@@ -2725,6 +2725,7 @@ function buildHtmlV2(data) {
         empty_focus: '悬停或点击任意标的查看其价格 × 提及焦点图', empty_price: '暂无价格数据', empty_price_sub: '该标的价格无法解析，无法绘制提及×价格叠加图。', empty_chart: '暂无可绘制数据', empty_chart_sub: '价格数据可能缺失或 Yahoo symbol 无法解析。', empty_samples: '暂无来源样本', empty_data: '暂无数据', empty_noprice: '暂无价格',
         det_preview: '预览中 · 点击锁定', det_locked: '已锁定', det_samples: '最新来源样本', det_samples_sub: '中文摘要 + 英文原文', det_src_hint: '这条来源需要结合英文原文判断语境。', det_view_en: '查看英文原文', det_open_src: '打开来源', det_attempted: '暂无价格数据 · attempted ',
         combo_hdr: '价格走势 · 柱 = 当日提及量',
+        win_lbl_all: '全部 ', win_lbl_win: '窗口 ', win_lbl_days: ' 天 · ', res_show: '显示 ', res_items: ' 条', nomatch: '没有匹配的 ticker', nomatch_sub: '试试放宽筛选条件，或点击"重置筛选"。', mkt_peak: ' · 峰值 lag=', bubble_x: '主帖 Posts', bubble_y: '互动量 Replies + Quotes', tip_posts: '主帖 Posts: ', tip_inter: '互动 Replies + Quotes: ', tip_total: '总提及: ', donut_all: '全样本', tip_price: '价格 ', tip_dayment: '当日提及 ',
         th_last: '最后提及'
       },
       en: {
@@ -2762,6 +2763,7 @@ function buildHtmlV2(data) {
         empty_focus: 'Hover or click any ticker to see its price × mention focus chart', empty_price: 'No price data', empty_price_sub: 'Price for this ticker could not be resolved; cannot draw the mention × price overlay.', empty_chart: 'Nothing to plot', empty_chart_sub: 'Price data may be missing or the Yahoo symbol could not be resolved.', empty_samples: 'No source samples', empty_data: 'No data', empty_noprice: 'No price',
         det_preview: 'Previewing · click to pin', det_locked: 'Pinned', det_samples: 'Latest source samples', det_samples_sub: 'Chinese summary + English original', det_src_hint: 'This source needs the English original for context.', det_view_en: 'View English original', det_open_src: 'Open source', det_attempted: 'No price data · attempted ',
         combo_hdr: 'Price trend · bars = daily mentions',
+        win_lbl_all: 'All ', win_lbl_win: 'Window ', win_lbl_days: ' days · ', res_show: 'Showing ', res_items: '', nomatch: 'No matching ticker', nomatch_sub: 'Try relaxing the filters, or click “Reset filters”.', mkt_peak: ' · peak lag=', bubble_x: 'Posts', bubble_y: 'Interaction (Replies + Quotes)', tip_posts: 'Posts: ', tip_inter: 'Interaction (Replies + Quotes): ', tip_total: 'Total mentions: ', donut_all: 'All samples', tip_price: 'Price ', tip_dayment: 'Same-day mentions ',
         th_last: 'Last seen'
       }
     };
@@ -3167,7 +3169,7 @@ function buildHtmlV2(data) {
       if (s) s.value = state.windowStart;
       if (e) e.value = state.windowEnd;
       if (label) {
-        label.textContent = (isFullWindow() ? "全部 " : "窗口 ") + windowDays() + " 天 · " + state.windowStart + " → " + state.windowEnd;
+        label.textContent = (isFullWindow() ? t('win_lbl_all') : t('win_lbl_win')) + windowDays() + t('win_lbl_days') + state.windowStart + " → " + state.windowEnd;
       }
       document.querySelectorAll(".window-preset").forEach((btn) => {
         const days = btn.dataset.days;
@@ -3458,8 +3460,8 @@ function buildHtmlV2(data) {
       }
       out += '<line class="chart-axis" x1="' + left + '" y1="' + (top + chartH) + '" x2="' + (left + chartW) + '" y2="' + (top + chartH) + '"></line>';
       out += '<line class="chart-axis" x1="' + left + '" y1="' + top + '" x2="' + left + '" y2="' + (top + chartH) + '"></line>';
-      out += '<text class="axis-label" x="' + (left + chartW / 2) + '" y="' + (height - 18) + '" text-anchor="middle">主帖 Posts</text>';
-      out += '<text class="axis-label" transform="translate(22 ' + (top + chartH / 2) + ') rotate(-90)" text-anchor="middle">互动量 Replies + Quotes</text>';
+      out += '<text class="axis-label" x="' + (left + chartW / 2) + '" y="' + (height - 18) + '" text-anchor="middle">' + t('bubble_x') + '</text>';
+      out += '<text class="axis-label" transform="translate(22 ' + (top + chartH / 2) + ') rotate(-90)" text-anchor="middle">' + t('bubble_y') + '</text>';
       const active = activeTicker();
       rows.forEach((row, index) => {
         const x = left + (row.interaction.xPosts / maxX) * chartW;
@@ -3478,7 +3480,7 @@ function buildHtmlV2(data) {
         bubble.addEventListener("mouseenter", () => setHoverTicker(bubble.dataset.ticker));
         bubble.addEventListener("mousemove", (event) => {
           const row = rowByTicker(bubble.dataset.ticker);
-          showTooltip(event, '<strong>' + row.ticker + '</strong><br>主帖 Posts: ' + row.post_mentions + '<br>互动 Replies + Quotes: ' + (row.reply_mentions + row.quote_mentions) + '<br>总提及: ' + row.mentioned_posts);
+          showTooltip(event, '<strong>' + row.ticker + '</strong><br>' + t('tip_posts') + row.post_mentions + '<br>' + t('tip_inter') + (row.reply_mentions + row.quote_mentions) + '<br>' + t('tip_total') + row.mentioned_posts);
         });
         bubble.addEventListener("mouseleave", hideTooltip);
         bubble.addEventListener("click", () => setPinnedTicker(bubble.dataset.ticker));
@@ -3503,7 +3505,7 @@ function buildHtmlV2(data) {
         angle = next;
       });
       out += '<circle class="donut-center" cx="260" cy="215" r="88"></circle>';
-      out += '<text class="donut-label" x="260" y="207" text-anchor="middle">全样本</text><text class="donut-small" x="260" y="232" text-anchor="middle">' + formatNumber(sum) + ' mentions</text>';
+      out += '<text class="donut-label" x="260" y="207" text-anchor="middle">' + t('donut_all') + '</text><text class="donut-small" x="260" y="232" text-anchor="middle">' + formatNumber(sum) + ' mentions</text>';
       out += '<g transform="translate(92 468)">' + values.map((item, index) => '<rect x="' + (index * 120) + '" y="0" width="13" height="13" rx="4" fill="' + item.color + '"></rect><text class="donut-small" x="' + (index * 120 + 20) + '" y="12">' + item.label + '</text>').join("") + '</g>';
       svg.innerHTML = out;
       svg.classList.toggle("donut-animate", firstPaint && !reducedMotion);
@@ -3520,9 +3522,9 @@ function buildHtmlV2(data) {
       const rows = filteredRows();
       const maxMentions = Math.max.apply(null, DASHBOARD_DATA.rows.map((row) => row.mentioned_posts)) || 1;
       const active = activeTicker();
-      $("resultCount").textContent = "显示 " + rows.length + " / " + DASHBOARD_DATA.rows.length + " 条";
+      $("resultCount").textContent = t('res_show') + rows.length + " / " + DASHBOARD_DATA.rows.length + t('res_items');
       if (!rows.length) {
-        $("rankBody").innerHTML = '<tr class="empty-row"><td colspan="12"><div class="empty">没有匹配的 ticker<br><span class="muted">试试放宽筛选条件，或点击"重置筛选"。</span></div></td></tr>';
+        $("rankBody").innerHTML = '<tr class="empty-row"><td colspan="12"><div class="empty">' + t('nomatch') + '<br><span class="muted">' + t('nomatch_sub') + '</span></div></td></tr>';
         updateSortHeaders();
         return;
       }
@@ -3729,7 +3731,7 @@ function buildHtmlV2(data) {
             cross.querySelector('.cc-dot').setAttribute('cy', y);
             cross.classList.add('is-on');
           }
-          showTooltip(event, '<strong>' + row.ticker + '</strong><br><span class="muted">' + p.date + '</span><br>价格 ' + formatNumber(p.close, 2) + ' ' + html(row.price.currency || '') + '<br>当日提及 ' + formatNumber(mMap[p.date] || 0));
+          showTooltip(event, '<strong>' + row.ticker + '</strong><br><span class="muted">' + p.date + '</span><br>' + t('tip_price') + formatNumber(p.close, 2) + ' ' + html(row.price.currency || '') + '<br>' + t('tip_dayment') + formatNumber(mMap[p.date] || 0));
         });
         svg.addEventListener('mouseleave', () => {
           const cross = svg.querySelector('.combo-cross');
@@ -3866,7 +3868,7 @@ function buildHtmlV2(data) {
       var fpct = function (x) { return x == null ? '—' : formatPct(x * 100); };
       if (ms) {
         marketLine = '<div class="stats-market">β·SPY=' + fr2(ms.beta) + (ms.betaSMH != null ? ' · β·SMH=' + fr2(ms.betaSMH) : '') + t('mkt_alpha') + fpct(ms.alphaAnnual) + t('mkt_rel') + fpct(ms.relStr) + '</div>';
-        if (ms.adjBest) marketLine += '<div class="stats-adj">' + t('mkt_adj_a') + fr2(ms.adjContemp) + ' · 峰值 lag=' + (ms.adjBest.lag > 0 ? '+' : '') + ms.adjBest.lag + ' r=' + fr2(ms.adjBest.r) + (ms.adjBest.sig ? t('mkt_adj_sig') : t('mkt_adj_ns')) + '</div>';
+        if (ms.adjBest) marketLine += '<div class="stats-adj">' + t('mkt_adj_a') + fr2(ms.adjContemp) + t('mkt_peak') + (ms.adjBest.lag > 0 ? '+' : '') + ms.adjBest.lag + ' r=' + fr2(ms.adjBest.r) + (ms.adjBest.sig ? t('mkt_adj_sig') : t('mkt_adj_ns')) + '</div>';
       }
       if (!model) return '<div class="stats-panel">' + marketLine + '<div class="stats-na">' + t('stats_na') + '</div></div>';
       const fr = (v) => (v >= 0 ? '+' : '') + v.toFixed(2);
@@ -3910,8 +3912,8 @@ function buildHtmlV2(data) {
       var pct = function (v) { return v == null || !isFinite(v) ? '—' : (v * 100).toFixed(1) + '%'; };
       var earn = '—';
       if (f.nextEarnings) {
-        var t = new Date(f.nextEarnings + 'T00:00:00Z').getTime();
-        var dd = isFinite(t) ? Math.round((t - Date.now()) / 86400000) : null;
+        var earnT = new Date(f.nextEarnings + 'T00:00:00Z').getTime();
+        var dd = isFinite(earnT) ? Math.round((earnT - Date.now()) / 86400000) : null;
         earn = f.nextEarnings + (dd == null ? '' : ' (' + (dd >= 0 ? dd + t('fd_days_after') : (-dd) + t('fd_days_before')) + ')');
       }
       var srcLabel = f.source === 'quoteSummary' ? t('fund_src_full') : (f.source === 'quote' ? t('fund_src_quote') : t('fund_src_part'));
@@ -3992,7 +3994,7 @@ function buildHtmlV2(data) {
       document.documentElement.setAttribute('data-lang', l);
       document.documentElement.setAttribute('lang', l === 'en' ? 'en' : 'zh-CN');
       setStored('aleabito.lang', l);
-      applyLang(); syncLangToggle();
+      applyLang(); syncLangToggle(); syncWindowBar();
       renderMeta(); renderKpis(); renderFilters(); renderBriefs(); renderAll();
     }
     function initLang() {
@@ -4036,7 +4038,7 @@ function buildHtmlV2(data) {
       const chg = px.change_pct;
       const pxHtml = hasPx
         ? '<div class="focus-px ' + deltaClass(chg) + '">' + formatNumber(px.last_close, 2) + ' ' + html(px.currency || '') + ' <span class="focus-chg">' + formatPct(chg) + '</span></div>'
-        : '<div class="focus-px muted">暂无价格</div>';
+        : '<div class="focus-px muted">' + t('empty_noprice') + '</div>';
       el.innerHTML =
         '<div class="focus-head"><div class="focus-id"><span class="focus-ticker">' + row.ticker + '</span><span class="focus-name muted">' + html(px.symbol || row.ticker) + ' · ' + html(row.primary_theme) + (row.fundamentals && row.fundamentals.foreignListed ? ' <span class="foreign-pill">' + t('foreign_short') + '</span>' : '') + '</span></div>' +
         pxHtml + '</div>' +
@@ -4073,7 +4075,7 @@ function buildHtmlV2(data) {
     }
     function lineChart(points, field, ticker, mode) {
       if (!points || points.length < 2) {
-        return '<div class="empty">暂无可绘制数据<br><span class="muted">价格数据可能缺失或 Yahoo symbol 无法解析。</span></div>';
+        return '<div class="empty">' + t('empty_chart') + '<br><span class="muted">' + t('empty_chart_sub') + '</span></div>';
       }
       const width = 520;
       const height = 190;
@@ -4097,20 +4099,20 @@ function buildHtmlV2(data) {
     function renderDetail() {
       const row = rowByTicker(activeTicker()) || DASHBOARD_DATA.rows[0];
       if (!row) {
-        $("detailBody").innerHTML = '<div class="empty">暂无数据</div>';
+        $("detailBody").innerHTML = '<div class="empty">' + t('empty_data') + '</div>';
         return;
       }
       const previewing = state.hoverTicker && state.hoverTicker !== state.pinnedTicker;
       const statusChip = previewing
-        ? '<span class="detail-status">预览中 · 点击锁定</span>'
-        : '<span class="detail-status pinned">已锁定</span>';
+        ? '<span class="detail-status">' + t('det_preview') + '</span>'
+        : '<span class="detail-status pinned">' + t('det_locked') + '</span>';
       const mentionPoints = row.mentionSeries.map((point) => ({ date: point.date, value: point.mentioned_posts }));
       const priceNote = row.price.status === "ok"
         ? html(row.price.symbol) + " · " + html(row.price.exchange || row.price.currency || "")
-        : "暂无价格数据 · attempted " + html(row.price.symbol || row.ticker);
+        : t('det_attempted') + html(row.price.symbol || row.ticker);
       const samples = row.examples && row.examples.length
-        ? row.examples.map((sample) => '<article class="sample"><div class="sample-meta"><span>' + html(sample.created_at.slice(0, 10)) + ' · ' + html(sample.kind) + '</span><a href="' + html(sample.url) + '" target="_blank" rel="noreferrer">打开来源</a></div><div class="sample-summary">' + html(sample.cn_summary || "这条来源需要结合英文原文判断语境。") + '</div><details><summary>查看英文原文</summary><div class="source-text">' + html(sample.source_text || sample.text || "") + '</div></details></article>').join("")
-        : '<div class="empty">暂无来源样本</div>';
+        ? row.examples.map((sample) => '<article class="sample"><div class="sample-meta"><span>' + html(sample.created_at.slice(0, 10)) + ' · ' + html(sample.kind) + '</span><a href="' + html(sample.url) + '" target="_blank" rel="noreferrer">' + t('det_open_src') + '</a></div><div class="sample-summary">' + html(sample.cn_summary || t('det_src_hint')) + '</div><details><summary>' + t('det_view_en') + '</summary><div class="source-text">' + html(sample.source_text || sample.text || "") + '</div></details></article>').join("")
+        : '<div class="empty">' + t('empty_samples') + '</div>';
       $("detailBody").innerHTML =
         '<div class="detail-title"><div><div class="detail-ticker">' + row.ticker + '</div><div class="card-sub">' + html(row.primary_theme) + ' · ' + html(row.research_priority) + ' ' + statusChip + '</div></div><div class="score-badge">' + formatNumber(row.serenity_score, 1) + '</div></div>' +
         '<div class="detail-metrics">' +
@@ -4120,7 +4122,7 @@ function buildHtmlV2(data) {
           '<div class="mini-metric"><div class="mini-label">' + (isFullWindow() ? "3M Price" : windowDays() + "D Price") + '</div><div class="mini-value ' + deltaClass(row.price.change_pct) + '">' + formatPct(row.price.change_pct) + '</div></div>' +
         '</div>' +
         fundGrid(row.fundamentals) +
-        '<div class="section-label"><span>最新来源样本</span><span class="muted">中文摘要 + 英文原文</span></div>' +
+        '<div class="section-label"><span>' + t('det_samples') + '</span><span class="muted">' + t('det_samples_sub') + '</span></div>' +
         '<div class="sample-list">' + samples + '</div>';
       renderFocus(row);
     }
