@@ -1479,6 +1479,30 @@ function buildHtmlV2(data) {
       transition: cx 0.12s ease-out, cy 0.12s ease-out;
     }
 
+    .combo-chart { width: 100%; height: 210px; display: block; overflow: visible; border: 1px solid var(--line); border-radius: 16px; background: linear-gradient(180deg, rgba(18,24,42,0.55), rgba(12,17,32,0.8)); cursor: crosshair; }
+    .combo-base { stroke: rgba(255,255,255,0.06); stroke-width: 1; vector-effect: non-scaling-stroke; }
+    .combo-bar { fill: var(--cyan); opacity: 0.14; }
+    .combo-bar.spike { fill: var(--purple); opacity: 0.4; }
+    .combo-line { fill: none; stroke-width: 2.4; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+    .combo-lbl { fill: var(--subtle); font-family: var(--mono); font-size: 11px; }
+    .combo-lbl-price { font-family: var(--mono); font-size: 13px; font-weight: 800; }
+    .combo-cross { opacity: 0; pointer-events: none; transition: opacity 0.14s ease; }
+    .combo-cross.is-on { opacity: 1; }
+    .combo-cross.is-on .cc-line { transition: x1 0.12s ease-out, x2 0.12s ease-out; }
+    .combo-cross.is-on .cc-dot { transition: cx 0.12s ease-out, cy 0.12s ease-out; }
+    .corr-readout { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; margin: 2px 0 12px; padding: 9px 13px; border: 1px solid var(--line); border-radius: 12px; background: rgba(13,18,33,0.6); font-size: 12px; }
+    .corr-readout .corr-k { font-weight: 800; color: var(--ink); }
+    .corr-readout .corr-v { font-family: var(--mono); }
+    .corr-readout .corr-lead { color: var(--muted); }
+    .corr-readout .corr-note { flex-basis: 100%; color: var(--subtle); font-size: 11px; }
+    .corr-strong .corr-v { color: var(--green); }
+    .corr-mid .corr-v { color: var(--cyan); }
+    .corr-weak .corr-v { color: var(--muted); }
+    .corr-muted { color: var(--muted); }
+    .combo-hdr { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin: 0 2px 6px; font-family: var(--mono); font-size: 11px; color: var(--subtle); text-transform: none; letter-spacing: 0; font-weight: 600; }
+    .combo-hdr-px { font-size: 14px; font-weight: 800; font-variant-numeric: tabular-nums; }
+    .combo-ftr { display: flex; justify-content: space-between; margin: 6px 2px 0; font-family: var(--mono); font-size: 11px; color: var(--subtle); }
+
     .empty {
       display: grid;
       min-height: 130px;
@@ -2951,6 +2975,144 @@ function buildHtmlV2(data) {
       });
     }
 
+    function pearson(a, b) {
+      const n = Math.min(a.length, b.length);
+      if (n < 5) return 0;
+      let sa = 0, sb = 0;
+      for (let i = 0; i < n; i++) { sa += a[i]; sb += b[i]; }
+      const ma = sa / n, mb = sb / n;
+      let num = 0, da = 0, db = 0;
+      for (let i = 0; i < n; i++) { const xa = a[i] - ma, xb = b[i] - mb; num += xa * xb; da += xa * xa; db += xb * xb; }
+      if (da === 0 || db === 0) return 0;
+      return num / Math.sqrt(da * db);
+    }
+    function mentionPriceStats(row) {
+      const pts = (row.price && row.price.points) || [];
+      if (pts.length < 6) return null;
+      const mMap = {};
+      for (const p of (row.mentionSeries || [])) mMap[p.date] = (mMap[p.date] || 0) + (p.mentioned_posts || 0);
+      const dates = pts.map((p) => p.date);
+      const price = pts.map((p) => Number(p.close) || 0);
+      const ment = dates.map((d) => mMap[d] || 0);
+      if (ment.reduce((s, x) => s + x, 0) === 0) return null;
+      const ret = [];
+      for (let i = 1; i < price.length; i++) ret.push(price[i - 1] ? (price[i] - price[i - 1]) / price[i - 1] : 0);
+      const mentForRet = ment.slice(1);
+      const rLevel = pearson(ment, price);
+      let bestLag = 0, bestR = 0;
+      for (let k = 0; k <= 5; k++) {
+        const m = mentForRet.slice(0, mentForRet.length - k);
+        const r = ret.slice(k);
+        const rr = pearson(m, r);
+        if (Math.abs(rr) > Math.abs(bestR)) { bestR = rr; bestLag = k; }
+      }
+      return { n: pts.length, rLevel: rLevel, bestLag: bestLag, bestR: bestR };
+    }
+    function comboReadout(row) {
+      const s = mentionPriceStats(row);
+      if (!s) return '<div class="corr-readout corr-muted">提及 × 股价：重叠的价格/提及数据不足，暂无法计算关联。</div>';
+      const absL = Math.abs(s.rLevel);
+      const cls = absL >= 0.5 ? 'corr-strong' : absL >= 0.3 ? 'corr-mid' : 'corr-weak';
+      const word = absL >= 0.5 ? '强' : absL >= 0.3 ? '中等' : '弱/不明显';
+      const dir = s.rLevel > 0.08 ? '正相关' : s.rLevel < -0.08 ? '负相关' : '无明显方向';
+      const lead = (s.bestLag > 0 && Math.abs(s.bestR) >= 0.25)
+        ? '提及似领先股价约 ' + s.bestLag + ' 天 (r=' + s.bestR.toFixed(2) + ')'
+        : (Math.abs(s.bestR) >= 0.25 ? '提及与股价大致同步 (r=' + s.bestR.toFixed(2) + ')' : '未见明显领先/滞后关系');
+      return '<div class="corr-readout ' + cls + '">' +
+        '<span class="corr-k">提及 × 股价</span>' +
+        '<span class="corr-v">同步 r=' + s.rLevel.toFixed(2) + ' · ' + dir + '（' + word + '）</span>' +
+        '<span class="corr-lead">' + lead + '</span>' +
+        '<span class="corr-note">基于近 ' + s.n + ' 个交易日的价格×提及重叠；仅描述历史共振，非预测、非投资建议</span>' +
+        '</div>';
+    }
+    function smoothPath(coords) {
+      if (coords.length < 2) return '';
+      if (coords.length === 2) return 'M' + coords[0][0].toFixed(1) + ' ' + coords[0][1].toFixed(1) + ' L' + coords[1][0].toFixed(1) + ' ' + coords[1][1].toFixed(1);
+      let d = 'M' + coords[0][0].toFixed(1) + ' ' + coords[0][1].toFixed(1);
+      for (let i = 0; i < coords.length - 1; i++) {
+        const p0 = coords[i - 1] || coords[i], p1 = coords[i], p2 = coords[i + 1], p3 = coords[i + 2] || p2;
+        const c1x = p1[0] + (p2[0] - p0[0]) / 6, c1y = p1[1] + (p2[1] - p0[1]) / 6;
+        const c2x = p2[0] - (p3[0] - p1[0]) / 6, c2y = p2[1] - (p3[1] - p1[1]) / 6;
+        d += ' C' + c1x.toFixed(1) + ' ' + c1y.toFixed(1) + ' ' + c2x.toFixed(1) + ' ' + c2y.toFixed(1) + ' ' + p2[0].toFixed(1) + ' ' + p2[1].toFixed(1);
+      }
+      return d;
+    }
+    let __comboSeq = 0;
+    function combinedChart(row) {
+      const pts = (row.price && row.price.points) || [];
+      if (pts.length < 2) return '<div class="empty">暂无价格数据<br><span class="muted">该标的价格无法解析，无法绘制提及×价格叠加图。</span></div>';
+      const W = 560, H = 210, padX = 14, padTop = 26, padBot = 30;
+      const dates = pts.map((p) => p.date);
+      const price = pts.map((p) => Number(p.close) || 0);
+      const mMap = {};
+      for (const p of (row.mentionSeries || [])) mMap[p.date] = (mMap[p.date] || 0) + (p.mentioned_posts || 0);
+      const ment = dates.map((d) => mMap[d] || 0);
+      const pMin = Math.min.apply(null, price), pMax = Math.max.apply(null, price), pSpan = (pMax - pMin) || 1;
+      const mMax = Math.max.apply(null, ment) || 1;
+      const n = pts.length, stepX = (W - padX * 2) / Math.max(n - 1, 1);
+      const yOf = (v) => padTop + (1 - (v - pMin) / pSpan) * (H - padTop - padBot);
+      const coords = price.map((v, i) => [padX + i * stepX, yOf(v)]);
+      const up = price[n - 1] >= price[0];
+      const stroke = up ? 'var(--green)' : 'var(--red)';
+      const fid = 'cg' + (++__comboSeq);
+      const line = smoothPath(coords);
+      const area = line + ' L' + coords[n - 1][0].toFixed(1) + ' ' + (H - padBot) + ' L' + coords[0][0].toFixed(1) + ' ' + (H - padBot) + ' Z';
+      const barW = Math.max(1.2, Math.min(7, stepX * 0.55)), barMaxH = (H - padTop - padBot) * 0.42;
+      let bars = '';
+      for (let i = 0; i < n; i++) {
+        if (!ment[i]) continue;
+        const bh = (ment[i] / mMax) * barMaxH, bx = padX + i * stepX - barW / 2, by = (H - padBot) - bh;
+        bars += '<rect class="combo-bar' + (ment[i] >= 0.7 * mMax ? ' spike' : '') + '" x="' + bx.toFixed(1) + '" y="' + by.toFixed(1) + '" width="' + barW.toFixed(1) + '" height="' + bh.toFixed(1) + '" rx="1"></rect>';
+      }
+      return '<div class="combo-wrap">' +
+        '<div class="combo-hdr"><span>价格走势 · 柱 = 当日提及量</span><span class="combo-hdr-px" style="color:' + stroke + '">' + formatNumber(price[n - 1], 2) + ' ' + html(row.price.currency || '') + ' · ' + formatPct(row.price.change_pct) + '</span></div>' +
+        '<svg class="combo-chart js-combo-chart" data-ticker="' + row.ticker + '" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" role="img" aria-label="' + row.ticker + ' 价格与提及叠加图">' +
+        '<defs><linearGradient id="' + fid + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="' + stroke + '" stop-opacity="0.32"></stop><stop offset="82%" stop-color="' + stroke + '" stop-opacity="0.02"></stop></linearGradient></defs>' +
+        '<line class="combo-base" x1="' + padX + '" y1="' + (H - padBot) + '" x2="' + (W - padX) + '" y2="' + (H - padBot) + '"></line>' +
+        bars +
+        '<path d="' + area + '" fill="url(#' + fid + ')"></path>' +
+        '<path class="combo-line" d="' + line + '" stroke="' + stroke + '"></path>' +
+        '<g class="combo-cross"><line class="cc-line" y1="' + padTop + '" y2="' + (H - padBot) + '" stroke="#edf3ff" stroke-width="1" opacity="0.5"></line><circle class="cc-dot" r="3.5" fill="#edf3ff"></circle></g>' +
+        '</svg>' +
+        '<div class="combo-ftr"><span>' + dates[0] + '</span><span>' + dates[n - 1] + '</span></div>' +
+        '</div>';
+    }
+    function attachComboHandlers() {
+      document.querySelectorAll('.js-combo-chart').forEach((svg) => {
+        svg.addEventListener('mousemove', (event) => {
+          const row = rowByTicker(svg.dataset.ticker);
+          if (!row) return;
+          const pts = (row.price && row.price.points) || [];
+          if (pts.length < 2) return;
+          const mMap = {};
+          for (const p of (row.mentionSeries || [])) mMap[p.date] = (mMap[p.date] || 0) + (p.mentioned_posts || 0);
+          const W = 560, H = 210, padX = 14, padTop = 26, padBot = 30;
+          const price = pts.map((p) => Number(p.close) || 0);
+          const pMin = Math.min.apply(null, price), pMax = Math.max.apply(null, price), pSpan = (pMax - pMin) || 1;
+          const rect = svg.getBoundingClientRect();
+          const ratio = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
+          const idx = Math.round(ratio * (pts.length - 1));
+          const p = pts[idx];
+          const stepX = (W - padX * 2) / Math.max(pts.length - 1, 1);
+          const x = padX + idx * stepX;
+          const y = padTop + (1 - ((Number(p.close) || 0) - pMin) / pSpan) * (H - padTop - padBot);
+          const cross = svg.querySelector('.combo-cross');
+          if (cross) {
+            cross.querySelector('.cc-line').setAttribute('x1', x);
+            cross.querySelector('.cc-line').setAttribute('x2', x);
+            cross.querySelector('.cc-dot').setAttribute('cx', x);
+            cross.querySelector('.cc-dot').setAttribute('cy', y);
+            cross.classList.add('is-on');
+          }
+          showTooltip(event, '<strong>' + row.ticker + '</strong><br><span class="muted">' + p.date + '</span><br>价格 ' + formatNumber(p.close, 2) + ' ' + html(row.price.currency || '') + '<br>当日提及 ' + formatNumber(mMap[p.date] || 0));
+        });
+        svg.addEventListener('mouseleave', () => {
+          const cross = svg.querySelector('.combo-cross');
+          if (cross) cross.classList.remove('is-on');
+          hideTooltip();
+        });
+      });
+    }
     function lineChart(points, field, ticker, mode) {
       if (!points || points.length < 2) {
         return '<div class="empty">暂无可绘制数据<br><span class="muted">价格数据可能缺失或 Yahoo symbol 无法解析。</span></div>';
@@ -2999,13 +3161,12 @@ function buildHtmlV2(data) {
           '<div class="mini-metric"><div class="mini-label">7D Momentum</div><div class="mini-value ' + deltaClass(row.velocity) + '">' + (row.velocity > 0 ? "+" : "") + formatNumber(row.velocity) + '</div></div>' +
           '<div class="mini-metric"><div class="mini-label">' + (isFullWindow() ? "3M Price" : windowDays() + "D Price") + '</div><div class="mini-value ' + deltaClass(row.price.change_pct) + '">' + formatPct(row.price.change_pct) + '</div></div>' +
         '</div>' +
-        '<div class="section-label"><span>Mention Trend</span><span class="muted">daily posts</span></div>' +
-        lineChart(mentionPoints, "value", row.ticker, "mention") +
-        '<div class="section-label"><span>Price Trend</span><span class="muted">' + priceNote + '</span></div>' +
-        lineChart(row.price.points || [], "close", row.ticker, "price") +
+        '<div class="section-label"><span>Mention × Price · 提及 × 股价</span><span class="muted">' + priceNote + '</span></div>' +
+        comboReadout(row) +
+        combinedChart(row) +
         '<div class="section-label"><span>最新来源样本</span><span class="muted">中文摘要 + 英文原文</span></div>' +
         '<div class="sample-list">' + samples + '</div>';
-      attachDetailChartHandlers();
+      attachComboHandlers();
     }
 
     function renderMovers() {
