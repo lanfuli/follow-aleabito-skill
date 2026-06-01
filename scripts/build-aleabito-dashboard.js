@@ -755,8 +755,8 @@ function buildHtmlV2(data) {
       --ink: #edf3ff;
       --muted: #9aa7c9;
       --subtle: #828eb0;
-      --line: #25304d;
-      --line-2: #333f60;
+      --line: #1e2740;
+      --line-2: #2a3450;
       --cyan: #67d9f4;
       --cyan-soft: rgba(103, 217, 244, 0.16);
       --purple: #8274f6;
@@ -768,7 +768,7 @@ function buildHtmlV2(data) {
       --amber: #f6c85f;
       --radius: 22px;
       --radius-sm: 10px;
-      --shadow: 0 28px 70px rgba(0, 0, 0, 0.32);
+      --shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
     }
 
@@ -828,7 +828,7 @@ function buildHtmlV2(data) {
       width: 6px;
       height: 30px;
       border-radius: 999px;
-      background: linear-gradient(180deg, var(--cyan), var(--purple), var(--pink));
+      background: linear-gradient(180deg, var(--cyan), var(--cyan-soft));
       box-shadow: 0 0 22px rgba(103, 217, 244, 0.5);
     }
 
@@ -925,7 +925,7 @@ function buildHtmlV2(data) {
 
     .dashboard-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.38fr) minmax(430px, 0.62fr);
+      grid-template-columns: minmax(0, 1.38fr) 12px minmax(372px, 0.62fr);
       gap: 18px;
       align-items: start;
     }
@@ -1503,6 +1503,32 @@ function buildHtmlV2(data) {
     .combo-hdr-px { font-size: 14px; font-weight: 800; font-variant-numeric: tabular-nums; }
     .combo-ftr { display: flex; justify-content: space-between; margin: 6px 2px 0; font-family: var(--mono); font-size: 11px; color: var(--subtle); }
 
+    .focus-card { padding: 18px 22px 20px; margin: 0 0 18px; }
+    .focus-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; margin-bottom: 12px; }
+    .focus-id { display: flex; flex-direction: column; gap: 2px; }
+    .focus-ticker { font-size: 26px; font-weight: 900; letter-spacing: -0.01em; }
+    .focus-name { font-size: 12px; }
+    .focus-px { font-family: var(--mono); font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums; }
+    .focus-chg { font-size: 14px; }
+    .combo-chart--lg { height: 360px; }
+    .stats-panel { margin-top: 14px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 14px; background: rgba(13,18,33,0.55); }
+    .stats-verdict { display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 700; color: var(--ink); }
+    .stats-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); flex: none; }
+    .stat-sig .stats-dot { background: var(--green); box-shadow: 0 0 10px var(--green); }
+    .stat-mid .stats-dot { background: var(--amber); }
+    .stat-weak .stats-dot { background: var(--subtle); }
+    .stats-ccf { margin: 12px 0 8px; }
+    .stats-ccf-cap { display: flex; justify-content: space-between; font-size: 11px; color: var(--subtle); margin-bottom: 4px; font-family: var(--mono); }
+    .ccf-chart { width: 100%; height: 132px; display: block; }
+    .ccf-tick { fill: var(--subtle); font-family: var(--mono); font-size: 10px; }
+    .ccf-axis { display: flex; justify-content: space-between; font-size: 10px; color: var(--subtle); margin-top: 2px; }
+    .stats-tech { font-family: var(--mono); font-size: 11.5px; color: var(--muted); line-height: 1.7; margin-top: 6px; }
+    .stats-note { font-size: 11px; color: var(--subtle); margin-top: 6px; line-height: 1.55; }
+    .stats-na { color: var(--muted); font-size: 12px; }
+    .grid-splitter { align-self: stretch; min-height: 200px; width: 12px; cursor: col-resize; border-radius: 6px; background: transparent; position: relative; }
+    .grid-splitter::before { content: ""; position: absolute; left: 5px; top: 50%; transform: translateY(-50%); width: 2px; height: 42px; border-radius: 2px; background: var(--line-2); transition: background 0.16s ease, height 0.16s ease; }
+    .grid-splitter:hover::before { background: var(--cyan); height: 64px; }
+
     .empty {
       display: grid;
       min-height: 130px;
@@ -1644,8 +1670,9 @@ function buildHtmlV2(data) {
       .dashboard-grid,
       .chart-grid,
       .hero {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
       }
+      .grid-splitter { display: none; }
       .meta-strip {
         justify-content: flex-start;
       }
@@ -2031,6 +2058,7 @@ function buildHtmlV2(data) {
       <div id="briefBody"></div>
     </section>
 
+    <section class="card reveal focus-card" id="focusCard" data-testid="focus-card"><div id="focusBody"></div></section>
     <section class="dashboard-grid">
       <div class="main-stack">
         <section class="card reveal" data-testid="composition-card">
@@ -2129,6 +2157,7 @@ function buildHtmlV2(data) {
         </section>
       </div>
 
+      <div class="grid-splitter" id="gridSplitter" role="separator" aria-orientation="vertical" title="拖动调整宽度"></div>
       <aside class="side-stack">
         <section class="card reveal" data-testid="stock-detail-card">
           <div class="card-head">
@@ -3038,10 +3067,10 @@ function buildHtmlV2(data) {
       return d;
     }
     let __comboSeq = 0;
-    function combinedChart(row) {
+    function combinedChart(row, big) {
       const pts = (row.price && row.price.points) || [];
       if (pts.length < 2) return '<div class="empty">暂无价格数据<br><span class="muted">该标的价格无法解析，无法绘制提及×价格叠加图。</span></div>';
-      const W = 560, H = 210, padX = 14, padTop = 26, padBot = 30;
+      const W = 560, H = big ? 300 : 210, padX = 14, padTop = 26, padBot = 30;
       const dates = pts.map((p) => p.date);
       const price = pts.map((p) => Number(p.close) || 0);
       const mMap = {};
@@ -3066,7 +3095,7 @@ function buildHtmlV2(data) {
       }
       return '<div class="combo-wrap">' +
         '<div class="combo-hdr"><span>价格走势 · 柱 = 当日提及量</span><span class="combo-hdr-px" style="color:' + stroke + '">' + formatNumber(price[n - 1], 2) + ' ' + html(row.price.currency || '') + ' · ' + formatPct(row.price.change_pct) + '</span></div>' +
-        '<svg class="combo-chart js-combo-chart" data-ticker="' + row.ticker + '" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" role="img" aria-label="' + row.ticker + ' 价格与提及叠加图">' +
+        '<svg class="combo-chart js-combo-chart' + (big ? ' combo-chart--lg' : '') + '" data-ticker="' + row.ticker + '" data-h="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" role="img" aria-label="' + row.ticker + ' 价格与提及叠加图">' +
         '<defs><linearGradient id="' + fid + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="' + stroke + '" stop-opacity="0.32"></stop><stop offset="82%" stop-color="' + stroke + '" stop-opacity="0.02"></stop></linearGradient></defs>' +
         '<line class="combo-base" x1="' + padX + '" y1="' + (H - padBot) + '" x2="' + (W - padX) + '" y2="' + (H - padBot) + '"></line>' +
         bars +
@@ -3086,7 +3115,7 @@ function buildHtmlV2(data) {
           if (pts.length < 2) return;
           const mMap = {};
           for (const p of (row.mentionSeries || [])) mMap[p.date] = (mMap[p.date] || 0) + (p.mentioned_posts || 0);
-          const W = 560, H = 210, padX = 14, padTop = 26, padBot = 30;
+          const W = 560, H = Number(svg.dataset.h) || 210, padX = 14, padTop = 26, padBot = 30;
           const price = pts.map((p) => Number(p.close) || 0);
           const pMin = Math.min.apply(null, price), pMax = Math.max.apply(null, price), pSpan = (pMax - pMin) || 1;
           const rect = svg.getBoundingClientRect();
@@ -3112,6 +3141,196 @@ function buildHtmlV2(data) {
           hideTooltip();
         });
       });
+    }
+    function rankArr(arr) {
+      const idx = arr.map((v, i) => [v, i]).sort((x, y) => x[0] - y[0]);
+      const r = new Array(arr.length);
+      let i = 0;
+      while (i < idx.length) { let j = i; while (j + 1 < idx.length && idx[j + 1][0] === idx[i][0]) j++; const avg = (i + j) / 2 + 1; for (let k = i; k <= j; k++) r[idx[k][1]] = avg; i = j + 1; }
+      return r;
+    }
+    function spearman(a, b) { return pearson(rankArr(a), rankArr(b)); }
+    function solveOLS(X, y) {
+      const n = X.length, p = X[0].length;
+      const A = [], bv = [];
+      for (let i = 0; i < p; i++) { A.push(new Array(p).fill(0)); bv.push(0); }
+      for (let r = 0; r < n; r++) { for (let i = 0; i < p; i++) { bv[i] += X[r][i] * y[r]; for (let j = 0; j < p; j++) A[i][j] += X[r][i] * X[r][j]; } }
+      const M = A.map((row, i) => row.concat(bv[i]));
+      for (let col = 0; col < p; col++) {
+        let piv = col; for (let r = col + 1; r < p; r++) if (Math.abs(M[r][col]) > Math.abs(M[piv][col])) piv = r;
+        if (Math.abs(M[piv][col]) < 1e-12) return null;
+        const tmp = M[col]; M[col] = M[piv]; M[piv] = tmp;
+        const d = M[col][col];
+        for (let j = col; j <= p; j++) M[col][j] /= d;
+        for (let r = 0; r < p; r++) { if (r === col) continue; const f = M[r][col]; for (let j = col; j <= p; j++) M[r][j] -= f * M[col][j]; }
+      }
+      const beta = M.map((row) => row[p]);
+      let rss = 0; for (let r = 0; r < n; r++) { let pred = 0; for (let i = 0; i < p; i++) pred += X[r][i] * beta[i]; const e = y[r] - pred; rss += e * e; }
+      return { beta: beta, rss: rss };
+    }
+    function lgamma(z) {
+      const g = [676.5203681218851, -1259.1392167224028, 771.32342877765313, -176.61502916214059, 12.507343278686905, -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7];
+      if (z < 0.5) return Math.log(Math.PI / Math.sin(Math.PI * z)) - lgamma(1 - z);
+      z -= 1; let x = 0.99999999999980993; for (let i = 0; i < g.length; i++) x += g[i] / (z + i + 1);
+      const t = z + g.length - 0.5;
+      return 0.5 * Math.log(2 * Math.PI) + (z + 0.5) * Math.log(t) - t + Math.log(x);
+    }
+    function betacf(x, a, b) {
+      const FPMIN = 1e-30; const qab = a + b, qap = a + 1, qam = a - 1;
+      let c = 1, d = 1 - qab * x / qap; if (Math.abs(d) < FPMIN) d = FPMIN; d = 1 / d; let h = d;
+      for (let mm = 1; mm < 200; mm++) {
+        const m2 = 2 * mm;
+        let aa = mm * (b - mm) * x / ((qam + m2) * (a + m2));
+        d = 1 + aa * d; if (Math.abs(d) < FPMIN) d = FPMIN; c = 1 + aa / c; if (Math.abs(c) < FPMIN) c = FPMIN; d = 1 / d; h *= d * c;
+        aa = -(a + mm) * (qab + mm) * x / ((a + m2) * (qap + m2));
+        d = 1 + aa * d; if (Math.abs(d) < FPMIN) d = FPMIN; c = 1 + aa / c; if (Math.abs(c) < FPMIN) c = FPMIN; d = 1 / d; const del = d * c; h *= del;
+        if (Math.abs(del - 1) < 3e-7) break;
+      }
+      return h;
+    }
+    function betai(a, b, x) {
+      if (x <= 0) return 0; if (x >= 1) return 1;
+      const bt = Math.exp(lgamma(a + b) - lgamma(a) - lgamma(b) + a * Math.log(x) + b * Math.log(1 - x));
+      if (x < (a + 1) / (a + b + 2)) return bt * betacf(x, a, b) / a;
+      return 1 - bt * betacf(1 - x, b, a) / b;
+    }
+    function fSurvival(F, d1, d2) { if (!(F > 0)) return 1; return betai(d2 / 2, d1 / 2, d2 / (d2 + d1 * F)); }
+    function grangerTest(cause, effect, p) {
+      const T = effect.length;
+      if (T < 3 * p + 5) return null;
+      const yv = [], Xr = [], Xu = [];
+      for (let t = p; t < T; t++) {
+        yv.push(effect[t]);
+        const rowR = [1]; for (let j = 1; j <= p; j++) rowR.push(effect[t - j]);
+        const rowU = rowR.slice(); for (let j = 1; j <= p; j++) rowU.push(cause[t - j]);
+        Xr.push(rowR); Xu.push(rowU);
+      }
+      const R = solveOLS(Xr, yv), U = solveOLS(Xu, yv);
+      if (!R || !U || U.rss <= 0) return null;
+      const N = yv.length, dfu = N - (2 * p + 1);
+      if (dfu <= 0) return null;
+      const F = ((R.rss - U.rss) / p) / (U.rss / dfu);
+      return { F: F, df1: p, df2: dfu, p: fSurvival(F, p, dfu) };
+    }
+    function mentionPriceModel(row) {
+      const pts = (row.price && row.price.points) || [];
+      if (pts.length < 12) return null;
+      const mMap = {};
+      for (const q of (row.mentionSeries || [])) mMap[q.date] = (mMap[q.date] || 0) + (q.mentioned_posts || 0);
+      const dates = pts.map((p) => p.date);
+      const price = pts.map((p) => Number(p.close) || 0);
+      const mentAll = dates.map((d) => mMap[d] || 0);
+      if (mentAll.reduce((s, x) => s + x, 0) === 0) return null;
+      const r = [], m = [];
+      for (let i = 1; i < price.length; i++) { if (price[i - 1] > 0 && price[i] > 0) { r.push(Math.log(price[i] / price[i - 1])); m.push(mentAll[i]); } }
+      const n = r.length; if (n < 10) return null;
+      const sig = 1.96 / Math.sqrt(n);
+      const K = 7, ccf = [];
+      for (let k = -K; k <= K; k++) {
+        const xs = [], ys = [];
+        for (let t = 0; t < n; t++) { const tk = t + k; if (tk >= 0 && tk < n) { xs.push(m[t]); ys.push(r[tk]); } }
+        const rr = xs.length >= 5 ? pearson(xs, ys) : 0;
+        ccf.push({ lag: k, r: rr, sig: Math.abs(rr) > sig });
+      }
+      let best = ccf[K]; for (const c of ccf) if (Math.abs(c.r) > Math.abs(best.r)) best = c;
+      return { n: n, sig: sig, ccf: ccf, contemporaneous: ccf[K].r, spearman: spearman(m, r), grangerFwd: grangerTest(m, r, 3), grangerRev: grangerTest(r, m, 3), best: best };
+    }
+    function ccfChart(model) {
+      const W = 480, H = 132, padX = 26, padTop = 12, padBot = 26;
+      const ccf = model.ccf, n = ccf.length;
+      let maxAbs = model.sig * 1.25;
+      for (const c of ccf) maxAbs = Math.max(maxAbs, Math.abs(c.r));
+      maxAbs = Math.max(maxAbs, 0.2);
+      const zeroY = padTop + (H - padTop - padBot) / 2;
+      const yOf = (v) => zeroY - (v / maxAbs) * ((H - padTop - padBot) / 2);
+      const slot = (W - padX * 2) / n, bw = slot * 0.62;
+      let bars = '';
+      for (let i = 0; i < n; i++) {
+        const c = ccf[i];
+        const x = padX + slot * i + (slot - bw) / 2;
+        const y = yOf(c.r), y0 = zeroY;
+        const top = Math.min(y, y0), hh = Math.max(1, Math.abs(y - y0));
+        const col = c.lag === 0 ? 'var(--cyan)' : (c.r >= 0 ? 'var(--green)' : 'var(--red)');
+        const op = c.sig ? '0.95' : '0.4';
+        bars += '<rect x="' + x.toFixed(1) + '" y="' + top.toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + hh.toFixed(1) + '" rx="1.5" fill="' + col + '" opacity="' + op + '"></rect>';
+        if (c.lag % 7 === 0) bars += '<text class="ccf-tick" x="' + (x + bw / 2).toFixed(1) + '" y="' + (H - 9) + '" text-anchor="middle">' + (c.lag > 0 ? '+' : '') + c.lag + '</text>';
+      }
+      const sigPos = yOf(model.sig), sigNeg = yOf(-model.sig);
+      return '<svg class="ccf-chart" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" role="img" aria-label="提及对收益的互相关函数">' +
+        '<line x1="' + padX + '" y1="' + zeroY + '" x2="' + (W - padX) + '" y2="' + zeroY + '" stroke="rgba(255,255,255,0.12)" stroke-width="1"></line>' +
+        '<line x1="' + padX + '" y1="' + sigPos.toFixed(1) + '" x2="' + (W - padX) + '" y2="' + sigPos.toFixed(1) + '" stroke="var(--amber)" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"></line>' +
+        '<line x1="' + padX + '" y1="' + sigNeg.toFixed(1) + '" x2="' + (W - padX) + '" y2="' + sigNeg.toFixed(1) + '" stroke="var(--amber)" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"></line>' +
+        bars +
+        '</svg>';
+    }
+    function statsPanel(model) {
+      if (!model) return '<div class="stats-panel stats-na">提及 × 股价模型：重叠的价格/提及数据不足（需 ≥12 个交易日），暂无法建模。</div>';
+      const fr = (v) => (v >= 0 ? '+' : '') + v.toFixed(2);
+      const fp = (v) => v < 0.001 ? '<0.001' : v.toFixed(3);
+      const gf = model.grangerFwd, gr = model.grangerRev;
+      const gp = gf ? gf.p : 1;
+      const best = model.best;
+      const dir = best.r >= 0 ? '正相关' : '负相关';
+      let verdict, vcls;
+      if (gf && gp < 0.05) { verdict = '提及对其后收益有统计显著的领先关系，方向为' + dir + '（格兰杰检验通过，证据较强）'; vcls = 'stat-sig'; }
+      else if (best.sig && best.lag > 0) { verdict = '提及领先收益约 ' + best.lag + ' 天，呈' + dir + '（' + (best.r >= 0 ? '提及增多→其后收益偏强' : '提及增多→其后收益偏弱') + '；相关显著但格兰杰未达显著，证据偏弱）'; vcls = 'stat-mid'; }
+      else if (best.sig && best.lag < 0) { verdict = '收益领先提及约 ' + (-best.lag) + ' 天，呈' + dir + '——更像她对价格已动的反应，而非预测'; vcls = 'stat-mid'; }
+      else if (best.sig) { verdict = '提及与当日收益同步' + dir + '（无明显领先或滞后）'; vcls = 'stat-mid'; }
+      else { verdict = '在此样本下未发现提及与收益的统计显著关系（最强信号为' + dir + ' r=' + best.r.toFixed(2) + '，仍在噪声带内）'; vcls = 'stat-weak'; }
+      const tech = '格兰杰 提及→收益 F=' + (gf ? gf.F.toFixed(2) : '—') + ' p=' + (gf ? fp(gf.p) : '—') + (gf && gf.p < 0.05 ? ' ✓' : ' (ns)') +
+        ' · 收益→提及 p=' + (gr ? fp(gr.p) : '—') +
+        ' · 同步 Spearman ρ=' + fr(model.spearman) +
+        ' · CCF 峰值 lag=' + (best.lag > 0 ? '+' : '') + best.lag + ' r=' + fr(best.r) + (best.sig ? ' ✓' : ' (ns)');
+      return '<div class="stats-panel ' + vcls + '">' +
+        '<div class="stats-verdict"><span class="stats-dot"></span>' + verdict + '</div>' +
+        '<div class="stats-ccf"><div class="stats-ccf-cap"><span>互相关 CCF：提及 → 收益（滞后/领先天数）</span><span class="muted">虚线=95%显著带 ±' + model.sig.toFixed(2) + '</span></div>' + ccfChart(model) +
+        '<div class="ccf-axis"><span>← 收益领先提及（她在反应）</span><span>提及领先收益（她在预测）→</span></div></div>' +
+        '<div class="stats-tech">' + tech + '</div>' +
+        '<div class="stats-note">样本 n=' + model.n + ' 个交易日 · 小样本 + 多重比较；格兰杰为"预测性先后"而非真正因果 · 仅描述，不构成投资建议</div>' +
+        '</div>';
+    }
+    function renderFocus(row) {
+      const el = $("focusBody");
+      if (!el) return;
+      if (!row) { el.innerHTML = '<div class="empty">悬停或点击任意标的查看其价格 × 提及焦点图</div>'; return; }
+      const model = mentionPriceModel(row);
+      const px = row.price || {};
+      const hasPx = px.close != null;
+      const chg = px.change_pct;
+      const pxHtml = hasPx
+        ? '<div class="focus-px ' + deltaClass(chg) + '">' + formatNumber(px.close, 2) + ' ' + html(px.currency || '') + ' <span class="focus-chg">' + formatPct(chg) + '</span></div>'
+        : '<div class="focus-px muted">暂无价格</div>';
+      el.innerHTML =
+        '<div class="focus-head"><div class="focus-id"><span class="focus-ticker">' + row.ticker + '</span><span class="focus-name muted">' + html(px.symbol || row.ticker) + ' · ' + html(row.primary_theme) + '</span></div>' +
+        pxHtml + '</div>' +
+        combinedChart(row, true) +
+        statsPanel(model);
+      attachComboHandlers();
+    }
+    function initGridSplitter() {
+      const grid = document.querySelector(".dashboard-grid");
+      const sp = $("gridSplitter");
+      if (!grid || !sp) return;
+      const saved = (function () { try { return JSON.parse(localStorage.getItem("aleabito.split") || "null"); } catch (e) { return null; } })();
+      let lastMain = 0;
+      const apply = (mainPx) => { lastMain = mainPx; grid.style.gridTemplateColumns = mainPx + "px 12px minmax(360px, 1fr)"; };
+      if (saved && saved.main > 0) apply(saved.main);
+      let dragging = false;
+      sp.addEventListener("mousedown", (e) => { dragging = true; document.body.style.userSelect = "none"; document.body.style.cursor = "col-resize"; e.preventDefault(); });
+      window.addEventListener("mousemove", (e) => {
+        if (!dragging) return;
+        const rect = grid.getBoundingClientRect();
+        if (rect.width < 80) return;
+        let mainPx = e.clientX - rect.left;
+        mainPx = Math.max(520, Math.min(rect.width - 372, mainPx));
+        apply(mainPx);
+      });
+      window.addEventListener("mouseup", () => {
+        if (!dragging) return;
+        dragging = false; document.body.style.userSelect = ""; document.body.style.cursor = "";
+        if (lastMain > 0) { try { localStorage.setItem("aleabito.split", JSON.stringify({ main: Math.round(lastMain) })); } catch (e) {} }
+      });
+      sp.addEventListener("dblclick", () => { grid.style.gridTemplateColumns = ""; lastMain = 0; try { localStorage.removeItem("aleabito.split"); } catch (e) {} });
     }
     function lineChart(points, field, ticker, mode) {
       if (!points || points.length < 2) {
@@ -3161,12 +3380,9 @@ function buildHtmlV2(data) {
           '<div class="mini-metric"><div class="mini-label">7D Momentum</div><div class="mini-value ' + deltaClass(row.velocity) + '">' + (row.velocity > 0 ? "+" : "") + formatNumber(row.velocity) + '</div></div>' +
           '<div class="mini-metric"><div class="mini-label">' + (isFullWindow() ? "3M Price" : windowDays() + "D Price") + '</div><div class="mini-value ' + deltaClass(row.price.change_pct) + '">' + formatPct(row.price.change_pct) + '</div></div>' +
         '</div>' +
-        '<div class="section-label"><span>Mention × Price · 提及 × 股价</span><span class="muted">' + priceNote + '</span></div>' +
-        comboReadout(row) +
-        combinedChart(row) +
         '<div class="section-label"><span>最新来源样本</span><span class="muted">中文摘要 + 英文原文</span></div>' +
         '<div class="sample-list">' + samples + '</div>';
-      attachComboHandlers();
+      renderFocus(row);
     }
 
     function renderMovers() {
@@ -3328,6 +3544,7 @@ function buildHtmlV2(data) {
     renderMeta();
     renderBriefs();
     initWindowBar();
+    initGridSplitter();
     renderKpis();
     renderFilters();
     attachEvents();
