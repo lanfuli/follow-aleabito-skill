@@ -1120,6 +1120,7 @@ function buildHtmlV2(data) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
   <title>Serenity 500 · AleaBito Research Dashboard</title>
   <style>
     :root {
@@ -1146,6 +1147,87 @@ function buildHtmlV2(data) {
       --shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
     }
+
+    html { color-scheme: dark; }
+    :root[data-theme="light"] { color-scheme: light; }
+    :root[data-theme="light"] {
+      --bg: #f4f7fb;
+      --panel: #ffffff;
+      --panel-2: #f7f9fc;
+      --panel-3: #eef2f8;
+      --ink: #0f1b2d;
+      --muted: #51607d;
+      --subtle: #71809e;
+      --line: #e3e9f2;
+      --line-2: #d3dbe8;
+      --cyan: #1899bd;
+      --cyan-soft: rgba(24, 153, 189, 0.12);
+      --purple: #6c5ce0;
+      --purple-soft: rgba(108, 92, 224, 0.14);
+      --pink: #d6489a;
+      --pink-soft: rgba(214, 72, 154, 0.14);
+      --green: #1f9d57;
+      --red: #e0484d;
+      --amber: #b9810f;
+      --shadow: 0 12px 30px rgba(15, 23, 42, 0.1);
+    }
+    :root[data-theme="light"] body {
+      background:
+        radial-gradient(circle at 12% -8%, rgba(24, 153, 189, 0.1), transparent 32%),
+        radial-gradient(circle at 80% 0%, rgba(108, 92, 224, 0.06), transparent 30%),
+        linear-gradient(180deg, #f4f7fb 0%, #eef2f8 44%, #f4f7fb 100%);
+    }
+    :root[data-theme="light"] .pill,
+    :root[data-theme="light"] .control,
+    :root[data-theme="light"] .window-dates input[type="date"],
+    :root[data-theme="light"] .window-preset,
+    :root[data-theme="light"] .mini-metric,
+    :root[data-theme="light"] .mover,
+    :root[data-theme="light"] .sample,
+    :root[data-theme="light"] .fund-cell,
+    :root[data-theme="light"] .track-kpi,
+    :root[data-theme="light"] .focus-track,
+    :root[data-theme="light"] .stats-panel,
+    :root[data-theme="light"] .corr-readout,
+    :root[data-theme="light"] .mb { background: #ffffff; }
+    :root[data-theme="light"] .table-wrap,
+    :root[data-theme="light"] .line-chart,
+    :root[data-theme="light"] .combo-chart { background: #fbfcfe; }
+    :root[data-theme="light"] .tooltip { background: rgba(255, 255, 255, 0.98); }
+    :root[data-theme="light"] th { background: #eef2f8; }
+    :root[data-theme="light"] th,
+    :root[data-theme="light"] td { border-bottom-color: rgba(15, 23, 42, 0.08); }
+    :root[data-theme="light"] .bubble-label,
+    :root[data-theme="light"] .bar-value,
+    :root[data-theme="light"] .mention-text,
+    :root[data-theme="light"] .section-label,
+    :root[data-theme="light"] .sample-summary,
+    :root[data-theme="light"] .priority-pill { color: #25324c; fill: #25324c; }
+    :root[data-theme="light"] .rank { color: #8593ad; }
+    :root[data-theme="light"] .chart-axis { stroke: #c3ccdb; }
+    :root[data-theme="light"] .grid-line { stroke: rgba(15, 23, 42, 0.08); }
+    :root[data-theme="light"] .cross-line,
+    :root[data-theme="light"] .cc-line { stroke: #1f3350; }
+    :root[data-theme="light"] .cross-dot,
+    :root[data-theme="light"] .cc-dot { fill: #1f3350; }
+    :root[data-theme="light"] .combo-base { stroke: rgba(15, 23, 42, 0.14); }
+    :root[data-theme="light"] .bar-bg,
+    :root[data-theme="light"] .mention-bar { fill: rgba(15, 23, 42, 0.06); background: rgba(15, 23, 42, 0.06); }
+    :root[data-theme="light"] .bar-row-active .bar-bg { fill: rgba(15, 23, 42, 0.14); }
+    :root[data-theme="light"] .bubble { stroke: rgba(15, 23, 42, 0.14); }
+    :root[data-theme="light"] .priority-pill,
+    :root[data-theme="light"] .detail-status,
+    :root[data-theme="light"] .search-clear,
+    :root[data-theme="light"] .legend-btn.active { background: rgba(15, 23, 42, 0.05); }
+    :root[data-theme="light"] .search-clear:hover { background: rgba(15, 23, 42, 0.1); }
+    :root[data-theme="light"] .window-dates input { color-scheme: light; }
+    :root[data-theme="light"] tbody tr.active,
+    :root[data-theme="light"] tbody tr:focus-visible { background: rgba(24, 153, 189, 0.1); }
+
+    .seg-toggle { display: inline-flex; gap: 2px; padding: 2px; border-radius: 999px; border: 1px solid var(--line-2); background: var(--panel-3); }
+    .seg-btn { appearance: none; cursor: pointer; border: 0; background: transparent; color: var(--muted); padding: 5px 11px; border-radius: 999px; font-size: 12px; font-weight: 700; line-height: 1; transition: color 0.16s ease, background 0.16s ease; }
+    .seg-btn:hover { color: var(--ink); }
+    .seg-btn.active { color: #06121b; background: var(--cyan); }
 
     * { box-sizing: border-box; }
 
@@ -2457,6 +2539,10 @@ function buildHtmlV2(data) {
         <input type="date" id="winEnd" aria-label="结束日期">
         <button type="button" class="window-reset" id="winReset">重置</button>
       </div>
+      <div class="seg-toggle theme-toggle" role="group" aria-label="主题 / Theme">
+        <button type="button" class="seg-btn" data-theme-val="light">浅 Light</button>
+        <button type="button" class="seg-btn" data-theme-val="dark">深 Dark</button>
+      </div>
       <div class="window-label" id="winLabel"></div>
     </section>
 
@@ -3684,7 +3770,7 @@ function buildHtmlV2(data) {
       }
       const sigPos = yOf(model.sig), sigNeg = yOf(-model.sig);
       return '<svg class="ccf-chart" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" role="img" aria-label="提及对收益的互相关函数">' +
-        '<line x1="' + padX + '" y1="' + zeroY + '" x2="' + (W - padX) + '" y2="' + zeroY + '" stroke="rgba(255,255,255,0.12)" stroke-width="1"></line>' +
+        '<line x1="' + padX + '" y1="' + zeroY + '" x2="' + (W - padX) + '" y2="' + zeroY + '" stroke="rgba(125,140,170,0.42)" stroke-width="1"></line>' +
         '<line x1="' + padX + '" y1="' + sigPos.toFixed(1) + '" x2="' + (W - padX) + '" y2="' + sigPos.toFixed(1) + '" stroke="var(--amber)" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"></line>' +
         '<line x1="' + padX + '" y1="' + sigNeg.toFixed(1) + '" x2="' + (W - padX) + '" y2="' + sigNeg.toFixed(1) + '" stroke="var(--amber)" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"></line>' +
         bars +
@@ -3787,6 +3873,23 @@ function buildHtmlV2(data) {
       el.innerHTML = '<div class="section-label"><span>主题集中度 · Concentration</span><span class="muted">她的注意力分布 + 7D 轮动 ▲▼</span></div><div class="conc-bar">' + bar + '</div><div class="conc-legend">' + legend + '</div>' + clusterHtml;
       el.querySelectorAll('.cluster-mem').forEach(function (b) { b.addEventListener('click', function () { setPinnedTicker(b.dataset.ticker); }); });
     }
+    function getStored(k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } }
+    function setStored(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+    function applyTheme(tm) {
+      document.documentElement.setAttribute('data-theme', tm);
+      document.querySelectorAll('.theme-toggle .seg-btn').forEach(function (b) {
+        var on = b.getAttribute('data-theme-val') === tm;
+        b.classList.toggle('active', on); b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    }
+    function initTheme() {
+      var saved = getStored('aleabito.theme');
+      var tm = (saved === 'light' || saved === 'dark') ? saved : 'dark';
+      applyTheme(tm);
+      document.querySelectorAll('.theme-toggle .seg-btn').forEach(function (b) {
+        b.addEventListener('click', function () { var v = b.getAttribute('data-theme-val'); applyTheme(v); setStored('aleabito.theme', v); });
+      });
+    }
     function renderTrackRecord() {
       var el = $("trackBody");
       if (!el) return;
@@ -3868,8 +3971,8 @@ function buildHtmlV2(data) {
       const min = Math.min.apply(null, finite);
       const lineClass = mode === "price" && values[values.length - 1] < values[0] ? "spark-line spark-red" : "spark-line";
       return '<svg class="line-chart js-detail-chart" data-ticker="' + ticker + '" data-mode="' + mode + '" viewBox="0 0 ' + width + ' ' + height + '">' +
-        '<path d="M' + pad + ',' + (height - pad) + ' L' + (width - pad) + ',' + (height - pad) + ' M' + pad + ',' + pad + ' L' + pad + ',' + (height - pad) + '" fill="none" stroke="#293553"></path>' +
-        '<path d="M' + pad + ',62 L' + (width - pad) + ',62 M' + pad + ',118 L' + (width - pad) + ',118" fill="none" stroke="rgba(78,91,130,0.32)"></path>' +
+        '<path d="M' + pad + ',' + (height - pad) + ' L' + (width - pad) + ',' + (height - pad) + ' M' + pad + ',' + pad + ' L' + pad + ',' + (height - pad) + '" fill="none" class="chart-axis"></path>' +
+        '<path d="M' + pad + ',62 L' + (width - pad) + ',62 M' + pad + ',118 L' + (width - pad) + ',118" fill="none" class="grid-line"></path>' +
         '<path class="' + lineClass + '" d="' + path + '"></path>' +
         '<text class="tick-label" x="' + (pad + 5) + '" y="35">' + formatNumber(max, 2) + '</text>' +
         '<text class="tick-label" x="' + (pad + 5) + '" y="' + (height - 12) + '">' + formatNumber(min, 2) + '</text>' +
@@ -4067,6 +4170,7 @@ function buildHtmlV2(data) {
     }
 
     renderMeta();
+    initTheme();
     renderBriefs();
     initWindowBar();
     initGridSplitter();
