@@ -18,6 +18,17 @@ const digestsDir = path.join(reportsDir, "aleabito-digests");
 const refreshPrices = process.argv.includes("--refresh-prices");
 const noPrices = process.argv.includes("--no-prices");
 const maxPriceAgeMs = 6 * 60 * 60 * 1000;
+const priceDeepCachePath = path.join(reportsDir, "aleabito-price-deep-cache.json");
+const fundamentalsCachePath = path.join(reportsDir, "aleabito-fundamentals-cache.json");
+const refreshDeep = process.argv.includes("--refresh-deep");
+const refreshFundamentals = process.argv.includes("--refresh-fundamentals");
+const maxDeepAgeMs = 12 * 60 * 60 * 1000;
+const maxFundAgeMs = 24 * 60 * 60 * 1000;
+const MEANINGFUL_MIN_MENTIONS = 5;
+const MEANINGFUL_TOPN = 220;
+const EMBED_POINTS = 63;
+const BENCH_SYMBOLS = { SPY: "SPY", SMH: "SMH" };
+const YAHOO_UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36";
 
 const YAHOO_SYMBOL_ALIASES = {
   SIVE: "SIVE.ST",
@@ -293,6 +304,127 @@ async function mapLimit(items, limit, worker) {
 
   await Promise.all(Array.from({ length: Math.min(limit, items.length) }, run));
   return results;
+}
+
+const sleepMs = (ms) => new Promise((r) => setTimeout(r, ms));
+function numOrNull(x) { return typeof x === "number" && Number.isFinite(x) ? x : null; }
+function rawOrNull(x) { if (x && typeof x.raw === "number" && Number.isFinite(x.raw)) return x.raw; return typeof x === "number" && Number.isFinite(x) ? x : null; }
+
+async function yahooFetch(url, extraHeaders) {
+  const headers = Object.assign({ accept: "application/json", "user-agent": YAHOO_UA }, extraHeaders || {});
+  for (let attempt = 0; attempt < 4; attempt++) {
+    let resp;
+    try { resp = await fetch(url, { headers }); }
+    catch (e) { if (attempt === 3) return { status: 0, text: "", error: e.message }; await sleepMs(800 * (attempt + 1)); continue; }
+    if (resp.status === 429) {
+      if (attempt === 3) return { status: 429, text: "" };
+      await sleepMs(2000 * Math.pow(2, attempt) + Math.floor(Math.random() * 600));
+      continue;
+    }
+    let text = "";
+    try { text = await resp.text(); } catch (e) {}
+    return { status: resp.status, text };
+  }
+  return { status: 429, text: "" };
+}
+
+async function fetchYahooChartDeep(symbol) {
+  const url = "https://query1.finance.yahoo.com/v8/finance/chart/" + encodeURIComponent(symbol) + "?range=2y&interval=1d&includePrePost=false";
+  const r = await yahooFetch(url);
+  if (r.status === 429) return { status: "rate_limited", symbol };
+  if (r.status !== 200) return { status: "missing", symbol, error: "HTTP " + r.status };
+  let payload; try { payload = JSON.parse(r.text); } catch (e) { return { status: "missing", symbol, error: "parse" }; }
+  const result = payload && payload.chart && payload.chart.result && payload.chart.result[0];
+  if (!result || !result.timestamp || !result.timestamp.length) return { status: "missing", symbol, error: "no data" };
+  const q = (result.indicators && result.indicators.quote && result.indicators.quote[0]) || {};
+  const closes = q.close || [], vols = q.volume || [];
+  const daily = result.timestamp.map((t, i) => ({
+    d: new Date(t * 1000).toISOString().slice(0, 10),
+    c: closes[i] == null ? null : Number(closes[i]),
+    v: vols[i] == null ? null : Number(vols[i]),
+  })).filter((p) => Number.isFinite(p.c));
+  if (daily.length < 2) return { status: "missing", symbol, error: "thin" };
+  const meta = result.meta || {};
+  return { status: "ok", symbol: meta.symbol || symbol, currency: meta.currency || "", exchange: meta.exchangeName || meta.fullExchangeName || "", daily, fetched_at: new Date().toISOString() };
+}
+
+async function fetchDeepForTicker(ticker) {
+  let lastError = "";
+  for (const symbol of getYahooCandidates(ticker)) {
+    const res = await fetchYahooChartDeep(symbol);
+    if (res.status === "ok") return res;
+    if (res.status === "rate_limited") return res;
+    lastError = symbol + ": " + (res.error || "?");
+  }
+  return { status: "missing", symbol: getYahooCandidates(ticker)[0] || ticker, error: lastError };
+}
+
+async function acquireYahooCrumb() {
+  try {
+    const r1 = await fetch("https://fc.yahoo.com/", { headers: { "user-agent": YAHOO_UA } });
+    const sc = r1.headers.get("set-cookie");
+    const cookie = sc ? sc.split(/,(?=\s*[A-Za-z0-9_]+=)/).map((c) => c.split(";")[0].trim()).join("; ") : null;
+    if (!cookie) return null;
+    await sleepMs(300);
+    const r2 = await fetch("https://query1.finance.yahoo.com/v1/test/getcrumb", { headers: { accept: "text/plain", "user-agent": YAHOO_UA, cookie } });
+    if (r2.status !== 200) return null;
+    const crumb = (await r2.text()).trim();
+    if (!crumb || crumb.length > 40 || crumb.indexOf("<") >= 0 || crumb === "Too Many Requests") return null;
+    return { cookie, crumb };
+  } catch (e) { return null; }
+}
+
+async function fetchFundamentalsQS(symbol, auth) {
+  if (!auth) return null;
+  const mods = "price,summaryDetail,defaultKeyStatistics,financialData,calendarEvents";
+  const url = "https://query1.finance.yahoo.com/v10/finance/quoteSummary/" + encodeURIComponent(symbol) + "?modules=" + mods + "&crumb=" + encodeURIComponent(auth.crumb);
+  const r = await yahooFetch(url, { cookie: auth.cookie });
+  if (r.status === 429) return { status: "rate_limited" };
+  if (r.status !== 200) return null;
+  let j; try { j = JSON.parse(r.text); } catch (e) { return null; }
+  const res = j && j.quoteSummary && j.quoteSummary.result && j.quoteSummary.result[0];
+  if (!res) return null;
+  const ks = res.defaultKeyStatistics || {}, sd = res.summaryDetail || {}, pr = res.price || {}, fd = res.financialData || {}, ce = res.calendarEvents || {};
+  const earn = ce.earnings && ce.earnings.earningsDate;
+  let nextEarnings = null;
+  if (Array.isArray(earn) && earn.length) nextEarnings = earn[0].fmt || (earn[0].raw ? new Date(earn[0].raw * 1000).toISOString().slice(0, 10) : null);
+  return {
+    status: "ok", source: "quoteSummary",
+    marketCap: rawOrNull(pr.marketCap), sharesOutstanding: rawOrNull(ks.sharesOutstanding), floatShares: rawOrNull(ks.floatShares),
+    sharesShort: rawOrNull(ks.sharesShort), shortRatio: rawOrNull(ks.shortRatio), shortPercentFloat: rawOrNull(ks.shortPercentOfFloat),
+    trailingPE: rawOrNull(sd.trailingPE), forwardPE: rawOrNull(sd.forwardPE), priceToSales: rawOrNull(sd.priceToSalesTrailing12Months),
+    beta: rawOrNull(sd.beta), profitMargin: rawOrNull(fd.profitMargins), nextEarnings,
+  };
+}
+
+async function fetchQuoteBatch(symbols, auth) {
+  let url = "https://query1.finance.yahoo.com/v7/finance/quote?symbols=" + symbols.map(encodeURIComponent).join(",");
+  if (auth) url += "&crumb=" + encodeURIComponent(auth.crumb);
+  const r = await yahooFetch(url, auth ? { cookie: auth.cookie } : {});
+  if (r.status === 429) return { status: "rate_limited" };
+  if (r.status !== 200) return null;
+  let j; try { j = JSON.parse(r.text); } catch (e) { return null; }
+  const res = j && j.quoteResponse && j.quoteResponse.result;
+  if (!Array.isArray(res)) return null;
+  const bySymbol = {};
+  for (const q of res) {
+    bySymbol[q.symbol] = {
+      status: "ok", source: "quote",
+      marketCap: numOrNull(q.marketCap), sharesOutstanding: numOrNull(q.sharesOutstanding), floatShares: null,
+      sharesShort: numOrNull(q.sharesShort), shortRatio: null, shortPercentFloat: null,
+      trailingPE: numOrNull(q.trailingPE), forwardPE: numOrNull(q.forwardPE), priceToSales: null,
+      beta: null, profitMargin: null, nextEarnings: null,
+    };
+  }
+  return { status: "ok", bySymbol };
+}
+
+function avgDollarVolFromDaily(daily, n) {
+  if (!daily || !daily.length) return null;
+  const tail = daily.slice(-(n || 30));
+  const vals = tail.filter((p) => Number.isFinite(p.c) && Number.isFinite(p.v)).map((p) => p.c * p.v);
+  if (!vals.length) return null;
+  return vals.reduce((s, x) => s + x, 0) / vals.length;
 }
 
 function buildSparkPath(values, width, height, pad = 3) {
@@ -639,7 +771,8 @@ async function main() {
       console.error(`Fetching price charts for ${toFetch.length} tickers...`);
       await mapLimit(toFetch, 6, async (ticker, index) => {
         const result = await fetchPriceForTicker(ticker);
-        cache.prices[ticker] = result;
+        const prev = cache.prices[ticker];
+        if (result.status === "ok" || !(prev && prev.status === "ok")) cache.prices[ticker] = result;
         if ((index + 1) % 25 === 0 || index === toFetch.length - 1) {
           console.error(`Price fetch progress: ${index + 1}/${toFetch.length}`);
         }
@@ -667,6 +800,107 @@ async function main() {
       fetched_at: price.fetched_at || null,
     };
   });
+
+  // ---- Stage 1: deep (2y) price + benchmarks + fundamentals (build-time analytics foundation) ----
+  const meaningfulSet = new Set(
+    summary.filter((r) => (r.mentioned_posts >= MEANINGFUL_MIN_MENTIONS || r.serenity_rank <= MEANINGFUL_TOPN) && r.price && r.price.status === "ok").map((r) => r.ticker)
+  );
+  const symbolByTicker = {};
+  summary.forEach((r) => { symbolByTicker[r.ticker] = (r.price && r.price.symbol) || getYahooCandidates(r.ticker)[0] || r.ticker; });
+  const benchSymbols = Object.values(BENCH_SYMBOLS);
+  const fetchState = { rl: 0, blocked: false };
+
+  const deepCache = readJson(priceDeepCachePath, { generated_at: null, provider: "Yahoo Finance chart API (2y)", series: {} });
+  deepCache.series = deepCache.series || {};
+  if (!noPrices) {
+    const deepTargets = [...meaningfulSet, ...benchSymbols].filter((key) => {
+      const cached = deepCache.series[key];
+      if (refreshDeep || !cached || !cached.fetched_at) return true;
+      return Date.now() - new Date(cached.fetched_at).getTime() > maxDeepAgeMs;
+    });
+    if (deepTargets.length) {
+      console.error("Fetching deep (2y) price for " + deepTargets.length + " targets...");
+      let done = 0;
+      await mapLimit(deepTargets, 3, async (key) => {
+        if (fetchState.blocked) return;
+        const isBench = benchSymbols.includes(key);
+        const res = isBench ? await fetchYahooChartDeep(key) : await fetchDeepForTicker(key);
+        if (res.status === "rate_limited") { fetchState.rl++; if (fetchState.rl >= 8) { fetchState.blocked = true; console.error("Yahoo rate-limited; pausing deep fetch (resume next run with --refresh-deep)"); } return; }
+        if (res.status === "ok") { fetchState.rl = 0; deepCache.series[key] = { symbol: res.symbol, currency: res.currency, exchange: res.exchange, daily: res.daily, fetched_at: res.fetched_at }; }
+        else if (!deepCache.series[key]) { deepCache.series[key] = { symbol: res.symbol || key, status: "missing", daily: [], fetched_at: new Date().toISOString() }; }
+        done++;
+        if (done % 25 === 0) { deepCache.generated_at = new Date().toISOString(); fs.writeFileSync(priceDeepCachePath, JSON.stringify(deepCache) + "\n"); console.error("deep " + done + "/" + deepTargets.length); }
+      });
+      deepCache.generated_at = new Date().toISOString();
+      fs.writeFileSync(priceDeepCachePath, JSON.stringify(deepCache) + "\n");
+    }
+  }
+
+  const deepByTicker = new Map();
+  summary.forEach((r) => { const s = deepCache.series[r.ticker]; if (s && s.daily && s.daily.length) deepByTicker.set(r.ticker, s.daily); });
+  const benchDeep = {};
+  const benchmarksData = {};
+  for (const [name, sym] of Object.entries(BENCH_SYMBOLS)) {
+    const s = deepCache.series[sym];
+    const m = new Map();
+    if (s && s.daily) s.daily.forEach((p) => { if (Number.isFinite(p.c)) m.set(p.d, p.c); });
+    benchDeep[name] = m;
+    if (s && s.daily && s.daily.length) benchmarksData[name] = { symbol: sym, points: s.daily.slice(-EMBED_POINTS).map((p) => ({ date: p.d, close: p.c })) };
+  }
+
+  const fundCache = readJson(fundamentalsCachePath, { generated_at: null, source: null, fundamentals: {} });
+  fundCache.fundamentals = fundCache.fundamentals || {};
+  if (!noPrices && !fetchState.blocked) {
+    const fundTargets = [...meaningfulSet].filter((t) => {
+      const c = fundCache.fundamentals[t];
+      if (refreshFundamentals || !c || !c.fetched_at) return true;
+      return Date.now() - new Date(c.fetched_at).getTime() > maxFundAgeMs;
+    });
+    if (fundTargets.length) {
+      console.error("Fetching fundamentals for " + fundTargets.length + " tickers...");
+      const auth = await acquireYahooCrumb();
+      console.error("fundamentals mode: " + (auth ? "quoteSummary (crumb ok)" : "quote-fallback (no crumb)"));
+      let fdone = 0;
+      if (auth) {
+        await mapLimit(fundTargets, 3, async (t) => {
+          if (fetchState.blocked) return;
+          const res = await fetchFundamentalsQS(symbolByTicker[t], auth);
+          if (res && res.status === "rate_limited") { fetchState.rl++; if (fetchState.rl >= 8) fetchState.blocked = true; return; }
+          if (res && res.status === "ok") { fetchState.rl = 0; fundCache.fundamentals[t] = Object.assign({}, res, { fetched_at: new Date().toISOString() }); }
+          fdone++;
+          if (fdone % 25 === 0) { fundCache.generated_at = new Date().toISOString(); fs.writeFileSync(fundamentalsCachePath, JSON.stringify(fundCache) + "\n"); }
+        });
+        fundCache.source = "quoteSummary";
+      } else {
+        for (let i = 0; i < fundTargets.length && !fetchState.blocked; i += 50) {
+          const batch = fundTargets.slice(i, i + 50);
+          const res = await fetchQuoteBatch(batch.map((t) => symbolByTicker[t]), null);
+          if (res && res.status === "rate_limited") { fetchState.rl++; if (fetchState.rl >= 8) fetchState.blocked = true; break; }
+          if (res && res.bySymbol) batch.forEach((t) => { const d = res.bySymbol[symbolByTicker[t]]; if (d) fundCache.fundamentals[t] = Object.assign({}, d, { fetched_at: new Date().toISOString() }); });
+          await sleepMs(600);
+        }
+        fundCache.source = fundCache.source || "quote";
+      }
+      fundCache.generated_at = new Date().toISOString();
+      fs.writeFileSync(fundamentalsCachePath, JSON.stringify(fundCache) + "\n");
+    }
+  }
+
+  summary.forEach((r) => {
+    const f = fundCache.fundamentals[r.ticker] || null;
+    const adv = avgDollarVolFromDaily(deepByTicker.get(r.ticker), 30);
+    const foreignListed = !!(r.price && r.price.currency && r.price.currency !== "USD");
+    if (f || adv != null || foreignListed) {
+      r.fundamentals = Object.assign(
+        { marketCap: null, sharesOutstanding: null, floatShares: null, sharesShort: null, shortRatio: null, shortPercentFloat: null, trailingPE: null, forwardPE: null, priceToSales: null, beta: null, profitMargin: null, nextEarnings: null, source: null },
+        f || {},
+        { avgDollarVol: adv, foreignListed }
+      );
+    } else {
+      r.fundamentals = null;
+    }
+  });
+  // (deepByTicker + benchDeep held in scope for Stage 2/4/5 build-time metrics)
 
   const themeStats = new Map();
   summary.forEach((row) => {
@@ -721,10 +955,12 @@ async function main() {
     digests,
     themeStats: [...themeStats.values()].sort((a, b) => b.mentions - a.mentions),
     topMovers,
+    benchmarks: benchmarksData,
     rows: summary,
   };
 
   const html = buildHtmlV2(dashboardData);
+  if (html.length > 14 * 1024 * 1024) console.error("WARN: dashboard HTML is " + (html.length / 1048576).toFixed(1) + "MB — check for embedded deep series (bloat guard)");
   fs.writeFileSync(outputPath, html);
 
   console.log(JSON.stringify({
@@ -2509,6 +2745,10 @@ function buildHtmlV2(data) {
         qualityFlag: base.qualityFlag,
         mentionSeries: series,
         examples,
+        fundamentals: base.fundamentals,
+        trackRecord: base.trackRecord,
+        marketStats: base.marketStats,
+        momentum: base.momentum,
         price: windowPrice(base.price, start, end),
       };
     }
