@@ -21,6 +21,7 @@ const maxPriceAgeMs = 6 * 60 * 60 * 1000;
 const priceDeepCachePath = path.join(reportsDir, "aleabito-price-deep-cache.json");
 const fundamentalsCachePath = path.join(reportsDir, "aleabito-fundamentals-cache.json");
 const refreshDeep = process.argv.includes("--refresh-deep");
+const skip3mo = process.argv.includes("--skip-3mo");
 const refreshFundamentals = process.argv.includes("--refresh-fundamentals");
 const maxDeepAgeMs = 12 * 60 * 60 * 1000;
 const maxFundAgeMs = 24 * 60 * 60 * 1000;
@@ -759,7 +760,7 @@ async function main() {
   cache.provider = "Yahoo Finance chart API";
   cache.prices ||= {};
 
-  if (!noPrices) {
+  if (!noPrices && !skip3mo) {
     const tickers = summary.map((row) => row.ticker);
     const toFetch = tickers.filter((ticker) => {
       const cached = cache.prices[ticker];
