@@ -910,6 +910,21 @@ async function main() {
     const mbd = {}; (r.mentionSeries || []).forEach((p) => { mbd[p.date] = (mbd[p.date] || 0) + (p.mentioned_posts || 0); });
     r.marketStats = computeMarketStats(daily, spyDeepDaily, smhDeepDaily, mbd);
   });
+  summary.forEach((r) => {
+    const series = dailyByTicker.get(r.ticker) || [];
+    const w14_7 = getWindowCount(series, latestDate, 7, 14);
+    const prevVel = r.prev7 - w14_7;
+    r.momentum = { accel: r.velocity - prevVel, ageDays: r.first_seen ? daysBetween(dateOnly(r.first_seen), latestDate) : null, recencyDays: r.daysSinceLast };
+  });
+  const themeAgg = new Map();
+  summary.forEach((r) => {
+    const t = r.primary_theme || "Other / unclassified";
+    const cur = themeAgg.get(t) || { theme: t, mentions: 0, recent7: 0, prior7: 0 };
+    cur.mentions += r.mentioned_posts; cur.recent7 += r.last7; cur.prior7 += r.prev7;
+    themeAgg.set(t, cur);
+  });
+  const themeConcentration = [...themeAgg.values()].map((x) => Object.assign({}, x, { delta: x.recent7 - x.prior7 })).sort((a, b) => b.mentions - a.mentions);
+  const clusters = computeClusters(summary, deepByTicker);
 
   const themeStats = new Map();
   summary.forEach((row) => {
@@ -966,6 +981,8 @@ async function main() {
     topMovers,
     benchmarks: benchmarksData,
     trackRecord: trackRecordAgg,
+    themeConcentration,
+    clusters,
     rows: summary,
   };
 
@@ -1068,6 +1085,33 @@ function computeTrackRecord(rows, deepCache, meaningfulSet) {
   return { n: recs.length, coverage: meaningfulCount ? recs.length / meaningfulCount : 0, winRate: wins / recs.length, meanFwd: mean(fwd), medianFwd: median(fwd), meanExcess: mean(exc), medianExcess: median(exc), basketRet: mean(fwd), basketExcess: mean(exc), meaningfulCount };
 }
 
+function computeClusters(rows, deepByTicker) {
+  const cand = rows.filter((r) => deepByTicker.has(r.ticker)).slice(0, 40);
+  if (cand.length < 2) return [];
+  const retMap = {};
+  cand.forEach((r) => { const m = new Map(); for (const x of logRetSeries(deepByTicker.get(r.ticker))) m.set(x.d, x.r); retMap[r.ticker] = m; });
+  const adj = {}; cand.forEach((r) => { adj[r.ticker] = []; });
+  const pairCorr = {};
+  for (let i = 0; i < cand.length; i++) for (let j = i + 1; j < cand.length; j++) {
+    const a = cand[i].ticker, b = cand[j].ticker, ma = retMap[a], mb = retMap[b];
+    const xs = [], ys = []; ma.forEach((v, d) => { if (mb.has(d)) { xs.push(v); ys.push(mb.get(d)); } });
+    if (xs.length >= 60) { const r = pearsonB(xs, ys); if (Math.abs(r) >= 0.6) { adj[a].push(b); adj[b].push(a); pairCorr[a + "|" + b] = r; pairCorr[b + "|" + a] = r; } }
+  }
+  const themeOf = {}; cand.forEach((r) => { themeOf[r.ticker] = r.primary_theme || "Other"; });
+  const seen = new Set(), clusters = [];
+  cand.forEach((r) => {
+    if (seen.has(r.ticker)) return;
+    const stack = [r.ticker], comp = [];
+    while (stack.length) { const t = stack.pop(); if (seen.has(t)) continue; seen.add(t); comp.push(t); adj[t].forEach((nb) => { if (!seen.has(nb)) stack.push(nb); }); }
+    if (comp.length >= 2) {
+      let sum = 0, cnt = 0; for (let i = 0; i < comp.length; i++) for (let j = i + 1; j < comp.length; j++) { const k = pairCorr[comp[i] + "|" + comp[j]]; if (k != null) { sum += Math.abs(k); cnt++; } }
+      const tc = {}; comp.forEach((t) => { tc[themeOf[t]] = (tc[themeOf[t]] || 0) + 1; });
+      let label = "?", best = -1; for (const k in tc) if (tc[k] > best) { best = tc[k]; label = k; }
+      clusters.push({ members: comp.sort(), avgCorr: cnt ? sum / cnt : 0, label });
+    }
+  });
+  return clusters.sort((a, b) => b.members.length - a.members.length);
+}
 function buildHtmlV2(data) {
   const json = JSON.stringify(data).replace(/</g, "\\u003c");
   return `<!doctype html>
@@ -1838,6 +1882,19 @@ function buildHtmlV2(data) {
     .fc-l { font-size: 10px; color: var(--subtle); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .fc-v { font-family: var(--mono); font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; margin-top: 2px; }
     .foreign-pill { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 999px; background: rgba(246,200,95,0.16); color: var(--amber); }
+    .conc-card { padding: 16px 22px 18px; margin: 0 0 18px; }
+    .conc-bar { display: flex; height: 18px; border-radius: 7px; overflow: hidden; margin: 4px 0 10px; gap: 1px; }
+    .conc-seg { min-width: 2px; }
+    .conc-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 11px; }
+    .conc-lg { display: inline-flex; align-items: center; gap: 5px; }
+    .conc-lg i { width: 9px; height: 9px; border-radius: 2px; display: inline-block; }
+    .cluster { margin: 7px 0; font-size: 12px; }
+    .cluster-label { font-family: var(--mono); color: var(--muted); margin-right: 6px; }
+    .cluster-mem { font-family: var(--mono); font-size: 11px; font-weight: 700; padding: 2px 8px; margin: 2px 3px 2px 0; border-radius: 7px; background: var(--panel-3); border: 1px solid var(--line); color: var(--ink); cursor: pointer; }
+    .cluster-mem:hover { background: var(--cyan); color: #06121b; }
+    .conc-note { font-size: 11px; margin-top: 8px; }
+    .mb-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px; }
+    .mb { font-family: var(--mono); font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: rgba(13,18,33,0.6); border: 1px solid var(--line); }
     .track-card { padding: 16px 22px 18px; margin: 0 0 18px; }
     .track-empty { display: flex; flex-direction: column; gap: 4px; }
     .track-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
@@ -2409,6 +2466,8 @@ function buildHtmlV2(data) {
     <section class="card reveal brief-card" id="briefCard" data-testid="brief-card">
       <div id="briefBody"></div>
     </section>
+
+    <section class="card reveal conc-card" id="concCard" data-testid="conc-card"><div id="concBody"></div></section>
 
     <section class="card reveal focus-card" id="focusCard" data-testid="focus-card"><div id="focusBody"></div></section>
     <section class="dashboard-grid">
@@ -3698,6 +3757,35 @@ function buildHtmlV2(data) {
       cells += fundCell('下次财报 Earnings', earn);
       return '<div class="section-label"><span>基本面与流动性 · Fundamentals</span><span class="muted">' + srcLabel + (f.foreignListed ? ' · 海外上市' : '') + '</span></div><div class="fund-grid">' + cells + '</div>';
     }
+    function momentumBadges(row) {
+      var m = row.momentum;
+      if (!m) return '';
+      var parts = [];
+      if (m.accel != null && m.accel !== 0) parts.push('<span class="mb ' + deltaClass(m.accel) + '">加速 ' + (m.accel > 0 ? '+' : '') + m.accel + '</span>');
+      if (m.ageDays != null) parts.push('<span class="mb">入档 ' + m.ageDays + 'd</span>');
+      if (m.recencyDays != null) parts.push('<span class="mb ' + (m.recencyDays <= 2 ? 'delta-up' : (m.recencyDays > 14 ? 'delta-down' : '')) + '">最近提及 ' + m.recencyDays + 'd前</span>');
+      return parts.length ? '<div class="mb-row">' + parts.join('') + '</div>' : '';
+    }
+    var CONC_COLORS = ['var(--cyan)', 'var(--purple)', 'var(--green)', 'var(--amber)', 'var(--pink)', 'var(--subtle)'];
+    function renderConcentration() {
+      var el = $("concBody");
+      if (!el) return;
+      var tc = DASHBOARD_DATA.themeConcentration || [];
+      var clusters = DASHBOARD_DATA.clusters || [];
+      if (!tc.length) { el.innerHTML = ''; return; }
+      var top = tc.slice(0, 6);
+      var total = tc.reduce(function (s, t) { return s + t.mentions; }, 0) || 1;
+      var bar = top.map(function (t, i) { var w = t.mentions / total * 100; return '<div class="conc-seg" style="width:' + w.toFixed(1) + '%;background:' + CONC_COLORS[i % 6] + '" title="' + html(t.theme) + ' ' + w.toFixed(0) + '%"></div>'; }).join('');
+      var legend = top.map(function (t, i) { var d = t.delta > 0 ? '▲' : (t.delta < 0 ? '▼' : '·'); return '<span class="conc-lg"><i style="background:' + CONC_COLORS[i % 6] + '"></i>' + html(t.theme) + ' ' + (t.mentions / total * 100).toFixed(0) + '% <span class="' + (t.delta > 0 ? 'delta-up' : (t.delta < 0 ? 'delta-down' : 'muted')) + '">' + d + '</span></span>'; }).join('');
+      var clusterHtml = '';
+      if (clusters.length) {
+        clusterHtml = '<div class="section-label" style="margin-top:14px"><span>相关性集群 · 同一押注</span><span class="muted">日收益相关性 ≥ 0.6</span></div>' +
+          clusters.map(function (c) { return '<div class="cluster"><span class="cluster-label">' + html(c.label) + ' · ρ̄=' + c.avgCorr.toFixed(2) + '</span> ' + c.members.map(function (m) { return '<button type="button" class="cluster-mem" data-ticker="' + m + '">' + m + '</button>'; }).join('') + '</div>'; }).join('') +
+          '<div class="muted conc-note">提示集中度风险（这些其实是同一条供应链押注），非统计因果。</div>';
+      }
+      el.innerHTML = '<div class="section-label"><span>主题集中度 · Concentration</span><span class="muted">她的注意力分布 + 7D 轮动 ▲▼</span></div><div class="conc-bar">' + bar + '</div><div class="conc-legend">' + legend + '</div>' + clusterHtml;
+      el.querySelectorAll('.cluster-mem').forEach(function (b) { b.addEventListener('click', function () { setPinnedTicker(b.dataset.ticker); }); });
+    }
     function renderTrackRecord() {
       var el = $("trackBody");
       if (!el) return;
@@ -3735,6 +3823,7 @@ function buildHtmlV2(data) {
         '<div class="focus-head"><div class="focus-id"><span class="focus-ticker">' + row.ticker + '</span><span class="focus-name muted">' + html(px.symbol || row.ticker) + ' · ' + html(row.primary_theme) + (row.fundamentals && row.fundamentals.foreignListed ? ' <span class="foreign-pill">海外</span>' : '') + '</span></div>' +
         pxHtml + '</div>' +
         trackBadge(row) +
+        momentumBadges(row) +
         combinedChart(row, true) +
         statsPanel(model, row);
       attachComboHandlers();
@@ -3900,6 +3989,7 @@ function buildHtmlV2(data) {
 
     function renderAll() {
       renderTrackRecord();
+      renderConcentration();
       renderLegend();
       renderCompositionChart();
       renderBubbleChart();
