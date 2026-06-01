@@ -3295,10 +3295,10 @@ function buildHtmlV2(data) {
       if (!row) { el.innerHTML = '<div class="empty">悬停或点击任意标的查看其价格 × 提及焦点图</div>'; return; }
       const model = mentionPriceModel(row);
       const px = row.price || {};
-      const hasPx = px.close != null;
+      const hasPx = px.last_close != null;
       const chg = px.change_pct;
       const pxHtml = hasPx
-        ? '<div class="focus-px ' + deltaClass(chg) + '">' + formatNumber(px.close, 2) + ' ' + html(px.currency || '') + ' <span class="focus-chg">' + formatPct(chg) + '</span></div>'
+        ? '<div class="focus-px ' + deltaClass(chg) + '">' + formatNumber(px.last_close, 2) + ' ' + html(px.currency || '') + ' <span class="focus-chg">' + formatPct(chg) + '</span></div>'
         : '<div class="focus-px muted">暂无价格</div>';
       el.innerHTML =
         '<div class="focus-head"><div class="focus-id"><span class="focus-ticker">' + row.ticker + '</span><span class="focus-name muted">' + html(px.symbol || row.ticker) + ' · ' + html(row.primary_theme) + '</span></div>' +
