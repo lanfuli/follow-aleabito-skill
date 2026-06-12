@@ -24,11 +24,20 @@ jobs:
         with:
           node-version: 20
 
-      - name: Refresh prices and rebuild dashboard
-        # No flags: the script refreshes the 3mo cache only when >6h old and
-        # fetches deep (2y) history only for tickers still missing it, so this
-        # is incremental and gentle on Yahoo from the runner's IP.
-        run: node scripts/build-aleabito-dashboard.js
+      - name: Refresh 3mo prices (movers / sparklines)
+        # Refreshes the 3mo cache only when >6h old; reused otherwise.
+        run: node scripts/build-aleabito-dashboard.js || true
+
+      - name: Backfill deep 2y history via Yahoo (full rate-limit budget)
+        # --skip-3mo avoids spending the rate limit on shallow first, so the
+        # whole budget goes to the deep (2y) fetch that Track Record needs.
+        run: node scripts/build-aleabito-dashboard.js --skip-3mo || true
+
+      - name: Mop up missing deep history via Stooq (free, independent of Yahoo)
+        run: python3 scripts/stooq-deep-backfill.py || true
+
+      - name: Rebuild dashboard from caches
+        run: node scripts/build-aleabito-dashboard.js --no-prices
 
       - name: Report deep-cache coverage
         run: |

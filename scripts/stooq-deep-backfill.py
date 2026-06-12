@@ -25,7 +25,15 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DEEP_PATH = ROOT / "reports" / "aleabito-price-deep-cache.json"
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36"
-PAUSE_S = 1.0
+PAUSE_S = 0.6
+REQ_TIMEOUT = 15
+# Hard wall-clock budget so a hanging host can never blow past the CI job cap.
+DEADLINE_S = float(os.environ.get("STOOQ_DEADLINE_S", "540"))
+_START = time.monotonic()
+
+
+def _budget_left():
+    return DEADLINE_S - (time.monotonic() - _START)
 
 jar = CookieJar()
 opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(jar))
@@ -33,7 +41,7 @@ opener.addheaders = [("User-Agent", UA), ("Accept", "*/*")]
 
 
 def http_get(url):
-    with opener.open(url, timeout=30) as r:
+    with opener.open(url, timeout=REQ_TIMEOUT) as r:
         return r.read().decode("utf-8", "replace")
 
 
@@ -54,7 +62,7 @@ def solve_pow(html):
         "https://stooq.com/__verify", data=body, method="POST",
         headers={"Content-Type": "application/x-www-form-urlencoded", "User-Agent": UA},
     )
-    with opener.open(req, timeout=30) as r:
+    with opener.open(req, timeout=REQ_TIMEOUT) as r:
         ok = 200 <= r.status < 300
     if not ok:
         raise RuntimeError("__verify rejected")
@@ -131,6 +139,9 @@ def main():
     work = [(b, b) for b in bench] + sorted(targets.items())
     done = skipped = nodata = already = 0
     for key, ysym in work:
+        if _budget_left() <= 0:
+            print("DEADLINE reached — saving partial progress", flush=True)
+            break
         cur = cache["series"].get(key)
         if cur and cur.get("daily"):
             already += 1
