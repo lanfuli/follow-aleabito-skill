@@ -1243,6 +1243,10 @@ function buildHtmlV2(data) {
     /* The blanket white-background rule above outranks .window-preset.active — re-assert it. */
     :root[data-theme="light"] .window-preset.active { background: var(--cyan); border-color: var(--cyan); color: #ffffff; }
     :root[data-theme="light"] .seg-btn.active { color: #ffffff; }
+    /* Kill the dark-tuned corner glow and white sheen on light cards. */
+    :root[data-theme="light"] .card::before {
+      background: linear-gradient(90deg, rgba(15, 23, 42, 0.018), transparent 24%);
+    }
     /* Table renders theme-pill/score-pill (not priority-pill); give them a readable light base, then restore priority colors. */
     :root[data-theme="light"] .theme-pill,
     :root[data-theme="light"] .score-pill { background: rgba(15, 23, 42, 0.06); color: #25324c; }
@@ -1390,6 +1394,12 @@ function buildHtmlV2(data) {
       box-shadow: 0 0 14px var(--cyan);
     }
 
+    .pill-v {
+      color: var(--ink);
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+
     .kpi-grid {
       display: grid;
       grid-template-columns: repeat(6, minmax(150px, 1fr));
@@ -1449,7 +1459,7 @@ function buildHtmlV2(data) {
       display: grid;
       grid-template-columns: minmax(0, 1.38fr) 12px minmax(372px, 0.62fr);
       gap: 18px;
-      align-items: start;
+      align-items: stretch;
     }
 
     .main-stack,
@@ -1459,6 +1469,10 @@ function buildHtmlV2(data) {
       gap: 18px;
       min-width: 0;
     }
+
+    /* Let each column's last card absorb the height difference so the two stacks end together. */
+    .main-stack > section:last-child,
+    .side-stack > section:last-child { flex: 1 1 auto; }
 
     .chart-grid {
       display: grid;
@@ -1594,7 +1608,10 @@ function buildHtmlV2(data) {
     .grid-line {
       stroke: rgba(78, 91, 130, 0.32);
       stroke-width: 1;
+      vector-effect: non-scaling-stroke;
     }
+
+    .chart-axis { vector-effect: non-scaling-stroke; }
 
     .axis-label,
     .tick-label {
@@ -1794,7 +1811,7 @@ function buildHtmlV2(data) {
     }
 
     th, td {
-      padding: 12px 12px;
+      padding: 9px 12px;
       border-bottom: 1px solid rgba(61, 74, 111, 0.45);
       text-align: left;
       vertical-align: middle;
@@ -2072,8 +2089,18 @@ function buildHtmlV2(data) {
     .fc-l { font-size: 10px; color: var(--subtle); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .fc-v { font-family: var(--mono); font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; margin-top: 2px; }
     .foreign-pill { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 999px; background: rgba(246,200,95,0.16); color: var(--amber); }
+    /* Concentration and Track Record share one strip row above the charts. */
+    .strip-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: 18px;
+      margin: 0 0 18px;
+    }
+    .strip-row > .card { margin: 0; }
+    @media (max-width: 1100px) { .strip-row { grid-template-columns: 1fr; } }
+
     .conc-card { padding: 16px 22px 18px; margin: 0 0 18px; }
-    .conc-bar { display: flex; height: 18px; border-radius: 7px; overflow: hidden; margin: 4px 0 10px; gap: 1px; }
+    .conc-bar { display: flex; height: 24px; border-radius: 8px; overflow: hidden; margin: 4px 0 10px; gap: 1px; }
     .conc-seg { min-width: 2px; }
     .conc-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 11px; }
     .conc-lg { display: inline-flex; align-items: center; gap: 5px; }
@@ -2125,8 +2152,8 @@ function buildHtmlV2(data) {
     .stats-ccf { margin: 12px 0 8px; }
     .stats-ccf-cap { display: flex; justify-content: space-between; font-size: 11px; color: var(--subtle); margin-bottom: 4px; font-family: var(--mono); }
     .ccf-chart { width: 100%; height: 132px; display: block; }
-    .ccf-tick { fill: var(--subtle); font-family: var(--mono); font-size: 10px; }
-    .ccf-axis { display: flex; justify-content: space-between; font-size: 10px; color: var(--subtle); margin-top: 2px; }
+    .ccf-tick { fill: var(--subtle); font-family: var(--mono); font-size: 11px; }
+    .ccf-axis { display: flex; justify-content: space-between; font-size: 11px; color: var(--subtle); margin-top: 2px; }
     .stats-tech { font-family: var(--mono); font-size: 11.5px; color: var(--muted); line-height: 1.7; margin-top: 6px; }
     .stats-note { font-size: 11px; color: var(--subtle); margin-top: 6px; line-height: 1.55; }
     .stats-na { color: var(--muted); font-size: 12px; }
@@ -2264,7 +2291,8 @@ function buildHtmlV2(data) {
       transform: translate3d(var(--tx, 0px), var(--ty, 0px), 0) scale(0.96);
       transform-origin: top left;
       will-change: transform, opacity;
-      transition: opacity 0.16s ease, transform 0.13s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 0.16s;
+      /* Position snaps to the cursor (no transform easing) — a 130ms chase reads as lag when sweeping rows. */
+      transition: opacity 0.16s ease, transform 0.05s linear, visibility 0s linear 0.16s;
     }
 
     .tooltip.is-visible {
@@ -2568,7 +2596,7 @@ function buildHtmlV2(data) {
       color: var(--muted);
       padding: 7px 13px; border-radius: 999px;
       font-size: 13px; font-weight: 600;
-      transition: color 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+      transition: color 0.16s ease, background 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
     }
     .window-preset:hover { color: var(--ink); border-color: var(--cyan); }
     .window-preset.active {
@@ -2757,9 +2785,11 @@ function buildHtmlV2(data) {
 
     <section class="kpi-grid" id="kpiGrid"></section>
 
-    <section class="card reveal conc-card" id="concCard" data-testid="conc-card"><div id="concBody"></div></section>
+    <div class="strip-row">
+      <section class="card reveal conc-card" id="concCard" data-testid="conc-card"><div id="concBody"></div></section>
 
-    <section class="card reveal track-card" id="trackCard" data-testid="track-card"><div id="trackBody"></div></section>
+      <section class="card reveal track-card" id="trackCard" data-testid="track-card"><div id="trackBody"></div></section>
+    </div>
 
     <section class="dashboard-grid">
       <div class="main-stack">
@@ -3004,7 +3034,11 @@ function buildHtmlV2(data) {
     state.windowStart = WINDOW_MIN;
     state.windowEnd = WINDOW_MAX;
 
-    const reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reducedMotionQuery = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
+    let reducedMotion = !!(reducedMotionQuery && reducedMotionQuery.matches);
+    if (reducedMotionQuery && reducedMotionQuery.addEventListener) {
+      reducedMotionQuery.addEventListener("change", (e) => { reducedMotion = e.matches; });
+    }
     let firstPaint = true;
 
     const $ = (id) => document.getElementById(id);
@@ -3510,9 +3544,9 @@ function buildHtmlV2(data) {
       const price = DASHBOARD_DATA.priceProvider;
       $("metaStrip").innerHTML = [
         '<span class="pill"><span class="dot"></span>' + win.earliestDate + ' → ' + win.latestDate + '</span>',
-        '<span class="pill">' + formatNumber(win.events) + ' events</span>',
-        '<span class="pill">' + formatNumber(win.tickers) + ' tickers</span>',
-        '<span class="pill">' + price.success + '/' + price.total + ' price charts</span>',
+        '<span class="pill"><b class="pill-v">' + formatNumber(win.events) + '</b> events</span>',
+        '<span class="pill"><b class="pill-v">' + formatNumber(win.tickers) + '</b> tickers</span>',
+        '<span class="pill"><b class="pill-v">' + price.success + '/' + price.total + '</b> price charts</span>',
       ].join("");
       const stripDot = (s) => String(s).replace(/^[。.]\s*/, "");
       $("footerNote").innerHTML =
