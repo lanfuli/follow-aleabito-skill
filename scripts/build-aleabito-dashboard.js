@@ -1122,6 +1122,13 @@ function buildHtmlV2(data) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark light">
   <title>Serenity 500 · AleaBito Research Dashboard</title>
+  <meta name="description" content="Serenity 500 — 基于 @aleabitoreddit 全部提及数据的交互研究地图：注意力排名、提及结构、近期动量、价格联动。研究地图，不构成投资建议。">
+  <meta property="og:title" content="Serenity 500 · AleaBito Research Dashboard">
+  <meta property="og:description" content="Interactive research map of @aleabitoreddit mentions: attention ranking, mention structure, momentum and linked price trends.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#090d1a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f4f7fb" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23090d1a'/%3E%3Cpath d='M14 38c6-14 16-22 36-24-4 8-6 11-10 14 3 0 5-1 8-2-7 12-18 20-34 22 5-7 8-10 12-13-4 1-8 2-12 3z' fill='%2367d9f4'/%3E%3C/svg%3E">
   <style>
     :root {
       --bg: #090d1a;
@@ -1158,8 +1165,8 @@ function buildHtmlV2(data) {
       --ink: #0f1b2d;
       --muted: #51607d;
       --subtle: #5a6884;
-      --line: #e3e9f2;
-      --line-2: #d3dbe8;
+      --line: #dbe2ee;
+      --line-2: #c9d3e2;
       --cyan: #0e7593;
       --cyan-soft: rgba(14, 117, 147, 0.12);
       --purple: #6c5ce0;
@@ -1180,7 +1187,8 @@ function buildHtmlV2(data) {
     :root[data-theme="light"] .pill,
     :root[data-theme="light"] .control,
     :root[data-theme="light"] .window-dates input[type="date"],
-    :root[data-theme="light"] .window-preset,
+    :root[data-theme="light"] .window-preset { background: #ffffff; }
+    /* Nested cells sit one level below the white card: page #f4f7fb → card #ffffff → cell #f4f6fa. */
     :root[data-theme="light"] .mini-metric,
     :root[data-theme="light"] .mover,
     :root[data-theme="light"] .sample,
@@ -1189,9 +1197,8 @@ function buildHtmlV2(data) {
     :root[data-theme="light"] .focus-track,
     :root[data-theme="light"] .stats-panel,
     :root[data-theme="light"] .corr-readout,
-    :root[data-theme="light"] .mb { background: #ffffff; }
+    :root[data-theme="light"] .mb { background: #f4f6fa; }
     :root[data-theme="light"] .table-wrap,
-    :root[data-theme="light"] .line-chart,
     :root[data-theme="light"] .combo-chart { background: #fbfcfe; }
     :root[data-theme="light"] .tooltip { background: rgba(255, 255, 255, 0.98); }
     :root[data-theme="light"] th { background: #eef2f8; }
@@ -1203,7 +1210,6 @@ function buildHtmlV2(data) {
     :root[data-theme="light"] .section-label,
     :root[data-theme="light"] .sample-summary,
     :root[data-theme="light"] .priority-pill { color: #25324c; fill: #25324c; }
-    :root[data-theme="light"] .rank { color: #6c7a96; }
     :root[data-theme="light"] .chart-axis { stroke: #c3ccdb; }
     :root[data-theme="light"] .grid-line { stroke: rgba(15, 23, 42, 0.08); }
     :root[data-theme="light"] .cross-line,
@@ -1223,7 +1229,35 @@ function buildHtmlV2(data) {
     :root[data-theme="light"] .window-dates input { color-scheme: light; }
     :root[data-theme="light"] tbody tr.active,
     :root[data-theme="light"] tbody tr:focus-visible { background: rgba(24, 153, 189, 0.1); }
+    /* Light theme: floating layers use the light shadow scale, not the dark 45%-black halo. */
+    :root[data-theme="light"] .tooltip { box-shadow: 0 12px 36px rgba(15, 23, 42, 0.16), 0 2px 8px rgba(15, 23, 42, 0.08); }
+    /* Dark-only glows read as smudges on a light page — flatten or ring them. */
+    :root[data-theme="light"] .accent,
+    :root[data-theme="light"] .swatch { box-shadow: none; }
+    :root[data-theme="light"] .dot,
+    :root[data-theme="light"] .window-bar-title .accent { box-shadow: 0 0 0 3px var(--cyan-soft); }
+    :root[data-theme="light"] .kpi:hover { box-shadow: var(--shadow), 0 0 0 1px rgba(14, 117, 147, 0.25); }
+    :root[data-theme="light"] .mention-fill { background: linear-gradient(90deg, rgba(14, 117, 147, 0.7), rgba(108, 92, 224, 0.6)); }
+    :root[data-theme="light"] .combo-bar { opacity: 0.45; }
+    :root[data-theme="light"] .combo-bar.spike { opacity: 0.6; }
+    /* The blanket white-background rule above outranks .window-preset.active — re-assert it. */
+    :root[data-theme="light"] .window-preset.active { background: var(--cyan); border-color: var(--cyan); color: #ffffff; }
+    :root[data-theme="light"] .seg-btn.active { color: #ffffff; }
+    /* Table renders theme-pill/score-pill (not priority-pill); give them a readable light base, then restore priority colors. */
+    :root[data-theme="light"] .theme-pill,
+    :root[data-theme="light"] .score-pill { background: rgba(15, 23, 42, 0.06); color: #25324c; }
+    :root[data-theme="light"] .theme-pill.priority-high,
+    :root[data-theme="light"] .score-pill.priority-high { color: var(--cyan); background: var(--cyan-soft); }
+    :root[data-theme="light"] .theme-pill.priority-medium,
+    :root[data-theme="light"] .score-pill.priority-medium { color: var(--amber); background: rgba(138, 98, 6, 0.12); }
+    :root[data-theme="light"] .theme-pill.priority-low,
+    :root[data-theme="light"] .theme-pill.priority-unverified,
+    :root[data-theme="light"] .score-pill.priority-low,
+    :root[data-theme="light"] .score-pill.priority-unverified { color: var(--muted); background: rgba(15, 23, 42, 0.05); }
 
+    .bubble-legend { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .bl-item { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; color: var(--muted); font-weight: 700; }
+    .bl-item i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
     .seg-toggle { display: inline-flex; gap: 2px; padding: 2px; border-radius: 999px; border: 1px solid var(--line-2); background: var(--panel-3); }
     .seg-btn { appearance: none; cursor: pointer; border: 0; background: transparent; color: var(--muted); padding: 5px 11px; border-radius: 999px; font-size: 12px; font-weight: 700; line-height: 1; transition: color 0.16s ease, background 0.16s ease; }
     .seg-btn:hover { color: var(--ink); }
@@ -1243,7 +1277,7 @@ function buildHtmlV2(data) {
         radial-gradient(circle at 80% 0%, rgba(238, 121, 184, 0.13), transparent 30%),
         linear-gradient(180deg, #090d1a 0%, #0b1020 44%, #090d1a 100%);
       color: var(--ink);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
       letter-spacing: 0;
     }
 
@@ -1263,11 +1297,22 @@ function buildHtmlV2(data) {
     }
 
     .hero {
+      position: relative;
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
       gap: 28px;
       align-items: end;
       padding: 18px 8px 22px;
+    }
+
+    .hero-tools {
+      position: absolute;
+      top: 14px;
+      right: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 5;
     }
 
     .eyebrow {
@@ -1293,8 +1338,17 @@ function buildHtmlV2(data) {
       margin: 12px 0 10px;
       font-size: clamp(40px, 6vw, 82px);
       line-height: 0.92;
-      font-weight: 950;
+      font-weight: 900;
       letter-spacing: 0;
+    }
+
+    @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+      h1 {
+        background: linear-gradient(118deg, var(--ink) 42%, var(--cyan) 96%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
     }
 
     .hero-copy {
@@ -1357,7 +1411,7 @@ function buildHtmlV2(data) {
     .kpi-label {
       color: var(--subtle);
       font-size: 11px;
-      font-weight: 900;
+      font-weight: 700;
       letter-spacing: 0.07em;
       text-transform: uppercase;
     }
@@ -1366,11 +1420,22 @@ function buildHtmlV2(data) {
       margin-top: 11px;
       font-size: 30px;
       line-height: 1;
-      font-weight: 950;
+      font-weight: 800;
       color: var(--ink);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+
+    .kpi-value--text {
+      font-size: 17px;
+      font-weight: 800;
+      line-height: 1.3;
+      white-space: normal;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      min-height: 30px;
     }
 
     .kpi-note {
@@ -1440,11 +1505,23 @@ function buildHtmlV2(data) {
       min-width: 0;
     }
 
+    /* Compact variant for the thin strip cards (concentration / track / focus). */
+    .title-row--bar { margin-bottom: 12px; gap: 10px; }
+    .h2-compact { font-size: 17px; }
+    .title-row .h2-sub { font-size: 12px; font-weight: 600; }
+    .title-row--bar .accent,
+    .track-head .accent { height: 20px; width: 5px; }
+
+    /* uppercase tracking is meaningless on CJK glyphs — tighten it in zh mode. */
+    [data-lang="zh"] .section-label,
+    [data-lang="zh"] .brief-field-label,
+    [data-lang="zh"] .brief-summary-label { letter-spacing: 0.01em; }
+
     h2 {
       margin: 0;
       font-size: 24px;
       line-height: 1.15;
-      font-weight: 950;
+      font-weight: 800;
       letter-spacing: 0;
     }
 
@@ -1475,7 +1552,7 @@ function buildHtmlV2(data) {
       background: transparent;
       color: var(--muted);
       font-size: 13px;
-      font-weight: 850;
+      font-weight: 700;
       cursor: pointer;
     }
 
@@ -1532,13 +1609,13 @@ function buildHtmlV2(data) {
       fill: #dce5f8;
       font-family: var(--mono);
       font-size: 14px;
-      font-weight: 900;
+      font-weight: 700;
     }
 
     .bar-value {
       fill: #dce5f8;
       font-size: 13px;
-      font-weight: 900;
+      font-weight: 700;
     }
 
     .bar-bg {
@@ -1610,7 +1687,7 @@ function buildHtmlV2(data) {
     .donut-label {
       fill: var(--ink);
       font-size: 16px;
-      font-weight: 900;
+      font-weight: 700;
     }
 
     .donut-small {
@@ -1649,9 +1726,47 @@ function buildHtmlV2(data) {
       box-shadow: 0 0 0 3px rgba(103, 217, 244, 0.12);
     }
 
+    /* Replace the OS select arrow with a theme-consistent chevron. */
+    select.control {
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239aa7c9' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 13px center;
+      padding-right: 32px;
+    }
+
+    :root[data-theme="light"] select.control {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2351607d' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    }
+
+    /* Thin themed scrollbars instead of the chunky OS default inside cards. */
+    * { scrollbar-width: thin; scrollbar-color: var(--line-2) transparent; }
+    *::-webkit-scrollbar { width: 10px; height: 10px; }
+    *::-webkit-scrollbar-track { background: transparent; }
+    *::-webkit-scrollbar-thumb {
+      background: var(--line-2);
+      border-radius: 999px;
+      border: 3px solid transparent;
+      background-clip: content-box;
+    }
+    *::-webkit-scrollbar-thumb:hover { background-color: var(--subtle); }
+
+    /* Pressed feedback for every clickable chip/button. */
+    .window-preset:active,
+    .window-reset:active,
+    .seg-btn:active,
+    .legend-btn:active,
+    .control-button:active,
+    .brief-expand:active,
+    .brief-link:active,
+    .brief-chip:active,
+    .cluster-mem:active,
+    .search-clear:active { transform: translateY(1px); }
+
     .control-button {
       cursor: pointer;
-      font-weight: 900;
+      font-weight: 700;
       color: var(--cyan);
     }
 
@@ -1690,10 +1805,12 @@ function buildHtmlV2(data) {
       top: 0;
       z-index: 3;
       background: #172036;
+      /* border-collapse drops th borders while stuck; draw the bottom edge with an inset shadow instead. */
+      box-shadow: inset 0 -1px 0 var(--line-2);
       color: var(--subtle);
       font-family: var(--mono);
       font-size: 11px;
-      font-weight: 900;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       cursor: pointer;
@@ -1712,15 +1829,15 @@ function buildHtmlV2(data) {
     }
 
     .rank {
-      color: #69769c;
+      color: var(--muted);
       font-family: var(--mono);
-      font-weight: 900;
+      font-weight: 700;
     }
 
     .ticker {
       color: var(--cyan);
       font-family: var(--mono);
-      font-weight: 950;
+      font-weight: 800;
       letter-spacing: 0.03em;
     }
 
@@ -1745,7 +1862,7 @@ function buildHtmlV2(data) {
       background: rgba(255,255,255,0.07);
       color: #cdd7ef;
       font-size: 11px;
-      font-weight: 900;
+      font-weight: 700;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -1779,13 +1896,13 @@ function buildHtmlV2(data) {
       align-items: center;
       padding-left: 10px;
       color: #e8efff;
-      font-weight: 900;
+      font-weight: 700;
       font-variant-numeric: tabular-nums;
     }
 
-    .delta-up { color: var(--green); font-weight: 950; }
-    .delta-down { color: var(--red); font-weight: 950; }
-    .delta-flat { color: var(--muted); font-weight: 850; }
+    .delta-up { color: var(--green); font-weight: 800; }
+    .delta-down { color: var(--red); font-weight: 800; }
+    .delta-flat { color: var(--muted); font-weight: 700; }
 
     .price-spark {
       width: 128px;
@@ -1802,7 +1919,8 @@ function buildHtmlV2(data) {
 
     .spark-line {
       fill: none;
-      stroke: var(--cyan);
+      /* Price up/flat = green, down = red — same semantics as every delta in the page. */
+      stroke: var(--green);
       stroke-width: 2.2;
       stroke-linecap: round;
       stroke-linejoin: round;
@@ -1841,7 +1959,7 @@ function buildHtmlV2(data) {
       font-family: var(--mono);
       font-size: 44px;
       line-height: 1;
-      font-weight: 950;
+      font-weight: 800;
       letter-spacing: 0.02em;
     }
 
@@ -1856,7 +1974,7 @@ function buildHtmlV2(data) {
       color: var(--cyan);
       font-family: var(--mono);
       font-size: 20px;
-      font-weight: 950;
+      font-weight: 800;
       font-variant-numeric: tabular-nums;
     }
 
@@ -1878,7 +1996,7 @@ function buildHtmlV2(data) {
     .mini-label {
       color: var(--subtle);
       font-size: 11px;
-      font-weight: 900;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.07em;
     }
@@ -1888,7 +2006,7 @@ function buildHtmlV2(data) {
       color: var(--ink);
       font-family: var(--mono);
       font-size: 18px;
-      font-weight: 950;
+      font-weight: 800;
       font-variant-numeric: tabular-nums;
     }
 
@@ -1900,20 +2018,9 @@ function buildHtmlV2(data) {
       margin: 20px 0 10px;
       color: #dfe8fa;
       font-size: 13px;
-      font-weight: 950;
+      font-weight: 700;
       letter-spacing: 0.04em;
       text-transform: uppercase;
-    }
-
-    .line-chart {
-      width: 100%;
-      height: 190px;
-      display: block;
-      overflow: visible;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: rgba(12, 17, 32, 0.72);
-      cursor: crosshair;
     }
 
     .crosshair {
@@ -1938,8 +2045,8 @@ function buildHtmlV2(data) {
 
     .combo-chart { width: 100%; height: 210px; display: block; overflow: visible; border: 1px solid var(--line); border-radius: 16px; background: linear-gradient(180deg, rgba(18,24,42,0.55), rgba(12,17,32,0.8)); cursor: crosshair; }
     .combo-base { stroke: rgba(255,255,255,0.06); stroke-width: 1; vector-effect: non-scaling-stroke; }
-    .combo-bar { fill: var(--cyan); opacity: 0.14; }
-    .combo-bar.spike { fill: var(--purple); opacity: 0.4; }
+    .combo-bar { fill: var(--cyan); opacity: 0.3; }
+    .combo-bar.spike { fill: var(--purple); opacity: 0.55; }
     .combo-line { fill: none; stroke-width: 2.4; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
     .combo-lbl { fill: var(--subtle); font-family: var(--mono); font-size: 11px; }
     .combo-lbl-price { font-family: var(--mono); font-size: 13px; font-weight: 800; }
@@ -1984,6 +2091,14 @@ function buildHtmlV2(data) {
     .track-title { font-size: 14px; font-weight: 800; letter-spacing: -0.01em; }
     .track-kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
     .track-kpi { background: rgba(13,18,33,0.55); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+    .track-kpi.pending { border-style: dashed; opacity: 0.72; }
+    .track-pending {
+      display: inline-flex; align-items: center;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.02em;
+      color: var(--amber); background: rgba(246, 200, 95, 0.12);
+      border: 1px solid rgba(246, 200, 95, 0.4);
+      border-radius: 999px; padding: 3px 10px;
+    }
     .tk-v { font-family: var(--mono); font-size: 23px; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.1; }
     .tk-l { font-size: 11px; color: var(--muted); margin-top: 4px; }
     .track-note { font-size: 11px; color: var(--subtle); margin-top: 11px; line-height: 1.55; }
@@ -1992,7 +2107,7 @@ function buildHtmlV2(data) {
     .focus-card { padding: 18px 22px 20px; margin: 0 0 18px; }
     .focus-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; margin-bottom: 12px; }
     .focus-id { display: flex; flex-direction: column; gap: 2px; }
-    .focus-ticker { font-size: 26px; font-weight: 900; letter-spacing: -0.01em; }
+    .focus-ticker { font-size: 26px; font-weight: 800; letter-spacing: -0.01em; }
     .focus-name { font-size: 12px; }
     .focus-px { font-family: var(--mono); font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums; }
     .focus-chg { font-size: 14px; }
@@ -2051,7 +2166,7 @@ function buildHtmlV2(data) {
       color: var(--subtle);
       font-family: var(--mono);
       font-size: 11px;
-      font-weight: 850;
+      font-weight: 700;
       margin-bottom: 8px;
     }
 
@@ -2069,7 +2184,7 @@ function buildHtmlV2(data) {
       color: var(--cyan);
       cursor: pointer;
       font-size: 12px;
-      font-weight: 900;
+      font-weight: 700;
     }
 
     .source-text {
@@ -2095,6 +2210,12 @@ function buildHtmlV2(data) {
       border: 1px solid var(--line);
       border-radius: 14px;
       background: rgba(15, 21, 38, 0.76);
+      transition: border-color 0.16s ease, transform 0.16s ease;
+    }
+
+    .mover:hover {
+      border-color: var(--cyan);
+      transform: translateY(-1px);
     }
 
     .mover-top {
@@ -2103,16 +2224,23 @@ function buildHtmlV2(data) {
       gap: 8px;
       font-family: var(--mono);
       font-size: 12px;
-      font-weight: 950;
+      font-weight: 800;
     }
 
     .footer-note {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 4px 22px;
       margin-top: 18px;
-      padding: 0 8px;
+      padding: 14px 8px 0;
+      border-top: 1px solid var(--line);
       color: var(--muted);
       font-size: 12px;
       line-height: 1.65;
     }
+
+    .foot-disc { color: var(--subtle); font-style: italic; }
 
     .tooltip {
       position: fixed;
@@ -2214,6 +2342,34 @@ function buildHtmlV2(data) {
       to { opacity: 1; transform: scale(1); }
     }
 
+    /* Lightweight fade for re-renders after first paint (window/legend changes). */
+    .bars-refresh .bar-row-g {
+      animation: chartRefresh 0.24s ease backwards;
+      animation-delay: calc(var(--ri, 0) * 7ms);
+    }
+
+    .bubbles-refresh .bubble {
+      animation: chartRefresh 0.24s ease backwards;
+      animation-delay: calc(var(--i, 0) * 5ms);
+    }
+
+    .donut-refresh .donut-seg {
+      animation: chartRefresh 0.28s ease backwards;
+    }
+
+    @keyframes chartRefresh {
+      from { opacity: 0; }
+    }
+
+    /* Temporary class added while switching themes: crossfade colors instead of hard flip. */
+    :root.theme-xfade,
+    :root.theme-xfade *,
+    :root.theme-xfade *::before,
+    :root.theme-xfade *::after {
+      transition: background-color 0.25s ease, background 0.25s ease, border-color 0.25s ease,
+        color 0.25s ease, fill 0.25s ease, stroke 0.25s ease, box-shadow 0.25s ease !important;
+    }
+
     .kpi {
       transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
     }
@@ -2292,7 +2448,7 @@ function buildHtmlV2(data) {
       padding: 1px 8px;
       border-radius: 999px;
       font-size: 10px;
-      font-weight: 900;
+      font-weight: 700;
       letter-spacing: 0.04em;
       background: rgba(255, 255, 255, 0.07);
       color: var(--muted);
@@ -2368,6 +2524,16 @@ function buildHtmlV2(data) {
       .window-bar { align-items: stretch; }
       .window-label { margin-left: 0; }
       .brief-themes { grid-template-columns: 1fr; }
+      .hero-tools {
+        position: static;
+        justify-content: flex-end;
+        margin-bottom: 4px;
+      }
+      .hero {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+      }
     }
     /* === date-window bar === */
     .window-bar {
@@ -2429,9 +2595,11 @@ function buildHtmlV2(data) {
     }
     .window-reset:hover { color: var(--ink); border-color: var(--cyan); }
     .window-label {
-      margin-left: auto; color: var(--cyan);
-      font-family: var(--mono); font-size: 12.5px;
-      white-space: nowrap;
+      flex-basis: 100%;
+      margin-top: -2px;
+      color: var(--cyan);
+      font-family: var(--mono); font-size: 11.5px;
+      opacity: 0.85;
     }
     /* === daily research brief === */
     .brief-card { margin: 22px 0; }
@@ -2452,10 +2620,34 @@ function buildHtmlV2(data) {
       font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em;
       color: var(--cyan); margin-bottom: 6px; font-weight: 700;
     }
-    .brief-summary-text { color: var(--ink); line-height: 1.75; }
+    .brief-summary-text { color: var(--ink); line-height: 1.78; max-width: 86ch; }
+    .brief-clamp {
+      position: relative;
+      max-height: 560px;
+      overflow: hidden;
+    }
+    .brief-clamp.expanded { max-height: none; }
+    .brief-fade {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      height: 120px;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0), var(--panel));
+      pointer-events: none;
+    }
+    .brief-clamp.expanded .brief-fade { display: none; }
+    .brief-expand-row { display: flex; justify-content: center; padding: 6px 22px 16px; }
+    .brief-expand {
+      appearance: none; cursor: pointer;
+      border: 1px solid var(--line-2);
+      background: var(--panel-3); color: var(--cyan);
+      border-radius: 999px; padding: 8px 24px;
+      font-size: 13px; font-weight: 700;
+      transition: border-color 0.16s ease, background 0.16s ease;
+    }
+    .brief-expand:hover { border-color: var(--cyan); }
     .brief-themes {
       display: grid; grid-template-columns: 1fr 1fr;
       gap: 12px; padding: 14px 22px 6px;
+      align-items: start;
     }
     .brief-theme {
       background: var(--panel-3);
@@ -2470,6 +2662,17 @@ function buildHtmlV2(data) {
       padding: 14px 16px; font-weight: 650; color: var(--ink);
     }
     .brief-theme > summary::-webkit-details-marker { display: none; }
+    .brief-theme > summary::after {
+      content: "";
+      flex: none;
+      width: 7px; height: 7px;
+      margin-left: auto;
+      border-right: 2px solid var(--muted);
+      border-bottom: 2px solid var(--muted);
+      transform: rotate(45deg);
+      transition: transform 0.18s ease;
+    }
+    .brief-theme[open] > summary::after { transform: rotate(225deg); }
     .brief-theme > summary:hover { background: rgba(103, 217, 244, 0.06); }
     .brief-theme-n {
       flex: none; width: 24px; height: 24px; border-radius: 7px;
@@ -2484,7 +2687,7 @@ function buildHtmlV2(data) {
       font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.07em;
       color: var(--purple); font-weight: 700; margin-bottom: 4px;
     }
-    .brief-field-text { color: var(--muted); line-height: 1.7; font-size: 14px; }
+    .brief-field-text { color: var(--ink); opacity: 0.9; line-height: 1.75; font-size: 14px; max-width: 70ch; }
     .brief-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
     .brief-link {
       font-size: 12px; color: var(--cyan); text-decoration: none;
@@ -2495,12 +2698,12 @@ function buildHtmlV2(data) {
     .brief-chip {
       appearance: none; cursor: pointer;
       font-family: var(--mono); font-size: 0.92em; font-weight: 700;
-      color: var(--cyan); background: var(--cyan-soft);
-      border: 1px solid rgba(103, 217, 244, 0.32);
-      border-radius: 6px; padding: 0 5px; margin: 0 1px;
-      transition: background 0.14s ease, color 0.14s ease;
+      color: var(--cyan); background: transparent;
+      border: 0; border-bottom: 1px solid var(--cyan-soft);
+      border-radius: 4px 4px 0 0; padding: 0 2px; margin: 0 1px;
+      transition: background 0.14s ease, border-color 0.14s ease;
     }
-    .brief-chip:hover { background: var(--cyan); color: #06121b; }
+    .brief-chip:hover { background: var(--cyan-soft); border-bottom-color: var(--cyan); }
     .brief-total {
       margin: 10px 22px 6px; padding: 16px 18px;
       background: var(--panel-3); border: 1px solid var(--line);
@@ -2515,6 +2718,16 @@ function buildHtmlV2(data) {
 <body>
   <main class="shell">
     <section class="hero reveal">
+      <div class="hero-tools">
+        <div class="seg-toggle theme-toggle" role="group" aria-label="主题 / Theme">
+          <button type="button" class="seg-btn" data-theme-val="light">浅 Light</button>
+          <button type="button" class="seg-btn" data-theme-val="dark">深 Dark</button>
+        </div>
+        <div class="seg-toggle lang-toggle" role="group" aria-label="语言 / Language">
+          <button type="button" class="seg-btn" data-lang-val="zh">中</button>
+          <button type="button" class="seg-btn" data-lang-val="en">EN</button>
+        </div>
+      </div>
       <div>
         <div class="eyebrow"><span class="accent"></span>AleaBito Equity Intelligence</div>
         <h1>Serenity 500</h1>
@@ -2539,28 +2752,15 @@ function buildHtmlV2(data) {
         <input type="date" id="winEnd" aria-label="结束日期" data-i18n-aria="aria_date_end">
         <button type="button" class="window-reset" id="winReset" data-i18n="reset">重置</button>
       </div>
-      <div class="seg-toggle theme-toggle" role="group" aria-label="主题 / Theme">
-        <button type="button" class="seg-btn" data-theme-val="light">浅 Light</button>
-        <button type="button" class="seg-btn" data-theme-val="dark">深 Dark</button>
-      </div>
-      <div class="seg-toggle lang-toggle" role="group" aria-label="语言 / Language">
-        <button type="button" class="seg-btn" data-lang-val="zh">中</button>
-        <button type="button" class="seg-btn" data-lang-val="en">EN</button>
-      </div>
       <div class="window-label" id="winLabel"></div>
     </section>
 
     <section class="kpi-grid" id="kpiGrid"></section>
 
-    <section class="card reveal track-card" id="trackCard" data-testid="track-card"><div id="trackBody"></div></section>
-
-    <section class="card reveal brief-card" id="briefCard" data-testid="brief-card">
-      <div id="briefBody"></div>
-    </section>
-
     <section class="card reveal conc-card" id="concCard" data-testid="conc-card"><div id="concBody"></div></section>
 
-    <section class="card reveal focus-card" id="focusCard" data-testid="focus-card"><div id="focusBody"></div></section>
+    <section class="card reveal track-card" id="trackCard" data-testid="track-card"><div id="trackBody"></div></section>
+
     <section class="dashboard-grid">
       <div class="main-stack">
         <section class="card reveal" data-testid="composition-card">
@@ -2581,9 +2781,14 @@ function buildHtmlV2(data) {
             <div class="card-head">
               <div>
                 <div class="title-row"><span class="accent"></span><h2 data-i18n="card_bubble_title">提及结构 · 主帖 vs 互动</h2></div>
-                <div class="card-sub" data-i18n="card_bubble_sub">气泡大小 = 原始提及次数，展示哪些 ticker 是主动 thesis，哪些更多来自互动讨论。</div>
+                <div class="card-sub" data-i18n="card_bubble_sub">气泡大小 = 原始提及次数，颜色 = 研究优先级。展示哪些 ticker 是主动 thesis，哪些更多来自互动讨论。</div>
               </div>
-              <span class="pill">Top 50</span>
+              <div class="bubble-legend">
+                <span class="bl-item"><i style="background:var(--cyan)"></i>High</span>
+                <span class="bl-item"><i style="background:var(--amber)"></i>Medium</span>
+                <span class="bl-item"><i style="background:var(--muted)"></i><span data-i18n="bl_other">其他</span></span>
+                <span class="pill">Top 50</span>
+              </div>
             </div>
             <div class="chart-body">
               <svg class="big-chart" id="bubbleChart" viewBox="0 0 760 560" role="img" aria-label="Post and interaction bubble chart"></svg>
@@ -2642,15 +2847,15 @@ function buildHtmlV2(data) {
                   <th scope="col" data-sort="serenity_rank">#</th>
                   <th scope="col" data-sort="ticker">Ticker</th>
                   <th scope="col" data-sort="mentioned_posts" data-i18n="th_posts">提及帖子</th>
-                  <th scope="col" data-sort="raw_occurrences" data-i18n="th_raw">原始次数</th>
-                  <th scope="col" data-sort="post_mentions" data-i18n="th_post">主帖</th>
-                  <th scope="col" data-sort="reply_mentions" data-i18n="th_reply">回复</th>
-                  <th scope="col" data-sort="quote_mentions" data-i18n="th_quote">引用</th>
+                  <th scope="col" class="num" data-sort="raw_occurrences" data-i18n="th_raw">原始次数</th>
+                  <th scope="col" class="num" data-sort="post_mentions" data-i18n="th_post">主帖</th>
+                  <th scope="col" class="num" data-sort="reply_mentions" data-i18n="th_reply">回复</th>
+                  <th scope="col" class="num" data-sort="quote_mentions" data-i18n="th_quote">引用</th>
                   <th scope="col" data-sort="primary_theme" data-i18n="th_theme">主题</th>
-                  <th scope="col" data-sort="last7">7D</th>
-                  <th scope="col" data-sort="price.change_pct">3M Price</th>
+                  <th scope="col" class="num" data-sort="last7">7D</th>
+                  <th scope="col" class="num" data-sort="price.change_pct">3M Price</th>
                   <th scope="col" data-i18n="th_spark">价格趋势</th>
-                  <th scope="col" data-sort="last_seen" data-i18n="th_last">最后提及</th>
+                  <th scope="col" class="num" data-sort="last_seen" data-i18n="th_last">最后提及</th>
                 </tr>
               </thead>
               <tbody id="rankBody"></tbody>
@@ -2683,6 +2888,12 @@ function buildHtmlV2(data) {
       </aside>
     </section>
 
+    <section class="card reveal focus-card" id="focusCard" data-testid="focus-card"><div id="focusBody"></div></section>
+
+    <section class="card reveal brief-card" id="briefCard" data-testid="brief-card">
+      <div id="briefBody"></div>
+    </section>
+
     <div class="footer-note" id="footerNote"></div>
   </main>
   <div class="tooltip" id="chartTooltip"></div>
@@ -2695,7 +2906,7 @@ function buildHtmlV2(data) {
         win_title: '时间窗口', win_all: '全部', reset: '重置', reset_filters: '重置筛选',
         aria_win_section: '时间窗口选择', aria_win_presets: '预设时间窗口', aria_date_start: '开始日期', aria_date_end: '结束日期', lang_aria: '语言 / Language',
         card_comp_title: 'Top 30 Ticker · 提及构成分解', card_comp_sub: '横向堆叠条显示主帖、回复和引用的构成。图例可点击开关。',
-        card_bubble_title: '提及结构 · 主帖 vs 互动', card_bubble_sub: '气泡大小 = 原始提及次数，展示哪些 ticker 是主动 thesis，哪些更多来自互动讨论。',
+        card_bubble_title: '提及结构 · 主帖 vs 互动', card_bubble_sub: '气泡大小 = 原始提及次数，颜色 = 研究优先级。展示哪些 ticker 是主动 thesis，哪些更多来自互动讨论。', bl_other: '其他',
         card_donut_title: '提及类型分布', card_donut_sub: '全样本聚合：主帖、回复、引用的占比。',
         tbl_full: '完整数据', tbl_tickers: '个 Ticker', card_table_sub: '搜索、排序和筛选会联动详情面板。鼠标悬停或点击行可快速查看单个 ticker。',
         card_detail_title: '个股详情 Stock Detail', card_detail_sub: '提及趋势、价格趋势、中文来源摘要和英文原文。',
@@ -2704,7 +2915,7 @@ function buildHtmlV2(data) {
         search_ph: '搜索 ticker / theme / priority', aria_search: '搜索 ticker、theme 或 priority', aria_search_clear: '清除搜索', aria_table: 'Ticker 完整数据表', splitter_title: '拖动调整宽度',
         th_posts: '提及帖子', th_raw: '原始次数', th_post: '主帖', th_reply: '回复', th_quote: '引用', th_theme: '主题', th_spark: '价格趋势',
         kpi_universe_sub: '可排序研究标的', kpi_mentions_unit: ' 天 ticker mention posts', kpi_priority_sub: 'skill 标记的高优先级线索', kpi_price_sub: 'Yahoo chart 拉取成功',
-        bf_view: '她的观点', bf_beginner: '小白解释', bf_fp: '第一性原理', bf_buffett: 'Buffett 判断', bf_conclusion: '当前结论', bf_links: '关键链接', bf_title: '每日研究简报', bf_focus: '今天她重点看什么', bf_total: '总分析', bf_range: '范围', bf_dedup: '去重', bf_items: '条', bf_source: '来源', aria_brief_date: '选择简报日期', f_all_theme: '所有主题',
+        bf_view: '她的观点', bf_beginner: '小白解释', bf_fp: '第一性原理', bf_buffett: 'Buffett 判断', bf_conclusion: '当前结论', bf_links: '关键链接', bf_title: '每日研究简报', bf_focus: '今天她重点看什么', bf_total: '总分析', bf_range: '范围', bf_dedup: '去重', bf_items: '条', bf_source: '来源', aria_brief_date: '选择简报日期', f_all_theme: '所有主题', brief_expand: '展开全部', brief_collapse: '收起',
         foot_src: '数据源：', foot_price: '。价格趋势来自 ', foot_disc: '。高提及度只代表研究地图信号，不构成投资建议。',
         stats_na: '提及 × 股价模型：重叠的价格/提及数据不足（需 ≥12 个交易日），暂无法建模。',
         dir_pos: '正相关', dir_neg: '负相关',
@@ -2721,11 +2932,11 @@ function buildHtmlV2(data) {
         fd_mktcap: '市值 Mkt Cap', fd_adv: '日均成交额 ADV', fd_short: '做空 / 流通 Short%', fd_d2c: '回补天数 D2C', fd_pe: '市盈率 P/E', fd_fpe: '预期 Fwd P/E', fd_ps: '市销率 P/S', fd_margin: '净利率 Margin', fd_earn: '下次财报 Earnings', fd_days_after: ' 天后', fd_days_before: ' 天前',
         mom_accel: '加速 ', mom_age: '入档 ', mom_recency: '最近提及 ', mom_ago: 'd前',
         conc_title: '主题集中度 · Concentration', conc_sub: '她的注意力分布 + 7D 轮动 ▲▼', conc_cluster: '相关性集群 · 同一押注', conc_cluster_sub: '日收益相关性 ≥ 0.6', conc_note: '提示集中度风险（这些其实是同一条供应链押注），非统计因果。',
-        track_title: '跟随战绩 · Track Record', track_empty: '待价格历史回填后计算：自她首次提及（次日入场）起算的前向收益、胜率与超额 SPY。', track_head_sub: '自她首次提及（次日收盘入场）起算 · 不随上方时间窗变化', track_win: '胜率 / Win rate', track_excess: '中位超额 vs SPY', track_basket: '等权篮子回报', track_median: '中位个股回报', track_note_a: '基于 ', track_note_b: ' 只有价格覆盖的标的 · 入场=首次提及次日收盘 · 未做幸存者偏差校正 · 仅描述历史，不构成投资建议', track_badge_a: '自首次提及 ', track_badge_b: '超额 SPY ',
+        track_title: '跟随战绩 · Track Record', track_empty: '待价格历史回填后计算：自她首次提及（次日入场）起算的前向收益、胜率与超额 SPY。', track_head_sub: '自她首次提及（次日收盘入场）起算 · 不随上方时间窗变化', track_win: '胜率 / Win rate', track_excess: '中位超额 vs SPY', track_basket: '等权篮子回报', track_median: '中位个股回报', track_note_a: '基于 ', track_note_b: ' 只有价格覆盖的标的 · 入场=首次提及次日收盘 · 未做幸存者偏差校正 · 仅描述历史，不构成投资建议', track_badge_a: '自首次提及 ', track_badge_b: '超额 SPY ', track_pending: '待价格回填 · Pending',
         empty_focus: '悬停或点击任意标的查看其价格 × 提及焦点图', empty_price: '暂无价格数据', empty_price_sub: '该标的价格无法解析，无法绘制提及×价格叠加图。', empty_chart: '暂无可绘制数据', empty_chart_sub: '价格数据可能缺失或 Yahoo symbol 无法解析。', empty_samples: '暂无来源样本', empty_data: '暂无数据', empty_noprice: '暂无价格',
         det_preview: '预览中 · 点击锁定', det_locked: '已锁定', det_samples: '最新来源样本', det_samples_sub: '中文摘要 + 英文原文', det_src_hint: '这条来源需要结合英文原文判断语境。', det_view_en: '查看英文原文', det_open_src: '打开来源', det_attempted: '暂无价格数据 · attempted ',
         combo_hdr: '价格走势 · 柱 = 当日提及量',
-        win_lbl_all: '全部 ', win_lbl_win: '窗口 ', win_lbl_days: ' 天 · ', res_show: '显示 ', res_items: ' 条', nomatch: '没有匹配的 ticker', nomatch_sub: '试试放宽筛选条件，或点击"重置筛选"。', mkt_peak: ' · 峰值 lag=', bubble_x: '主帖 Posts', bubble_y: '互动量 Replies + Quotes', tip_posts: '主帖 Posts: ', tip_inter: '互动 Replies + Quotes: ', tip_total: '总提及: ', donut_all: '全样本', tip_price: '价格 ', tip_dayment: '当日提及 ',
+        win_lbl_all: '全部 ', win_lbl_win: '窗口 ', win_lbl_days: ' 天 · ', res_show: '显示 ', res_items: ' 条', nomatch: '没有匹配的 ticker', nomatch_sub: '试试放宽筛选条件，或点击"重置筛选"。', mkt_peak: ' · 峰值 lag=', bubble_x: '主帖 Posts', bubble_y: '互动量 Replies + Quotes', tip_posts: '主帖 Posts: ', tip_inter: '互动 Replies + Quotes: ', tip_total: '总提及: ', donut_all: '全样本', tip_price: '价格 ', tip_dayment: '当日提及 ', unit_mentions: ' 次提及', focus_title: '价格 × 提及 · 个股焦点',
         th_last: '最后提及'
       },
       en: {
@@ -2733,7 +2944,7 @@ function buildHtmlV2(data) {
         win_title: 'Time Window', win_all: 'All', reset: 'Reset', reset_filters: 'Reset filters',
         aria_win_section: 'Time window selection', aria_win_presets: 'Preset time windows', aria_date_start: 'Start date', aria_date_end: 'End date', lang_aria: '语言 / Language',
         card_comp_title: 'Top 30 Tickers · Mention Composition', card_comp_sub: 'Stacked bars show the post / reply / quote composition. Click the legend to toggle series.',
-        card_bubble_title: 'Mention Structure · Posts vs Interaction', card_bubble_sub: 'Bubble size = raw mentions; shows which tickers are active theses vs interaction-driven chatter.',
+        card_bubble_title: 'Mention Structure · Posts vs Interaction', card_bubble_sub: 'Bubble size = raw mentions, color = research priority; shows which tickers are active theses vs interaction-driven chatter.', bl_other: 'Other',
         card_donut_title: 'Mention Type Distribution', card_donut_sub: 'Whole-sample aggregate: share of posts, replies and quotes.',
         tbl_full: 'Full Data', tbl_tickers: 'tickers', card_table_sub: 'Search, sort and filter drive the detail panel. Hover or click a row to inspect a single ticker.',
         card_detail_title: 'Stock Detail', card_detail_sub: 'Mention trend, price trend, Chinese source summaries and English originals.',
@@ -2742,7 +2953,7 @@ function buildHtmlV2(data) {
         search_ph: 'Search ticker / theme / priority', aria_search: 'Search ticker, theme or priority', aria_search_clear: 'Clear search', aria_table: 'Full ticker data table', splitter_title: 'Drag to resize',
         th_posts: 'Posts', th_raw: 'Raw', th_post: 'Post', th_reply: 'Reply', th_quote: 'Quote', th_theme: 'Theme', th_spark: 'Price trend',
         kpi_universe_sub: 'Sortable research names', kpi_mentions_unit: 'd ticker mention posts', kpi_priority_sub: 'Skill-flagged high-priority leads', kpi_price_sub: 'Yahoo charts fetched',
-        bf_view: 'Her view', bf_beginner: 'In plain terms', bf_fp: 'First principles', bf_buffett: 'Buffett lens', bf_conclusion: 'Current take', bf_links: 'Key link', bf_title: 'Daily Research Brief', bf_focus: 'Today’s focus', bf_total: 'Synthesis', bf_range: 'Range', bf_dedup: 'Deduped', bf_items: 'items', bf_source: 'Source', aria_brief_date: 'Select brief date', f_all_theme: 'All themes',
+        bf_view: 'Her view', bf_beginner: 'In plain terms', bf_fp: 'First principles', bf_buffett: 'Buffett lens', bf_conclusion: 'Current take', bf_links: 'Key link', bf_title: 'Daily Research Brief', bf_focus: 'Today’s focus', bf_total: 'Synthesis', bf_range: 'Range', bf_dedup: 'Deduped', bf_items: 'items', bf_source: 'Source', aria_brief_date: 'Select brief date', f_all_theme: 'All themes', brief_expand: 'Show all', brief_collapse: 'Collapse',
         foot_src: 'Sources: ', foot_price: '. Price trends from ', foot_disc: '. High mention counts are research-map signals only — not investment advice.',
         stats_na: 'Mention × Price model: not enough overlapping price/mention data (need ≥12 trading days) to model yet.',
         dir_pos: 'positive', dir_neg: 'negative',
@@ -2759,19 +2970,19 @@ function buildHtmlV2(data) {
         fd_mktcap: 'Mkt Cap', fd_adv: 'Avg $ Vol', fd_short: 'Short % Float', fd_d2c: 'Days to Cover', fd_pe: 'P/E', fd_fpe: 'Fwd P/E', fd_ps: 'P/S', fd_margin: 'Profit Margin', fd_earn: 'Next Earnings', fd_days_after: 'd away', fd_days_before: 'd ago',
         mom_accel: 'Accel ', mom_age: 'Age ', mom_recency: 'Last seen ', mom_ago: 'd ago',
         conc_title: 'Theme Concentration', conc_sub: 'Her attention split + 7D rotation ▲▼', conc_cluster: 'Correlated cluster · same bet', conc_cluster_sub: 'daily-return correlation ≥ 0.6', conc_note: 'Flags concentration risk (these are really one supply-chain bet) — not statistical causation.',
-        track_title: 'Track Record', track_empty: 'Computed after the price-history backfill: forward return, win rate and excess vs SPY from her first mention (next-day entry).', track_head_sub: 'From her first mention (next-day close entry) · does not change with the window above', track_win: 'Win rate', track_excess: 'Median excess vs SPY', track_basket: 'Equal-weight basket', track_median: 'Median single-name', track_note_a: 'Based on ', track_note_b: ' priced names · entry = next close after first mention · not survivorship-adjusted · descriptive history, not advice', track_badge_a: 'Since first mention ', track_badge_b: 'excess SPY ',
+        track_title: 'Track Record', track_empty: 'Computed after the price-history backfill: forward return, win rate and excess vs SPY from her first mention (next-day entry).', track_head_sub: 'From her first mention (next-day close entry) · does not change with the window above', track_win: 'Win rate', track_excess: 'Median excess vs SPY', track_basket: 'Equal-weight basket', track_median: 'Median single-name', track_note_a: 'Based on ', track_note_b: ' priced names · entry = next close after first mention · not survivorship-adjusted · descriptive history, not advice', track_badge_a: 'Since first mention ', track_badge_b: 'excess SPY ', track_pending: 'Pending price backfill',
         empty_focus: 'Hover or click any ticker to see its price × mention focus chart', empty_price: 'No price data', empty_price_sub: 'Price for this ticker could not be resolved; cannot draw the mention × price overlay.', empty_chart: 'Nothing to plot', empty_chart_sub: 'Price data may be missing or the Yahoo symbol could not be resolved.', empty_samples: 'No source samples', empty_data: 'No data', empty_noprice: 'No price',
         det_preview: 'Previewing · click to pin', det_locked: 'Pinned', det_samples: 'Latest source samples', det_samples_sub: 'Chinese summary + English original', det_src_hint: 'This source needs the English original for context.', det_view_en: 'View English original', det_open_src: 'Open source', det_attempted: 'No price data · attempted ',
         combo_hdr: 'Price trend · bars = daily mentions',
-        win_lbl_all: 'All ', win_lbl_win: 'Window ', win_lbl_days: ' days · ', res_show: 'Showing ', res_items: '', nomatch: 'No matching ticker', nomatch_sub: 'Try relaxing the filters, or click “Reset filters”.', mkt_peak: ' · peak lag=', bubble_x: 'Posts', bubble_y: 'Interaction (Replies + Quotes)', tip_posts: 'Posts: ', tip_inter: 'Interaction (Replies + Quotes): ', tip_total: 'Total mentions: ', donut_all: 'All samples', tip_price: 'Price ', tip_dayment: 'Same-day mentions ',
+        win_lbl_all: 'All ', win_lbl_win: 'Window ', win_lbl_days: ' days · ', res_show: 'Showing ', res_items: '', nomatch: 'No matching ticker', nomatch_sub: 'Try relaxing the filters, or click “Reset filters”.', mkt_peak: ' · peak lag=', bubble_x: 'Posts', bubble_y: 'Interaction (Replies + Quotes)', tip_posts: 'Posts: ', tip_inter: 'Interaction (Replies + Quotes): ', tip_total: 'Total mentions: ', donut_all: 'All samples', tip_price: 'Price ', tip_dayment: 'Same-day mentions ', unit_mentions: ' mentions', focus_title: 'Price × Mentions Focus',
         th_last: 'Last seen'
       }
     };
     function t(k) { var d = I18N[state.lang] || I18N.zh; return (d[k] != null) ? d[k] : (I18N.zh[k] != null ? I18N.zh[k] : k); }
     const SERIES = [
-      { key: "posts", label: "主帖 Posts", color: "#67d9f4", className: "c-posts" },
-      { key: "replies", label: "回复 Replies", color: "#8274f6", className: "c-replies" },
-      { key: "quotes", label: "引用 Quotes", color: "#ee79b8", className: "c-quotes" },
+      { key: "posts", label: "主帖 Posts", color: "var(--cyan)", className: "c-posts" },
+      { key: "replies", label: "回复 Replies", color: "var(--purple)", className: "c-replies" },
+      { key: "quotes", label: "引用 Quotes", color: "var(--pink)", className: "c-quotes" },
     ];
     const state = {
       lang: 'zh',
@@ -2812,8 +3023,9 @@ function buildHtmlV2(data) {
       };
     }
 
-    function countUp(el, target, duration) {
-      if (reducedMotion) { el.textContent = formatNumber(target); return; }
+    function countUp(el, target, duration, from) {
+      const base = Number(from) || 0;
+      if (reducedMotion || base === target) { el.textContent = formatNumber(target); return; }
       const start = performance.now();
       let done = false;
       function finish() { if (!done) { done = true; el.textContent = formatNumber(target); } }
@@ -2821,7 +3033,7 @@ function buildHtmlV2(data) {
         if (done) return;
         const progress = Math.min(1, (now - start) / duration);
         const eased = 1 - Math.pow(1 - progress, 3);
-        el.textContent = formatNumber(Math.round(target * eased));
+        el.textContent = formatNumber(Math.round(base + (target - base) * eased));
         if (progress < 1) requestAnimationFrame(tick);
         else done = true;
       }
@@ -2913,6 +3125,7 @@ function buildHtmlV2(data) {
       if (!ticker) return;
       state.pinnedTicker = ticker;
       state.hoverTicker = null;
+      state.userPinned = true;
       updateActiveHighlights();
       renderDetail();
     }
@@ -2937,7 +3150,7 @@ function buildHtmlV2(data) {
     function priceSpark(row) {
       const points = row.price.points || [];
       if (!points.length) {
-        return '<span class="muted">暂无价格</span>';
+        return '<span class="muted">' + t('empty_noprice') + '</span>';
       }
       const width = 128;
       const height = 38;
@@ -3241,7 +3454,7 @@ function buildHtmlV2(data) {
         const links = (t.links || []).length
           ? '<div class="brief-links">' + t.links.map((u, i) => '<a class="brief-link" href="' + html(u) + '" target="_blank" rel="noopener noreferrer">' + T('bf_links') + ' ' + (i + 1) + '</a>').join("") + '</div>'
           : "";
-        return '<details class="brief-theme"' + (t.n === 1 ? " open" : "") + '><summary><span class="brief-theme-n">' + t.n + '</span><span class="brief-theme-title">' + linkifyTickers(t.title) + '</span></summary><div class="brief-theme-body">' + inner + links + '</div></details>';
+        return '<details class="brief-theme"><summary><span class="brief-theme-n">' + t.n + '</span><span class="brief-theme-title">' + linkifyTickers(t.title) + '</span></summary><div class="brief-theme-body">' + inner + links + '</div></details>';
       }).join("");
       const picker = digests.length > 1
         ? '<select class="control brief-date" id="briefDateSelect" aria-label="' + t('aria_brief_date') + '">' + digests.map((d) => '<option value="' + html(d.date) + '"' + (d.date === digest.date ? " selected" : "") + '>' + html(d.date) + '</option>').join("") + '</select>'
@@ -3258,8 +3471,12 @@ function buildHtmlV2(data) {
           picker +
         '</div>' +
         (digest.summary ? '<div class="brief-summary"><div class="brief-summary-label">' + t('bf_focus') + '</div><div class="brief-summary-text">' + briefText(digest.summary) + '</div></div>' : '') +
-        '<div class="brief-themes">' + themeCards + '</div>' +
-        (digest.totalAnalysis ? '<div class="brief-total"><div class="brief-field-label">' + t('bf_total') + '</div><div class="brief-field-text">' + briefText(digest.totalAnalysis) + '</div></div>' : '') +
+        '<div class="brief-clamp" id="briefClamp">' +
+          '<div class="brief-themes">' + themeCards + '</div>' +
+          (digest.totalAnalysis ? '<div class="brief-total"><div class="brief-field-label">' + t('bf_total') + '</div><div class="brief-field-text">' + briefText(digest.totalAnalysis) + '</div></div>' : '') +
+          '<div class="brief-fade"></div>' +
+        '</div>' +
+        '<div class="brief-expand-row"><button type="button" class="brief-expand" id="briefExpand">' + t('brief_expand') + '</button></div>' +
         (digest.disclaimer ? '<div class="brief-disclaimer">' + html(digest.disclaimer) + '</div>' : '');
       host.querySelectorAll(".brief-chip").forEach((btn) => {
         btn.addEventListener("click", () => {
@@ -3270,6 +3487,20 @@ function buildHtmlV2(data) {
           if (detail && detail.scrollIntoView) detail.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "center" });
         });
       });
+      const clamp = $("briefClamp");
+      const expandBtn = $("briefExpand");
+      if (clamp && expandBtn) {
+        // Hide the clamp affordance entirely when the content already fits.
+        if (clamp.scrollHeight <= clamp.clientHeight + 24) {
+          clamp.classList.add("expanded");
+          expandBtn.parentElement.style.display = "none";
+        }
+        expandBtn.addEventListener("click", () => {
+          const expanded = clamp.classList.toggle("expanded");
+          expandBtn.textContent = t(expanded ? "brief_collapse" : "brief_expand");
+          if (!expanded && $("briefCard").scrollIntoView) $("briefCard").scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "start" });
+        });
+      }
       const newSel = $("briefDateSelect");
       if (newSel) newSel.addEventListener("change", renderBriefs);
     }
@@ -3283,9 +3514,14 @@ function buildHtmlV2(data) {
         '<span class="pill">' + formatNumber(win.tickers) + ' tickers</span>',
         '<span class="pill">' + price.success + '/' + price.total + ' price charts</span>',
       ].join("");
-      $("footerNote").innerHTML = t('foot_src') + DASHBOARD_DATA.sourceFiles.summary + "、" + DASHBOARD_DATA.sourceFiles.daily + "、" + DASHBOARD_DATA.sourceFiles.events + t('foot_price') + DASHBOARD_DATA.priceProvider.name + t('foot_disc');
+      const stripDot = (s) => String(s).replace(/^[。.]\s*/, "");
+      $("footerNote").innerHTML =
+        '<span class="foot-seg">' + t('foot_src') + DASHBOARD_DATA.sourceFiles.summary + "、" + DASHBOARD_DATA.sourceFiles.daily + "、" + DASHBOARD_DATA.sourceFiles.events + '</span>' +
+        '<span class="foot-seg">' + stripDot(t('foot_price')) + DASHBOARD_DATA.priceProvider.name + '</span>' +
+        '<span class="foot-seg foot-disc">' + stripDot(t('foot_disc')) + '</span>';
     }
 
+    var kpiPrev = {};
     function renderKpis() {
       const rows = DASHBOARD_DATA.rows;
       const totalMentions = rows.reduce((sum, row) => sum + row.mentioned_posts, 0);
@@ -3303,18 +3539,22 @@ function buildHtmlV2(data) {
         ["Universe", formatNumber(rows.length), t('kpi_universe_sub'), rows.length],
         ["Mentions", formatNumber(totalMentions), windowDays() + t('kpi_mentions_unit'), totalMentions],
         ["High Priority", formatNumber(high), t('kpi_priority_sub'), high],
-        ["Top Theme", topTheme ? topTheme.theme : "—", topTheme ? formatNumber(topTheme.mentions) + " mentions" : "—", null],
-        ["Hot 7D", hot ? hot.ticker : "—", hot ? formatNumber(hot.last7) + " mentions" : "—", null],
+        ["Top Theme", topTheme ? topTheme.theme : "—", topTheme ? formatNumber(topTheme.mentions) + t('unit_mentions') : "—", null, true],
+        ["Hot 7D", hot ? hot.ticker : "—", hot ? formatNumber(hot.last7) + t('unit_mentions') : "—", null],
         ["Price Coverage", priceOk + "/" + rows.length, t('kpi_price_sub'), null],
       ];
       $("kpiGrid").innerHTML = kpis.map((item, index) => {
         const counts = item[3] != null && !reducedMotion;
-        const valueAttr = counts ? ' data-count="' + item[3] + '"' : '';
-        const valueText = counts ? "0" : html(item[1]);
-        return '<div class="kpi reveal' + (firstPaint ? '' : ' reveal-in') + '" style="--reveal-delay:' + (index * 45) + 'ms"><div class="kpi-label">' + html(item[0]) + '</div><div class="kpi-value"' + valueAttr + '>' + valueText + '</div><div class="kpi-note">' + html(item[2]) + '</div></div>';
+        const prev = counts ? (kpiPrev[item[0]] || 0) : 0;
+        const valueAttr = counts ? ' data-count="' + item[3] + '" data-prev="' + prev + '"' : '';
+        const valueText = counts ? formatNumber(prev) : html(item[1]);
+        const valueClass = item[4] ? "kpi-value kpi-value--text" : "kpi-value";
+        return '<div class="kpi reveal' + (firstPaint ? '' : ' reveal-in') + '" style="--reveal-delay:' + (index * 45) + 'ms"><div class="kpi-label">' + html(item[0]) + '</div><div class="' + valueClass + '"' + valueAttr + ' title="' + html(item[1]) + '">' + valueText + '</div><div class="kpi-note">' + html(item[2]) + '</div></div>';
       }).join("");
+      kpis.forEach((item) => { if (item[3] != null) kpiPrev[item[0]] = item[3]; });
       $("kpiGrid").querySelectorAll(".kpi-value[data-count]").forEach((el) => {
-        countUp(el, Number(el.dataset.count), 1100);
+        // First paint counts up from 0; later re-renders roll from the previous value instead of re-counting.
+        countUp(el, Number(el.dataset.count), firstPaint ? 1100 : 450, Number(el.dataset.prev || 0));
       });
       DASHBOARD_DATA.compositionTotals = comp;
     }
@@ -3370,10 +3610,22 @@ function buildHtmlV2(data) {
       return rows;
     }
 
+    function niceTickStep(maxValue) {
+      const rough = Math.max(maxValue, 1) / 4;
+      const pow = Math.pow(10, Math.floor(Math.log(rough) / Math.LN10));
+      const candidates = [1, 2, 5, 10];
+      for (let i = 0; i < candidates.length; i += 1) {
+        if (candidates[i] * pow >= rough) return candidates[i] * pow;
+      }
+      return 10 * pow;
+    }
+
     function renderCompositionChart() {
       const svg = $("topCompositionChart");
       const rows = DASHBOARD_DATA.rows.slice().sort((a, b) => b.mentioned_posts - a.mentioned_posts).slice(0, 30);
       const max = Math.max.apply(null, rows.map((row) => Math.max(visibleCompositionTotal(row), 1)));
+      const tickStep = niceTickStep(max);
+      const axisMax = Math.max(tickStep, Math.ceil(max / tickStep) * tickStep);
       const width = 1180;
       const rowH = 22;
       const gap = 11;
@@ -3386,10 +3638,12 @@ function buildHtmlV2(data) {
       const active = activeTicker();
       svg.setAttribute("viewBox", "0 0 " + width + " " + chartHeight);
       svg.classList.toggle("bars-animate", firstPaint && !reducedMotion);
-      const ticks = [0, 100, 200, 300, 400];
+      svg.classList.toggle("bars-refresh", !firstPaint && !reducedMotion);
+      const ticks = [];
+      for (let tv = 0; tv <= axisMax; tv += tickStep) ticks.push(tv);
       let out = "";
       ticks.forEach((tick) => {
-        const x = left + (tick / Math.max(400, max)) * chartW;
+        const x = left + (tick / axisMax) * chartW;
         out += '<line class="grid-line" x1="' + x + '" y1="20" x2="' + x + '" y2="' + axisY + '"></line>';
         out += '<text class="tick-label" x="' + x + '" y="' + (axisY + 25) + '" text-anchor="middle">' + tick + '</text>';
       });
@@ -3398,7 +3652,7 @@ function buildHtmlV2(data) {
         let x = left;
         let totalW = 0;
         SERIES.forEach((series) => {
-          if (state.visibleSeries[series.key]) totalW += (row.composition[series.key] / Math.max(400, max)) * chartW;
+          if (state.visibleSeries[series.key]) totalW += (row.composition[series.key] / axisMax) * chartW;
         });
         const activeClass = row.ticker === active ? " bar-row-active" : "";
         const clipId = "barclip-" + index;
@@ -3410,7 +3664,7 @@ function buildHtmlV2(data) {
         SERIES.forEach((series) => {
           if (!state.visibleSeries[series.key]) return;
           const value = row.composition[series.key];
-          const w = (value / Math.max(400, max)) * chartW;
+          const w = (value / axisMax) * chartW;
           if (w <= 0) return;
           out += '<rect class="bar-seg" data-ticker="' + row.ticker + '" data-kind="' + series.key + '" x="' + x + '" y="' + y + '" width="' + w + '" height="' + rowH + '" fill="' + series.color + '"></rect>';
           x += w;
@@ -3431,7 +3685,7 @@ function buildHtmlV2(data) {
         seg.addEventListener("mousemove", (event) => {
           const row = rowByTicker(seg.dataset.ticker);
           const series = SERIES.find((item) => item.key === seg.dataset.kind);
-          showTooltip(event, '<strong>' + row.ticker + '</strong><br><span class="muted">' + series.label + '</span><br>' + formatNumber(row.composition[series.key]) + ' mentions');
+          showTooltip(event, '<strong>' + row.ticker + '</strong><br><span class="muted">' + series.label + '</span><br>' + formatNumber(row.composition[series.key]) + t('unit_mentions'));
         });
         seg.addEventListener("mouseleave", hideTooltip);
       });
@@ -3457,25 +3711,38 @@ function buildHtmlV2(data) {
         const y = top + (i / 5) * chartH;
         out += '<line class="grid-line" x1="' + x + '" y1="' + top + '" x2="' + x + '" y2="' + (top + chartH) + '"></line>';
         out += '<line class="grid-line" x1="' + left + '" y1="' + y + '" x2="' + (left + chartW) + '" y2="' + y + '"></line>';
+        out += '<text class="tick-label" x="' + x + '" y="' + (top + chartH + 18) + '" text-anchor="middle">' + Math.round(maxX * i / 5) + '</text>';
+        out += '<text class="tick-label" x="' + (left - 9) + '" y="' + (y + 4) + '" text-anchor="end">' + Math.round(maxY * (1 - i / 5)) + '</text>';
       }
       out += '<line class="chart-axis" x1="' + left + '" y1="' + (top + chartH) + '" x2="' + (left + chartW) + '" y2="' + (top + chartH) + '"></line>';
       out += '<line class="chart-axis" x1="' + left + '" y1="' + top + '" x2="' + left + '" y2="' + (top + chartH) + '"></line>';
       out += '<text class="axis-label" x="' + (left + chartW / 2) + '" y="' + (height - 18) + '" text-anchor="middle">' + t('bubble_x') + '</text>';
       out += '<text class="axis-label" transform="translate(22 ' + (top + chartH / 2) + ') rotate(-90)" text-anchor="middle">' + t('bubble_y') + '</text>';
       const active = activeTicker();
+      const placedLabels = [];
       rows.forEach((row, index) => {
         const x = left + (row.interaction.xPosts / maxX) * chartW;
         const y = top + chartH - (row.interaction.yInteractions / maxY) * chartH;
         const r = 6 + (row.interaction.bubbleSize / maxBubble) * 42;
-        const color = SERIES[index % SERIES.length].color;
+        // Color encodes research priority, matching the table's priority pills.
+        const pr = String(row.research_priority || "").toLowerCase();
+        const color = pr === "high" ? "var(--cyan)" : pr === "medium" ? "var(--amber)" : "var(--muted)";
         const activeClass = row.ticker === active ? " active" : "";
         out += '<circle class="bubble' + activeClass + '" data-ticker="' + row.ticker + '" cx="' + x + '" cy="' + y + '" r="' + r + '" fill="' + color + '" style="color:' + color + ';--i:' + index + '"></circle>';
         if (r >= 24 || row.ticker === active) {
-          out += '<text class="bubble-label" x="' + (x + r * 0.18) + '" y="' + (y - r - 7) + '">' + row.ticker + '</text>';
+          const lx = x + r * 0.18;
+          const ly = y - r - 7;
+          // Skip labels that would land on top of an already placed one (the active ticker always wins).
+          const collides = placedLabels.some((p) => Math.abs(p[0] - lx) < 46 && Math.abs(p[1] - ly) < 14);
+          if (!collides || row.ticker === active) {
+            placedLabels.push([lx, ly]);
+            out += '<text class="bubble-label" x="' + lx + '" y="' + ly + '">' + row.ticker + '</text>';
+          }
         }
       });
       svg.innerHTML = out;
       svg.classList.toggle("bubbles-animate", firstPaint && !reducedMotion);
+      svg.classList.toggle("bubbles-refresh", !firstPaint && !reducedMotion);
       svg.querySelectorAll(".bubble").forEach((bubble) => {
         bubble.addEventListener("mouseenter", () => setHoverTicker(bubble.dataset.ticker));
         bubble.addEventListener("mousemove", (event) => {
@@ -3495,24 +3762,28 @@ function buildHtmlV2(data) {
       let angle = -Math.PI / 2;
       let out = "";
       values.forEach((item) => {
-        const next = angle + (item.value / sum) * Math.PI * 2;
+        // Skip empty segments (their labels would stack at one point); clamp a 100% segment
+        // just short of a full turn so the arc path doesn't collapse to nothing.
+        if (!item.value) return;
+        const next = angle + Math.min((item.value / sum) * Math.PI * 2, Math.PI * 2 - 0.001);
         out += '<path class="donut-seg" data-kind="' + item.key + '" d="' + arcPath(260, 215, 150, angle, next) + '" fill="' + item.color + '" style="color:' + item.color + '"></path>';
         const mid = (angle + next) / 2;
         const lx = 260 + Math.cos(mid) * 205;
         const ly = 215 + Math.sin(mid) * 205;
-        out += '<text class="donut-label" x="' + lx + '" y="' + ly + '" text-anchor="middle">' + item.label.split(" ")[0] + '</text>';
+        out += '<text class="donut-label" x="' + lx + '" y="' + ly + '" text-anchor="middle">' + (state.lang === 'en' ? item.label.split(' ').slice(1).join(' ') : item.label.split(' ')[0]) + '</text>';
         out += '<text class="donut-small" x="' + lx + '" y="' + (ly + 23) + '" text-anchor="middle">' + formatPct(item.value / sum * 100, 1) + '</text>';
         angle = next;
       });
       out += '<circle class="donut-center" cx="260" cy="215" r="88"></circle>';
-      out += '<text class="donut-label" x="260" y="207" text-anchor="middle">' + t('donut_all') + '</text><text class="donut-small" x="260" y="232" text-anchor="middle">' + formatNumber(sum) + ' mentions</text>';
+      out += '<text class="donut-label" x="260" y="207" text-anchor="middle">' + t('donut_all') + '</text><text class="donut-small" x="260" y="232" text-anchor="middle">' + formatNumber(sum) + t('unit_mentions') + '</text>';
       out += '<g transform="translate(92 468)">' + values.map((item, index) => '<rect x="' + (index * 120) + '" y="0" width="13" height="13" rx="4" fill="' + item.color + '"></rect><text class="donut-small" x="' + (index * 120 + 20) + '" y="12">' + item.label + '</text>').join("") + '</g>';
       svg.innerHTML = out;
       svg.classList.toggle("donut-animate", firstPaint && !reducedMotion);
+      svg.classList.toggle("donut-refresh", !firstPaint && !reducedMotion);
       svg.querySelectorAll(".donut-seg").forEach((seg) => {
         seg.addEventListener("mousemove", (event) => {
           const item = values.find((candidate) => candidate.key === seg.dataset.kind);
-          showTooltip(event, '<strong>' + item.label + '</strong><br>' + formatNumber(item.value) + ' mentions<br>' + formatPct(item.value / sum * 100, 2));
+          showTooltip(event, '<strong>' + item.label + '</strong><br>' + formatNumber(item.value) + t('unit_mentions') + '<br>' + formatPct(item.value / sum * 100, 2));
         });
         seg.addEventListener("mouseleave", hideTooltip);
       });
@@ -3541,7 +3812,7 @@ function buildHtmlV2(data) {
           '<td class="num c-posts">' + formatNumber(row.post_mentions) + '</td>' +
           '<td class="num c-replies">' + formatNumber(row.reply_mentions) + '</td>' +
           '<td class="num c-quotes">' + formatNumber(row.quote_mentions) + '</td>' +
-          '<td><span class="theme-pill ' + priorityClass(row.research_priority) + '">' + html(row.primary_theme) + '</span></td>' +
+          '<td><span class="theme-pill ' + priorityClass(row.research_priority) + '" title="' + html(row.primary_theme) + '">' + html(row.primary_theme) + '</span></td>' +
           '<td class="num">' + formatNumber(row.last7) + '</td>' +
           '<td class="num ' + priceClass + '">' + formatPct(row.price.change_pct) + '</td>' +
           '<td>' + priceSpark(row) + '</td>' +
@@ -3905,7 +4176,7 @@ function buildHtmlV2(data) {
       if (a >= 1e3) return (v / 1e3).toFixed(1) + 'K';
       return String(Math.round(v));
     }
-    function fundCell(label, value, cls) { return '<div class="fund-cell"><div class="fc-l">' + label + '</div><div class="fc-v ' + (cls || '') + '">' + value + '</div></div>'; }
+    function fundCell(label, value, cls) { return '<div class="fund-cell"><div class="fc-l" title="' + label + '">' + label + '</div><div class="fc-v ' + (cls || '') + '">' + value + '</div></div>'; }
     function fundGrid(f) {
       if (!f) return '';
       var num2 = function (v) { return v == null || !isFinite(v) ? '—' : Number(v).toFixed(2); };
@@ -3956,13 +4227,20 @@ function buildHtmlV2(data) {
           clusters.map(function (c) { return '<div class="cluster"><span class="cluster-label">' + html(c.label) + ' · ρ̄=' + c.avgCorr.toFixed(2) + '</span> ' + c.members.map(function (m) { return '<button type="button" class="cluster-mem" data-ticker="' + m + '">' + m + '</button>'; }).join('') + '</div>'; }).join('') +
           '<div class="muted conc-note">' + t('conc_note') + '</div>';
       }
-      el.innerHTML = '<div class="section-label"><span>' + t('conc_title') + '</span><span class="muted">' + t('conc_sub') + '</span></div><div class="conc-bar">' + bar + '</div><div class="conc-legend">' + legend + '</div>' + clusterHtml;
+      el.innerHTML = '<div class="title-row title-row--bar"><span class="accent"></span><h2 class="h2-compact">' + t('conc_title') + '</h2><span class="muted h2-sub">' + t('conc_sub') + '</span></div><div class="conc-bar">' + bar + '</div><div class="conc-legend">' + legend + '</div>' + clusterHtml;
       el.querySelectorAll('.cluster-mem').forEach(function (b) { b.addEventListener('click', function () { setPinnedTicker(b.dataset.ticker); }); });
     }
     function getStored(k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } }
     function setStored(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
-    function applyTheme(tm) {
-      document.documentElement.setAttribute('data-theme', tm);
+    var themeXfadeTimer = null;
+    function applyTheme(tm, animate) {
+      var root = document.documentElement;
+      if (animate && !reducedMotion) {
+        root.classList.add('theme-xfade');
+        if (themeXfadeTimer) clearTimeout(themeXfadeTimer);
+        themeXfadeTimer = setTimeout(function () { root.classList.remove('theme-xfade'); }, 320);
+      }
+      root.setAttribute('data-theme', tm);
       document.querySelectorAll('.theme-toggle .seg-btn').forEach(function (b) {
         var on = b.getAttribute('data-theme-val') === tm;
         b.classList.toggle('active', on); b.setAttribute('aria-pressed', on ? 'true' : 'false');
@@ -3973,7 +4251,7 @@ function buildHtmlV2(data) {
       var tm = (saved === 'light' || saved === 'dark') ? saved : 'dark';
       applyTheme(tm);
       document.querySelectorAll('.theme-toggle .seg-btn').forEach(function (b) {
-        b.addEventListener('click', function () { var v = b.getAttribute('data-theme-val'); applyTheme(v); setStored('aleabito.theme', v); });
+        b.addEventListener('click', function () { var v = b.getAttribute('data-theme-val'); applyTheme(v, true); setStored('aleabito.theme', v); });
       });
     }
     function applyLang() {
@@ -4010,10 +4288,20 @@ function buildHtmlV2(data) {
       var el = $("trackBody");
       if (!el) return;
       var tr = DASHBOARD_DATA.trackRecord;
-      if (!tr || !tr.n) { el.innerHTML = '<div class="track-empty"><span class="track-title">' + t('track_title') + '</span><span class="muted">' + t('track_empty') + '</span></div>'; return; }
+      if (!tr || !tr.n) {
+        el.innerHTML =
+          '<div class="track-head"><div class="title-row"><span class="accent"></span><h2 class="h2-compact">' + t('track_title') + '</h2></div><span class="track-pending">' + t('track_pending') + '</span><span class="muted">' + t('track_head_sub') + '</span></div>' +
+          '<div class="track-kpis">' +
+            ['track_win', 'track_excess', 'track_basket', 'track_median'].map(function (key) {
+              return '<div class="track-kpi pending"><div class="tk-v">—</div><div class="tk-l">' + t(key) + '</div></div>';
+            }).join('') +
+          '</div>' +
+          '<div class="track-note">' + t('track_empty') + '</div>';
+        return;
+      }
       var p = function (v) { return v == null ? '—' : formatPct(v * 100); };
       el.innerHTML =
-        '<div class="track-head"><span class="track-title">' + t('track_title') + '</span><span class="muted">' + t('track_head_sub') + '</span></div>' +
+        '<div class="track-head"><div class="title-row"><span class="accent"></span><h2 class="h2-compact">' + t('track_title') + '</h2></div><span class="muted">' + t('track_head_sub') + '</span></div>' +
         '<div class="track-kpis">' +
           '<div class="track-kpi"><div class="tk-v ' + (tr.winRate >= 0.5 ? 'delta-up' : 'delta-down') + '">' + Math.round(tr.winRate * 100) + '%</div><div class="tk-l">' + t('track_win') + '</div></div>' +
           '<div class="track-kpi"><div class="tk-v ' + deltaClass(tr.medianExcess) + '">' + p(tr.medianExcess) + '</div><div class="tk-l">' + t('track_excess') + '</div></div>' +
@@ -4040,6 +4328,7 @@ function buildHtmlV2(data) {
         ? '<div class="focus-px ' + deltaClass(chg) + '">' + formatNumber(px.last_close, 2) + ' ' + html(px.currency || '') + ' <span class="focus-chg">' + formatPct(chg) + '</span></div>'
         : '<div class="focus-px muted">' + t('empty_noprice') + '</div>';
       el.innerHTML =
+        '<div class="title-row title-row--bar"><span class="accent"></span><h2 class="h2-compact">' + t('focus_title') + '</h2></div>' +
         '<div class="focus-head"><div class="focus-id"><span class="focus-ticker">' + row.ticker + '</span><span class="focus-name muted">' + html(px.symbol || row.ticker) + ' · ' + html(row.primary_theme) + (row.fundamentals && row.fundamentals.foreignListed ? ' <span class="foreign-pill">' + t('foreign_short') + '</span>' : '') + '</span></div>' +
         pxHtml + '</div>' +
         trackBadge(row) +
@@ -4073,29 +4362,6 @@ function buildHtmlV2(data) {
       });
       sp.addEventListener("dblclick", () => { grid.style.gridTemplateColumns = ""; lastMain = 0; try { localStorage.removeItem("aleabito.split"); } catch (e) {} });
     }
-    function lineChart(points, field, ticker, mode) {
-      if (!points || points.length < 2) {
-        return '<div class="empty">' + t('empty_chart') + '<br><span class="muted">' + t('empty_chart_sub') + '</span></div>';
-      }
-      const width = 520;
-      const height = 190;
-      const pad = 22;
-      const values = points.map((point) => Number(point[field]));
-      const path = makeLinePath(values, width, height, pad);
-      const finite = values.filter((value) => Number.isFinite(value));
-      const max = Math.max.apply(null, finite);
-      const min = Math.min.apply(null, finite);
-      const lineClass = mode === "price" && values[values.length - 1] < values[0] ? "spark-line spark-red" : "spark-line";
-      return '<svg class="line-chart js-detail-chart" data-ticker="' + ticker + '" data-mode="' + mode + '" viewBox="0 0 ' + width + ' ' + height + '">' +
-        '<path d="M' + pad + ',' + (height - pad) + ' L' + (width - pad) + ',' + (height - pad) + ' M' + pad + ',' + pad + ' L' + pad + ',' + (height - pad) + '" fill="none" class="chart-axis"></path>' +
-        '<path d="M' + pad + ',62 L' + (width - pad) + ',62 M' + pad + ',118 L' + (width - pad) + ',118" fill="none" class="grid-line"></path>' +
-        '<path class="' + lineClass + '" d="' + path + '"></path>' +
-        '<text class="tick-label" x="' + (pad + 5) + '" y="35">' + formatNumber(max, 2) + '</text>' +
-        '<text class="tick-label" x="' + (pad + 5) + '" y="' + (height - 12) + '">' + formatNumber(min, 2) + '</text>' +
-        '<g class="crosshair"><line class="cross-line" y1="' + pad + '" y2="' + (height - pad) + '" stroke="#edf3ff" stroke-width="1" opacity="0.55"></line><circle class="cross-dot" r="4" fill="#edf3ff"></circle></g>' +
-      '</svg>';
-    }
-
     function renderDetail() {
       const row = rowByTicker(activeTicker()) || DASHBOARD_DATA.rows[0];
       if (!row) {
@@ -4103,9 +4369,10 @@ function buildHtmlV2(data) {
         return;
       }
       const previewing = state.hoverTicker && state.hoverTicker !== state.pinnedTicker;
+      // No "pinned" chip on first paint — the default selection isn't a user choice yet.
       const statusChip = previewing
         ? '<span class="detail-status">' + t('det_preview') + '</span>'
-        : '<span class="detail-status pinned">' + t('det_locked') + '</span>';
+        : (state.userPinned ? '<span class="detail-status pinned">' + t('det_locked') + '</span>' : '');
       const mentionPoints = row.mentionSeries.map((point) => ({ date: point.date, value: point.mentioned_posts }));
       const priceNote = row.price.status === "ok"
         ? html(row.price.symbol) + " · " + html(row.price.exchange || row.price.currency || "")
@@ -4159,48 +4426,10 @@ function buildHtmlV2(data) {
             cross.querySelector(".cross-dot").setAttribute("cy", y);
             cross.classList.add("is-on");
           }
-          showTooltip(event, '<strong>' + row.ticker + '</strong><br><span class="muted">' + point.date + '</span><br>Price: ' + formatNumber(point.close, 2) + ' ' + html(row.price.currency || '') + '<br>3M: ' + formatPct(row.price.change_pct));
+          showTooltip(event, '<strong>' + row.ticker + '</strong><br><span class="muted">' + point.date + '</span><br>' + t('tip_price') + formatNumber(point.close, 2) + ' ' + html(row.price.currency || '') + '<br>3M ' + formatPct(row.price.change_pct));
         });
         svg.addEventListener("mouseleave", () => {
           const cross = svg.querySelector(".spark-crosshair");
-          if (cross) cross.classList.remove("is-on");
-          hideTooltip();
-        });
-      });
-    }
-
-    function attachDetailChartHandlers() {
-      document.querySelectorAll(".js-detail-chart").forEach((svg) => {
-        svg.addEventListener("mousemove", (event) => {
-          const row = rowByTicker(svg.dataset.ticker);
-          const points = svg.dataset.mode === "price"
-            ? (row.price.points || [])
-            : row.mentionSeries.map((point) => ({ date: point.date, close: point.mentioned_posts }));
-          if (!points.length) return;
-          const rect = svg.getBoundingClientRect();
-          const width = 520;
-          const height = 190;
-          const pad = 22;
-          const ratio = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
-          const index = Math.round(ratio * (points.length - 1));
-          const point = points[index];
-          const values = points.map((p) => Number(p.close));
-          const min = Math.min.apply(null, values);
-          const max = Math.max.apply(null, values);
-          const x = pad + (index / Math.max(points.length - 1, 1)) * (width - pad * 2);
-          const y = height - pad - ((point.close - min) / (max - min || 1)) * (height - pad * 2);
-          const cross = svg.querySelector(".crosshair");
-          cross.querySelector(".cross-line").setAttribute("x1", x);
-          cross.querySelector(".cross-line").setAttribute("x2", x);
-          cross.querySelector(".cross-dot").setAttribute("cx", x);
-          cross.querySelector(".cross-dot").setAttribute("cy", y);
-          cross.classList.add("is-on");
-          const label = svg.dataset.mode === "price" ? "Price" : "Mention posts";
-          const suffix = svg.dataset.mode === "price" ? " " + html(row.price.currency || "") : "";
-          showTooltip(event, '<strong>' + row.ticker + '</strong><br><span class="muted">' + point.date + '</span><br>' + label + ': ' + formatNumber(point.close, 2) + suffix);
-        });
-        svg.addEventListener("mouseleave", () => {
-          const cross = svg.querySelector(".crosshair");
           if (cross) cross.classList.remove("is-on");
           hideTooltip();
         });
