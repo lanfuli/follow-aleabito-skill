@@ -26,15 +26,17 @@ jobs:
 
       - name: Refresh 3mo prices (movers / sparklines)
         # Refreshes the 3mo cache only when >6h old; reused otherwise.
-        run: node scripts/build-aleabito-dashboard.js || true
+        # Yahoo hard-blocks GitHub runner IPs, so this often no-ops — that's fine,
+        # the committed cache is reused and Nasdaq below supplies the deep history.
+        run: node scripts/build-aleabito-dashboard.js --skip-deep || true
 
-      - name: Backfill deep 2y history via Yahoo (full rate-limit budget)
-        # --skip-3mo avoids spending the rate limit on shallow first, so the
-        # whole budget goes to the deep (2y) fetch that Track Record needs.
+      - name: Backfill deep 2y history via Nasdaq (free, keyless, US + ETF benches)
+        # Primary deep source: Nasdaq isn't rate-limited like Yahoo. Fills US
+        # tickers + SPY/SMH; foreign listings are topped up by Yahoo when available.
+        run: python3 scripts/nasdaq-deep-backfill.py || true
+
+      - name: Top up foreign deep history via Yahoo (best-effort)
         run: node scripts/build-aleabito-dashboard.js --skip-3mo || true
-
-      - name: Mop up missing deep history via Stooq (free, independent of Yahoo)
-        run: python3 scripts/stooq-deep-backfill.py || true
 
       - name: Rebuild dashboard from caches
         run: node scripts/build-aleabito-dashboard.js --no-prices

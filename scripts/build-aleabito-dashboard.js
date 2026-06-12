@@ -22,6 +22,7 @@ const priceDeepCachePath = path.join(reportsDir, "aleabito-price-deep-cache.json
 const fundamentalsCachePath = path.join(reportsDir, "aleabito-fundamentals-cache.json");
 const refreshDeep = process.argv.includes("--refresh-deep");
 const skip3mo = process.argv.includes("--skip-3mo");
+const skipDeep = process.argv.includes("--skip-deep");
 const refreshFundamentals = process.argv.includes("--refresh-fundamentals");
 const maxDeepAgeMs = 12 * 60 * 60 * 1000;
 const maxFundAgeMs = 24 * 60 * 60 * 1000;
@@ -819,7 +820,7 @@ async function main() {
 
   const deepCache = readJson(priceDeepCachePath, { generated_at: null, provider: "Yahoo Finance chart API (2y)", series: {} });
   deepCache.series = deepCache.series || {};
-  if (!noPrices) {
+  if (!noPrices && !skipDeep) {
     const deepTargets = [...meaningfulSet, ...benchSymbols].filter((key) => {
       const cached = deepCache.series[key];
       if (refreshDeep || !cached || !cached.fetched_at) return true;
