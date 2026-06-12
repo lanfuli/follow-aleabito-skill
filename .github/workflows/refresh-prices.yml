@@ -1,0 +1,54 @@
+name: Refresh prices & rebuild dashboard
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Weekdays 21:35 UTC ≈ after US market close; refreshes caches and redeploys Pages.
+    - cron: "35 21 * * 1-5"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-prices
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Refresh prices and rebuild dashboard
+        # No flags: the script refreshes the 3mo cache only when >6h old and
+        # fetches deep (2y) history only for tickers still missing it, so this
+        # is incremental and gentle on Yahoo from the runner's IP.
+        run: node scripts/build-aleabito-dashboard.js
+
+      - name: Report deep-cache coverage
+        run: |
+          python3 - <<'EOF'
+          import json, io
+          c = json.load(io.open('reports/aleabito-price-deep-cache.json'))
+          s = c.get('series', {})
+          ok = [k for k, v in s.items() if v.get('daily')]
+          print('deep series with data:', len(ok))
+          print('SPY:', bool((s.get('SPY') or {}).get('daily')), '| SMH:', bool((s.get('SMH') or {}).get('daily')))
+          EOF
+
+      - name: Commit refreshed caches and dashboard
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/aleabito-price-cache.json reports/aleabito-price-deep-cache.json reports/aleabito-60d-dashboard.html
+          if git diff --cached --quiet; then
+            echo "No price changes to commit."
+            exit 0
+          fi
+          git commit -m "ci: refresh price caches + rebuild dashboard"
+          git push

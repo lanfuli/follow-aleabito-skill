@@ -809,6 +809,12 @@ async function main() {
   const symbolByTicker = {};
   summary.forEach((r) => { symbolByTicker[r.ticker] = (r.price && r.price.symbol) || getYahooCandidates(r.ticker)[0] || r.ticker; });
   const benchSymbols = Object.values(BENCH_SYMBOLS);
+  if (process.argv.includes("--print-deep-targets")) {
+    const targets = {};
+    [...meaningfulSet].forEach((t) => { targets[t] = symbolByTicker[t]; });
+    console.log(JSON.stringify({ targets, bench: benchSymbols }));
+    return;
+  }
   const fetchState = { rl: 0, blocked: false };
 
   const deepCache = readJson(priceDeepCachePath, { generated_at: null, provider: "Yahoo Finance chart API (2y)", series: {} });
