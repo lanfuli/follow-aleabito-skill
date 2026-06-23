@@ -1,6 +1,6 @@
 {
   "status": "ok",
-  "generated_at": "2026-06-23T01:11:40.925Z",
+  "generated_at": "2026-06-23T22:15:56.246Z",
   "handle": "aleabitoreddit",
   "mode": "incremental",
   "include_replies": false,
@@ -10,8 +10,8 @@
   "timezone": "America/Los_Angeles",
   "fetch_ranges": [
     {
-      "startTime": "2026-06-20T00:55:20.000Z",
-      "endTime": "2026-06-23T01:11:39.713Z",
+      "startTime": "2026-06-21T00:21:07.000Z",
+      "endTime": "2026-06-23T22:15:54.940Z",
       "reason": "incremental-overlap"
     }
   ],
@@ -24,28 +24,28 @@
     "state": "/Users/vincentlan/.follow-aleabito/analytics-state.json"
   },
   "stats": {
-    "existing_events": 6307,
-    "fetched_events": 16,
-    "added_events": 7,
-    "total_events": 6314,
-    "tickers": 765,
+    "existing_events": 6314,
+    "fetched_events": 24,
+    "added_events": 11,
+    "total_events": 6325,
+    "tickers": 766,
     "pages_used": 2,
     "earliest_event": "2025-07-02T10:48:09.000Z",
-    "latest_event": "2026-06-23T00:21:07.000Z"
+    "latest_event": "2026-06-23T15:42:09.000Z"
   },
   "rate_limit": {
     "limit": "10000",
     "remaining": "9998",
-    "reset": "1782177999"
+    "reset": "1782253855"
   },
   "page_details": [
     {
       "page": 1,
-      "result_count": 16,
-      "data_count": 16,
+      "result_count": 24,
+      "data_count": 24,
       "next_token": false,
-      "end_time": "2026-06-23T01:11:39.713Z",
-      "oldest_seen": "2026-06-20T03:52:23.000Z",
+      "end_time": "2026-06-23T22:15:54.940Z",
+      "oldest_seen": "2026-06-21T03:32:21.000Z",
       "reason": "incremental-overlap"
     },
     {
@@ -53,8 +53,8 @@
       "result_count": 0,
       "data_count": 0,
       "next_token": false,
-      "end_time": "2026-06-20T03:52:22.000Z",
-      "oldest_seen": "2026-06-20T03:52:23.000Z",
+      "end_time": "2026-06-21T03:32:20.000Z",
+      "oldest_seen": "2026-06-21T03:32:21.000Z",
       "reason": "incremental-overlap"
     }
   ]
