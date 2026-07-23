@@ -1,6 +1,6 @@
 {
   "status": "ok",
-  "generated_at": "2026-07-20T00:21:31.666Z",
+  "generated_at": "2026-07-23T04:23:26.596Z",
   "handle": "aleabitoreddit",
   "mode": "incremental",
   "include_replies": false,
@@ -10,42 +10,42 @@
   "timezone": "America/Los_Angeles",
   "fetch_ranges": [
     {
-      "startTime": "2026-07-13T16:56:28.000Z",
-      "endTime": "2026-07-20T00:21:30.526Z",
+      "startTime": "2026-07-17T18:46:43.000Z",
+      "endTime": "2026-07-23T04:23:25.430Z",
       "reason": "incremental-overlap"
     }
   ],
   "files": {
-    "events": "/private/tmp/claude-501/-Users-vincentlan-Documents-us-stock-marketplace/15c88a29-1979-455e-b385-81074ddada1f/scratchpad/work-repo/reports/aleabito-mentions-events.csv",
-    "summary": "/private/tmp/claude-501/-Users-vincentlan-Documents-us-stock-marketplace/15c88a29-1979-455e-b385-81074ddada1f/scratchpad/work-repo/reports/aleabito-stock-mentions-cumulative.csv",
-    "daily": "/private/tmp/claude-501/-Users-vincentlan-Documents-us-stock-marketplace/15c88a29-1979-455e-b385-81074ddada1f/scratchpad/work-repo/reports/aleabito-stock-mentions-daily.csv",
-    "dated_summary_snapshot": "/private/tmp/claude-501/-Users-vincentlan-Documents-us-stock-marketplace/15c88a29-1979-455e-b385-81074ddada1f/scratchpad/work-repo/reports/aleabito-stock-mentions-2026-07-20.csv",
-    "meta": "/private/tmp/claude-501/-Users-vincentlan-Documents-us-stock-marketplace/15c88a29-1979-455e-b385-81074ddada1f/scratchpad/work-repo/reports/aleabito-mentions.meta.json",
+    "events": "/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-mentions-events.csv",
+    "summary": "/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-stock-mentions-cumulative.csv",
+    "daily": "/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-stock-mentions-daily.csv",
+    "dated_summary_snapshot": "/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-stock-mentions-2026-07-23.csv",
+    "meta": "/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-mentions.meta.json",
     "state": "/Users/vincentlan/.follow-aleabito/analytics-state.json"
   },
   "stats": {
-    "existing_events": 6452,
-    "fetched_events": 23,
-    "added_events": 13,
-    "total_events": 6465,
-    "tickers": 778,
+    "existing_events": 6465,
+    "fetched_events": 16,
+    "added_events": 12,
+    "total_events": 6477,
+    "tickers": 779,
     "pages_used": 2,
     "earliest_event": "2025-07-02T10:48:09.000Z",
-    "latest_event": "2026-07-19T18:46:43.000Z"
+    "latest_event": "2026-07-22T21:02:27.000Z"
   },
   "rate_limit": {
     "limit": "10000",
     "remaining": "9998",
-    "reset": "1784507790"
+    "reset": "1784781505"
   },
   "page_details": [
     {
       "page": 1,
-      "result_count": 23,
-      "data_count": 23,
+      "result_count": 16,
+      "data_count": 16,
       "next_token": false,
-      "end_time": "2026-07-20T00:21:30.526Z",
-      "oldest_seen": "2026-07-13T19:20:46.000Z",
+      "end_time": "2026-07-23T04:23:25.430Z",
+      "oldest_seen": "2026-07-17T21:19:06.000Z",
       "reason": "incremental-overlap"
     },
     {
@@ -53,8 +53,8 @@
       "result_count": 0,
       "data_count": 0,
       "next_token": false,
-      "end_time": "2026-07-13T19:20:45.000Z",
-      "oldest_seen": "2026-07-13T19:20:46.000Z",
+      "end_time": "2026-07-17T21:19:05.000Z",
+      "oldest_seen": "2026-07-17T21:19:06.000Z",
       "reason": "incremental-overlap"
     }
   ]
