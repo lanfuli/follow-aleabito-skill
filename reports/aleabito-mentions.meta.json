@@ -1,6 +1,6 @@
 {
   "status": "ok",
-  "generated_at": "2026-07-29T17:02:11.472Z",
+  "generated_at": "2026-07-30T17:02:37.459Z",
   "handle": "aleabitoreddit",
   "mode": "incremental",
   "include_replies": false,
@@ -10,8 +10,8 @@
   "timezone": "America/Los_Angeles",
   "fetch_ranges": [
     {
-      "startTime": "2026-07-25T03:17:03.000Z",
-      "endTime": "2026-07-29T17:02:10.432Z",
+      "startTime": "2026-07-26T22:25:27.000Z",
+      "endTime": "2026-07-30T17:02:36.301Z",
       "reason": "incremental-overlap"
     }
   ],
@@ -19,33 +19,33 @@
     "events": "/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-mentions-events.csv",
     "summary": "/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-stock-mentions-cumulative.csv",
     "daily": "/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-stock-mentions-daily.csv",
-    "dated_summary_snapshot": "/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-stock-mentions-2026-07-29.csv",
+    "dated_summary_snapshot": "/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-stock-mentions-2026-07-30.csv",
     "meta": "/Users/vincentlan/Documents/us stock marketplace/reports/aleabito-mentions.meta.json",
     "state": "/Users/vincentlan/.follow-aleabito/analytics-state.json"
   },
   "stats": {
-    "existing_events": 6488,
-    "fetched_events": 5,
-    "added_events": 2,
-    "total_events": 6490,
+    "existing_events": 6490,
+    "fetched_events": 11,
+    "added_events": 7,
+    "total_events": 6497,
     "tickers": 781,
     "pages_used": 2,
     "earliest_event": "2025-07-02T10:48:09.000Z",
-    "latest_event": "2026-07-28T22:25:27.000Z"
+    "latest_event": "2026-07-30T08:10:00.000Z"
   },
   "rate_limit": {
     "limit": "10000",
     "remaining": "9998",
-    "reset": "1785345430"
+    "reset": "1785431856"
   },
   "page_details": [
     {
       "page": 1,
-      "result_count": 5,
-      "data_count": 5,
+      "result_count": 11,
+      "data_count": 11,
       "next_token": false,
-      "end_time": "2026-07-29T17:02:10.432Z",
-      "oldest_seen": "2026-07-26T20:12:11.000Z",
+      "end_time": "2026-07-30T17:02:36.301Z",
+      "oldest_seen": "2026-07-27T01:12:57.000Z",
       "reason": "incremental-overlap"
     },
     {
@@ -53,8 +53,8 @@
       "result_count": 0,
       "data_count": 0,
       "next_token": false,
-      "end_time": "2026-07-26T20:12:10.000Z",
-      "oldest_seen": "2026-07-26T20:12:11.000Z",
+      "end_time": "2026-07-27T01:12:56.000Z",
+      "oldest_seen": "2026-07-27T01:12:57.000Z",
       "reason": "incremental-overlap"
     }
   ]
