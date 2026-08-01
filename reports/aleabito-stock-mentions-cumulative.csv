@@ -1,17 +1,17 @@
 rank,ticker,mentioned_posts,raw_occurrences,post_mentions,quote_mentions,reply_mentions,first_seen,last_seen,names,primary_theme,research_priority,example_url
 1,NBIS,756,1000,62,162,532,2025-07-21T14:13:31.000Z,2026-07-30T18:31:07.000Z,,AI compute / memory / hyperscalers,high,https://x.com/aleabitoreddit/status/2082896789880119590
-2,SIVE,620,870,127,188,305,2025-12-23T23:13:18.000Z,2026-07-31T08:57:11.000Z,,CPO / photonics / optical,high,https://x.com/aleabitoreddit/status/2083114743729107236
+2,SIVE,621,871,128,188,305,2025-12-23T23:13:18.000Z,2026-08-01T06:24:58.000Z,,CPO / photonics / optical,high,https://x.com/aleabitoreddit/status/2083438823548293140
 3,AXTI,530,668,109,119,302,2025-12-22T09:48:57.000Z,2026-07-31T07:14:23.000Z,,CPO / photonics / optical,high,https://x.com/aleabitoreddit/status/2083088870942642391
-4,LITE,518,725,143,150,225,2025-10-25T06:17:21.000Z,2026-07-31T07:14:23.000Z,,CPO / photonics / optical,high,https://x.com/aleabitoreddit/status/2083088870942642391
-5,NVDA,471,584,132,154,185,2025-07-28T08:19:38.000Z,2026-07-30T06:52:06.000Z,,AI compute / memory / hyperscalers,high,https://x.com/aleabitoreddit/status/2082720873908494456
+4,LITE,519,727,144,150,225,2025-10-25T06:17:21.000Z,2026-08-01T06:24:58.000Z,,CPO / photonics / optical,high,https://x.com/aleabitoreddit/status/2083438823548293140
+5,NVDA,472,585,133,154,185,2025-07-28T08:19:38.000Z,2026-07-31T19:16:17.000Z,,AI compute / memory / hyperscalers,high,https://x.com/aleabitoreddit/status/2083270545320386734
 6,IREN,451,639,49,92,310,2025-08-31T04:51:15.000Z,2026-07-30T18:31:07.000Z,,AI compute / memory / hyperscalers,high,https://x.com/aleabitoreddit/status/2082896789880119590
-7,AAOI,436,555,112,99,225,2025-12-11T22:10:45.000Z,2026-07-28T22:25:27.000Z,,CPO / photonics / optical,high,https://x.com/aleabitoreddit/status/2082230983487803755
-8,GOOGL,284,337,68,73,143,2025-07-03T09:57:16.000Z,2026-07-31T10:10:30.000Z,,AI compute / memory / hyperscalers,high,https://x.com/aleabitoreddit/status/2083133191112843575
-9,MSFT,282,328,49,70,163,2025-07-28T08:19:38.000Z,2026-07-31T10:10:30.000Z,,AI compute / memory / hyperscalers,high,https://x.com/aleabitoreddit/status/2083133191112843575
-10,META,268,307,71,72,125,2025-07-28T08:19:38.000Z,2026-07-31T10:10:30.000Z,,AI compute / memory / hyperscalers,high,https://x.com/aleabitoreddit/status/2083133191112843575
+7,AAOI,437,556,113,99,225,2025-12-11T22:10:45.000Z,2026-08-01T06:24:58.000Z,,CPO / photonics / optical,high,https://x.com/aleabitoreddit/status/2083438823548293140
+8,GOOGL,285,338,69,73,143,2025-07-03T09:57:16.000Z,2026-07-31T19:16:17.000Z,,AI compute / memory / hyperscalers,high,https://x.com/aleabitoreddit/status/2083270545320386734
+9,MSFT,283,329,50,70,163,2025-07-28T08:19:38.000Z,2026-07-31T19:16:17.000Z,,AI compute / memory / hyperscalers,high,https://x.com/aleabitoreddit/status/2083270545320386734
+10,META,269,308,72,72,125,2025-07-28T08:19:38.000Z,2026-07-31T19:16:17.000Z,,AI compute / memory / hyperscalers,high,https://x.com/aleabitoreddit/status/2083270545320386734
 11,MRVL,256,296,68,85,103,2025-08-25T20:41:48.000Z,2026-07-21T17:41:05.000Z,,AI compute / memory / hyperscalers,high,https://x.com/aleabitoreddit/status/2079622706572804368
-12,COHR,235,280,74,64,97,2025-12-01T17:21:19.000Z,2026-07-31T07:14:23.000Z,,CPO / photonics / optical,high,https://x.com/aleabitoreddit/status/2083088870942642391
-13,AMZN,224,266,60,71,93,2025-07-28T08:19:38.000Z,2026-07-31T10:10:30.000Z,,AI compute / memory / hyperscalers,high,https://x.com/aleabitoreddit/status/2083133191112843575
+12,COHR,236,281,75,64,97,2025-12-01T17:21:19.000Z,2026-08-01T06:24:58.000Z,,CPO / photonics / optical,high,https://x.com/aleabitoreddit/status/2083438823548293140
+13,AMZN,225,267,61,71,93,2025-07-28T08:19:38.000Z,2026-07-31T19:16:17.000Z,,AI compute / memory / hyperscalers,high,https://x.com/aleabitoreddit/status/2083270545320386734
 14,TSM,221,258,61,76,84,2025-09-09T05:43:58.000Z,2026-07-30T06:52:06.000Z,,Western supply chain / policy funding,high,https://x.com/aleabitoreddit/status/2082720873908494456
 15,CIFR,201,242,13,55,133,2025-09-03T11:31:49.000Z,2026-07-21T17:41:05.000Z,,CPO / photonics / optical,high,https://x.com/aleabitoreddit/status/2079622706572804368
 16,CRWV,195,264,15,39,141,2025-07-21T14:13:31.000Z,2026-07-20T17:18:38.000Z,,CPO / photonics / optical,high,https://x.com/aleabitoreddit/status/2079254669793316962
@@ -19,7 +19,7 @@ rank,ticker,mentioned_posts,raw_occurrences,post_mentions,quote_mentions,reply_m
 18,SOI,187,198,53,66,68,2026-03-11T15:18:28.000Z,2026-07-26T20:12:11.000Z,,CPO / photonics / optical,high,https://x.com/aleabitoreddit/status/2081472671129501729
 19,IQE,181,236,51,52,78,2026-01-18T18:38:48.000Z,2026-07-10T08:23:29.000Z,,CPO / photonics / optical,high,https://x.com/aleabitoreddit/status/2075496116481884524
 20,HOOD,171,186,31,46,94,2025-07-02T17:28:14.000Z,2026-07-06T21:14:10.000Z,,Valuation / risk / trading behavior,high,https://x.com/aleabitoreddit/status/2074240512593481955
-21,SNDK,165,175,75,42,48,2025-11-25T11:38:18.000Z,2026-07-30T18:31:07.000Z,,CPO / photonics / optical,high,https://x.com/aleabitoreddit/status/2082896789880119590
+21,SNDK,166,176,76,42,48,2025-11-25T11:38:18.000Z,2026-07-31T22:52:21.000Z,,CPO / photonics / optical,high,https://x.com/aleabitoreddit/status/2083324920214536208
 22,RKLB,164,182,29,45,90,2025-07-03T09:05:14.000Z,2026-07-08T12:49:57.000Z,,Valuation / risk / trading behavior,high,https://x.com/aleabitoreddit/status/2074838397341065516
 23,POET,149,202,40,34,75,2025-12-11T22:18:06.000Z,2026-07-31T08:57:11.000Z,,CPO / photonics / optical,high,https://x.com/aleabitoreddit/status/2083114743729107236
 24,AMD,149,175,40,53,56,2025-09-11T17:00:30.000Z,2026-07-29T23:13:55.000Z,,AI compute / memory / hyperscalers,high,https://x.com/aleabitoreddit/status/2082605568699871284
@@ -122,11 +122,11 @@ rank,ticker,mentioned_posts,raw_occurrences,post_mentions,quote_mentions,reply_m
 121,DPRO,15,22,2,1,12,2025-11-19T13:29:05.000Z,2026-03-26T04:53:00.000Z,,CPO / photonics / optical,medium,https://x.com/aleabitoreddit/status/2037030031223119946
 122,GRRR,15,17,0,5,10,2025-09-18T14:47:12.000Z,2025-11-22T10:42:19.000Z,,AI compute / memory / hyperscalers,medium,https://x.com/aleabitoreddit/status/1992181846134968633
 123,WOLF,15,17,6,4,5,2026-01-18T18:38:48.000Z,2026-06-15T03:21:12.000Z,,Power semiconductors / 800VDC,medium,https://x.com/aleabitoreddit/status/2066360345774764496
-124,TGT,15,16,0,7,8,2025-09-18T15:39:18.000Z,2026-01-11T19:45:54.000Z,,Valuation / risk / trading behavior,medium,https://x.com/aleabitoreddit/status/2010438037193601400
-125,TER,15,15,7,5,3,2026-01-22T16:02:53.000Z,2026-07-28T22:25:27.000Z,,CPO / photonics / optical,medium,https://x.com/aleabitoreddit/status/2082230983487803755
-126,ALMU,14,17,1,3,10,2026-01-14T07:12:38.000Z,2026-05-06T18:11:09.000Z,,CPO / photonics / optical,watchlist,https://x.com/aleabitoreddit/status/2052088795668123744
-127,RTX,14,16,5,5,4,2026-01-03T09:43:52.000Z,2026-05-24T20:42:39.000Z,,CPO / photonics / optical,watchlist,https://x.com/aleabitoreddit/status/2058649903300280586
-128,BE,14,15,5,5,4,2025-10-04T01:22:20.000Z,2026-07-30T18:31:07.000Z,,CPO / photonics / optical,watchlist,https://x.com/aleabitoreddit/status/2082896789880119590
+124,BE,15,16,6,5,4,2025-10-04T01:22:20.000Z,2026-07-31T22:52:21.000Z,,CPO / photonics / optical,medium,https://x.com/aleabitoreddit/status/2083324920214536208
+125,TGT,15,16,0,7,8,2025-09-18T15:39:18.000Z,2026-01-11T19:45:54.000Z,,Valuation / risk / trading behavior,medium,https://x.com/aleabitoreddit/status/2010438037193601400
+126,TER,15,15,7,5,3,2026-01-22T16:02:53.000Z,2026-07-28T22:25:27.000Z,,CPO / photonics / optical,medium,https://x.com/aleabitoreddit/status/2082230983487803755
+127,ALMU,14,17,1,3,10,2026-01-14T07:12:38.000Z,2026-05-06T18:11:09.000Z,,CPO / photonics / optical,watchlist,https://x.com/aleabitoreddit/status/2052088795668123744
+128,RTX,14,16,5,5,4,2026-01-03T09:43:52.000Z,2026-05-24T20:42:39.000Z,,CPO / photonics / optical,watchlist,https://x.com/aleabitoreddit/status/2058649903300280586
 129,EOSE,14,15,1,8,5,2025-09-26T02:59:13.000Z,2026-06-08T06:22:58.000Z,,Power semiconductors / 800VDC,watchlist,https://x.com/aleabitoreddit/status/2063869376542192013
 130,ONTO,14,15,7,4,3,2026-01-22T16:02:53.000Z,2026-05-10T07:30:58.000Z,,CPO / photonics / optical,watchlist,https://x.com/aleabitoreddit/status/2053377238532329611
 131,ASST,14,14,3,6,5,2026-02-17T08:24:41.000Z,2026-05-19T14:36:19.000Z,,CPO / photonics / optical,watchlist,https://x.com/aleabitoreddit/status/2056745774760026410
