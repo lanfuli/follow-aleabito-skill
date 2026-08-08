@@ -505,7 +505,9 @@ function parseDigest(text, fallbackDate) {
   const rangeMatch = metaLine.match(/(\d{4}-\d{2}-\d{2})\s*到\s*(\d{4}-\d{2}-\d{2})/);
   const rangeStart = rangeMatch ? rangeMatch[1] : "";
   const rangeEnd = rangeMatch ? rangeMatch[2] : "";
-  const dedupMatch = metaLine.match(/去重后\s*([\d,]+)\s*条/);
+  // Tolerate filler between 去重后 and the count: digests have used
+  // "去重后 N 条", "去重后新增 N 条" (current format) and "去重后窗口内 N 条".
+  const dedupMatch = metaLine.match(/去重后[^\d]{0,8}([\d,]+)\s*条/);
   const dedupCount = dedupMatch ? Number(dedupMatch[1].replace(/,/g, "")) : null;
   const sourceMatch = metaLine.match(/来源[:：]\s*([^。.]+)/);
   const source = sourceMatch ? sourceMatch[1].trim() : "";
