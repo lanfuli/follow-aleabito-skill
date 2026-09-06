@@ -7612,6 +7612,7 @@ date,ticker,mentioned_posts,raw_occurrences,post_mentions,quote_mentions,reply_m
 2026-09-03,SIVE,2,2,1,1,0
 2026-09-03,SKHY,1,1,0,1,0
 2026-09-03,SNDK,1,1,0,1,0
+2026-09-04,AAOI,1,1,0,1,0
 2026-09-04,AMC,1,1,1,0,0
 2026-09-04,AMZN,1,1,1,0,0
 2026-09-04,ASML,1,1,0,1,0
@@ -7628,3 +7629,6 @@ date,ticker,mentioned_posts,raw_occurrences,post_mentions,quote_mentions,reply_m
 2026-09-04,SKHY,2,2,1,1,0
 2026-09-04,SOI,1,1,0,1,0
 2026-09-04,TSM,1,1,0,1,0
+2026-09-05,MU,1,1,0,1,0
+2026-09-05,SNDK,1,2,0,1,0
+2026-09-05,SPCX,1,1,0,1,0
